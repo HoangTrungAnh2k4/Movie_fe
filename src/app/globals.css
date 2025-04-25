@@ -8,8 +8,8 @@
 @theme inline {
     --color-primary: #ffd875;
     --color-secondary: #1c1c1e;
-    --color-background:#191B24;
-    --color-headerColor: #0F111A;
+    --color-background: #191b24;
+    --color-headerColor: #0f111a;
 }
 
 @media (prefers-color-scheme: dark) {

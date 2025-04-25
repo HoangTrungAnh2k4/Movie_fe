@@ -2,7 +2,16 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
     images: {
-        domains: ['www.rophim.me'],
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'www.rophim.me',
+            },
+            {
+                protocol: 'https',
+                hostname: 'static.nutscdn.com',
+            },
+        ],
     },
 };
 
