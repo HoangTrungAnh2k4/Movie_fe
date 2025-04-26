@@ -1,0 +1,47 @@
+import Image from 'next/image';
+import { FaArrowRight } from 'react-icons/fa6';
+
+export default function Poster30_4() {
+    return (
+        <div className="flex justify-between bg-[#fedaa8] px-12 rounded-xl w-full h-[350px]">
+            <div className="">
+                <Image
+                    src="https://www.rophim.me/images/event_304/hero.webp"
+                    alt="Event Poster"
+                    width={300}
+                    height={400}
+                    className="top-0 -left-10 z-10 relative w-[350px] h-[350px]"
+                />
+            </div>
+            <Image
+                src="https://www.rophim.me/images/event_304/vn-flag-full.gif"
+                alt="Event Poster"
+                width={100}
+                height={180}
+                className="-top-9 -left-125 relative w-[203px] h-[180px] -rotate-[23deg]"
+            />
+            <div className="-ml-[500px] h-full overflow-hidden">
+                <Image
+                    src="https://www.rophim.me/images/event_304/behind-hero.webp"
+                    alt="Event Poster"
+                    width={600}
+                    height={300}
+                    className="w-auto h-[400px] -translate-y-4"
+                />
+            </div>
+            <div className="flex flex-col justify-center items-center py-6">
+                <Image
+                    src="https://www.rophim.me/images/event_304/50y.webp"
+                    alt="Event Poster"
+                    width={300}
+                    height={200}
+                    className="my-auto w-auto h-[200px]"
+                />
+                <button className="flex items-center gap-8 bg-white px-12 py-3 rounded-lg">
+                    <p className="font-semibold">Tìm hiểu về ngày 30/4 </p>
+                    <FaArrowRight />
+                </button>
+            </div>
+        </div>
+    );
+}

@@ -1,10 +1,12 @@
 import Banner from './Banner';
 import TypeList from './TypeList';
-import Image from 'next/image';
+import Poster30_4 from './Poster30_4';
+import TopTrending from './TopTrending';
+import Top10Today from './Top10Today';
 
 export default function Home() {
     return (
-        <div className="bg-background px-8 pb-20">
+        <div className="bg-background px-8 pb-20 text-white">
             <div className="-mx-8">
                 <Banner />
             </div>
@@ -14,44 +16,21 @@ export default function Home() {
 
             {/* Type list */}
             <div className="-mt-24">
-                <h4 className="font-semibold text-white text-2xl">Bạn đang quan tâm gì?</h4>
+                <h4 className="mb-6 font-semibold text-2xl">Bạn đang quan tâm gì?</h4>
                 <TypeList />
             </div>
 
             {/* poster 30/4 - 1/5 */}
-            <div className="flex justify-between bg-[#fedaa8] mt-24 rounded-lg w-full h-[350px]">
-                <div className="">
-                    <Image
-                        src="https://www.rophim.me/images/event_304/hero.webp"
-                        alt="Event Poster"
-                        width={300}
-                        height={400}
-                        className="top-0 left-10 z-10 relative w-[350px] h-[350px]"
-                    />
-                </div>
-                <div className="h-full overflow-hidden">
-                    <Image
-                        src="https://www.rophim.me/images/event_304/behind-hero.webp"
-                        alt="Event Poster"
-                        width={600}
-                        height={300}
-                        className="w-auto h-[400px] -translate-y-4"
-                    />
-                </div>
-                <Image
-                    src="https://www.rophim.me/images/event_304/50y.webp"
-                    alt="Event Poster"
-                    width={300}
-                    height={400}
-                    className="my-auto ml-32 w-auto h-[200px]"
-                />
-                <Image
-                    src="https://www.rophim.me/images/event_304/vn-flag-full.gif"
-                    alt="Event Poster"
-                    width={203}
-                    height={180}
-                    className="-top-9 -left-292 relative w-[203px] h-[180px] -rotate-[23deg]"
-                />
+            <div className="mt-24">
+                <Poster30_4 />
+            </div>
+
+            <div className="mt-24">
+                <TopTrending />
+            </div>
+
+            <div className="mt-24">
+                <Top10Today />
             </div>
         </div>
     );

@@ -36,7 +36,7 @@ export default function TypeList() {
             {topicList.map((item, index) => (
                 <div
                     key={index}
-                    className={`flex flex-col justify-center ${item.cssBg} p-4 pl-6 rounded-lg h-32 text-white`}
+                    className={`flex hover:-translate-y-3 cursor-pointer duration-300 flex-col justify-center ${item.cssBg} p-4 pl-6 rounded-xl h-32 text-white`}
                 >
                     <h2 className="font-bold text-lg"> {item.name}</h2>
                     <p className="mt-2 text-sm">Xem chủ đề</p>
