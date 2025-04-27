@@ -1,12 +1,17 @@
+import { IoIosArrowForward } from 'react-icons/io';
+
 import Banner from './Banner';
 import TypeList from './TypeList';
 import Poster30_4 from './Poster30_4';
 import TopTrending from './TopTrending';
 import Top10Today from './Top10Today';
+import { TopCinema } from './TopCinema';
+import ListTypeRetangle from './ListTypeRetangle';
+import ListCountryMovie from './ListCountryMovie';
 
 export default function Home() {
     return (
-        <div className="bg-background px-8 pb-20 text-white">
+        <div className="bg-background mx-auto px-8 pb-20 w-full max-w-[1600px] text-white">
             <div className="-mx-8">
                 <Banner />
             </div>
@@ -15,22 +20,55 @@ export default function Home() {
             <div className="bg-[linear-gradient(to_top,_#191b24_30%,_transparent_100%)] -mx-8 -mt-26 h-36"></div>
 
             {/* Type list */}
-            <div className="-mt-24">
+            <div className="-mt-20">
                 <h4 className="mb-6 font-semibold text-2xl">Bạn đang quan tâm gì?</h4>
                 <TypeList />
             </div>
 
             {/* poster 30/4 - 1/5 */}
-            <div className="mt-24">
+            <div className="mt-20">
                 <Poster30_4 />
             </div>
 
-            <div className="mt-24">
+            <div className="mt-20">
                 <TopTrending />
             </div>
 
-            <div className="mt-24">
+            <div className="mt-20">
+                <h4 className="mb-6 font-semibold text-2xl">Top 10 phim bộ hôm nay</h4>
                 <Top10Today />
+            </div>
+
+            <div className="mt-20">
+                <div className="flex items-center gap-6 mb-6">
+                    <h4 className="font-semibold text-2xl">Mãn nhãn với phim chiếu rạp</h4>
+                    <div className="group flex justify-center items-center gap-2 mt-0.5 p-1 border border-[#fff6] rounded-full w-8 hover:w-28 overflow-hidden hover:text-primary transition-all duration-300 cursor-pointer">
+                        <p className="opacity-0 group-hover:opacity-100 text-xs whitespace-nowrap scale-0 group-hover:scale-100 transition-all duration-300">
+                            Xem thêm
+                        </p>
+                        <IoIosArrowForward className="flex-shrink-0 -ml-16 group-hover:-ml-0 pl-[2px] font-semibold text-lg transition-all duration-300" />
+                    </div>
+                </div>
+
+                <TopCinema />
+            </div>
+
+            <div className="mt-20">
+                <div className="flex items-center gap-6 mb-6">
+                    <h4 className="font-semibold text-2xl">Phim điện ảnh mới coóng</h4>
+                    <div className="group flex justify-center items-center gap-2 mt-0.5 p-1 border border-[#fff6] rounded-full w-8 hover:w-28 overflow-hidden hover:text-primary transition-all duration-300 cursor-pointer">
+                        <p className="opacity-0 group-hover:opacity-100 text-xs whitespace-nowrap scale-0 group-hover:scale-100 transition-all duration-300">
+                            Xem thêm
+                        </p>
+                        <IoIosArrowForward className="flex-shrink-0 -ml-16 group-hover:-ml-0 pl-[2px] font-semibold text-lg transition-all duration-300" />
+                    </div>
+                </div>
+
+                <ListTypeRetangle />
+            </div>
+
+            <div className="mt-20">
+                <ListCountryMovie />
             </div>
         </div>
     );

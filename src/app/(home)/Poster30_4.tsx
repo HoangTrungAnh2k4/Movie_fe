@@ -37,7 +37,7 @@ export default function Poster30_4() {
                     height={200}
                     className="my-auto w-auto h-[200px]"
                 />
-                <button className="flex items-center gap-8 bg-white px-12 py-3 rounded-lg">
+                <button className="flex items-center gap-8 bg-white px-12 py-3 rounded-lg text-black">
                     <p className="font-semibold">Tìm hiểu về ngày 30/4 </p>
                     <FaArrowRight />
                 </button>

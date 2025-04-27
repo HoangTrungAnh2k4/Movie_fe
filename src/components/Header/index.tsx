@@ -45,7 +45,7 @@ const Header: React.FC = () => {
                 <input
                     type="text"
                     placeholder="Search for movies..."
-                    className="bg-transparent py-1 outline-none focus:outline-none w-full text-white text-sm placeholder-white"
+                    className="bg-transparent py-1 outline-none focus:outline-none w-full text-white text-sm placeholder:text-sm placeholder-white"
                 />
             </div>
 

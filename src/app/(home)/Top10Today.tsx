@@ -2,20 +2,54 @@ import Image from 'next/image';
 
 export default function Top10Today() {
     return (
-        <div className="p-8 text-primary">
+        <div className="">
             <div className="gap-6 grid grid-cols-5">
                 {Array.from({ length: 5 }).map((_, index) => (
-                    <div key={index} className="relative rounded-xl overflow-hidden r">
-                        <Image
-                            src="https://static.nutscdn.com/vimg/400-0/3ac6b7f3647ae31e17d8f0675a162aa9.png"
-                            alt="Movie Poster"
-                            width={400}
-                            height={600}
-                            className="rounded-xl aspect-[2/3] [clip-path:polygon(94.239%_100%,5.761%_100%,5.761%_100%,4.826%_99.95%,3.94%_99.803%,3.113%_99.569%,2.358%_99.256%,1.687%_98.87%,1.111%_98.421%,.643%_97.915%,.294%_97.362%,.075%_96.768%,0_96.142%,0_3.858%,0_3.858%,.087%_3.185%,.338%_2.552%,.737%_1.968%,1.269%_1.442%,1.92%_.984%,2.672%_.602%,3.512%_.306%,4.423%_.105%,5.391%_.008%,6.4%_.024%,94.879%_6.625%,94.879%_6.625%,95.731%_6.732%,96.532%_6.919%,97.272%_7.178%,97.942%_7.503%,98.533%_7.887%,99.038%_8.323%,99.445%_8.805%,99.747%_9.326%,99.935%_9.88%,100%_10.459%,100%_96.142%,100%_96.142%,99.925%_96.768%,99.706%_97.362%,99.357%_97.915%,98.889%_98.421%,98.313%_98.87%,97.642%_99.256%,96.887%_99.569%,96.06%_99.803%,95.174%_99.95%,94.239%_100%)"
-                        />
+                    <div key={index} className="group relative rounded-2xl">
+                        <div
+                            className={`hover:bg-primary overflow-hidden hover:p-1 cursor-pointer duration-300  rounded-2xl  itemTop10 ${
+                                index % 2 != 0 ? 'itemTop10Left' : 'itemTop10Right'
+                            } `}
+                        >
+                            <Image
+                                src="https://static.nutscdn.com/vimg/400-0/3ac6b7f3647ae31e17d8f0675a162aa9.png"
+                                alt="Movie Poster"
+                                width={400}
+                                height={600}
+                                className={`rounded-xl ${index % 2 != 0 ? 'itemTop10Left' : 'itemTop10Right'}`}
+                            />
 
-                        <div className="p-4">
-                            <h3 className="font-bold text-white text-lg">Người Hùng Yếu Đuối</h3>
+                            {/* lớp phủ */}
+                            <div className="top-0 left-0 absolute bg-primary opacity-0 group-hover:opacity-15 rounded-2xl w-full h-full transition duration-300" />
+                        </div>
+
+                        <div className="flex items-center gap-2 mt-3">
+                            <div
+                                className=""
+                                style={{
+                                    background: 'linear-gradient(39deg, rgba(254, 207, 89, 1), rgba(255, 241, 204, 1))',
+                                    WebkitBackgroundClip: 'text',
+                                    WebkitTextFillColor: 'transparent',
+                                    fontStyle: 'italic',
+                                    fontWeight: '800',
+                                    fontSize: '4.2em',
+                                    lineHeight: '1',
+                                    width: '50px',
+                                }}
+                            >
+                                {index + 1}
+                            </div>
+                            <div className="flex flex-col gap-1">
+                                <h3 className="font-semibold text-white hover:text-primary text-sm duration-300 cursor-pointer">
+                                    Người Hùng Yếu Đuối{' '}
+                                </h3>
+                                <h3 className="text-[#aaaaaa] text-xs">Người Hùng Yếu Đuối </h3>
+                                <ul className="flex justify-between mt-[2px] text-[#aaa]">
+                                    <li className="text-xs">T16</li>
+                                    <li className="text-xs">Phần 1</li>
+                                    <li className="text-xs">Tập 36</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 ))}

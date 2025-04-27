@@ -1,7 +1,16 @@
+'use client';
+
 import { FaPlay, FaHeart, FaExclamationCircle } from 'react-icons/fa';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 function Banner() {
+    const router = useRouter();
+
+    const moveToDetail = () => {
+        router.push('/detail_movie');
+    };
+
     return (
         <div
             className="inset-0 bg-cover bg-no-repeat bg-center shadow-[inset_150px_0_200px_200px_rgba(0,0,0,0.8)] w-full h-[650px] text-white"
@@ -11,7 +20,9 @@ function Banner() {
         >
             <div className="flex h-full">
                 <div className="flex flex-col flex-1 justify-center px-8 h-full">
-                    <h1 className="font-semibold hover:text-primary text-3xl">Daredevil: Tái Xuất</h1>
+                    <h1 onClick={moveToDetail} className="font-semibold hover:text-primary text-3xl cursor-pointer">
+                        Daredevil: Tái Xuất
+                    </h1>
 
                     <ul className="flex justify-start items-center gap-4 mt-8 text-xs">
                         <li className="bg-gradient-to-bl from-primary to-white px-2 py-[2px] pt-[3px] rounded-md font-semibold text-black">
@@ -37,7 +48,7 @@ function Banner() {
 
                     <div className="flex justify-between items-center gap-4 mt-16 text-xs">
                         <div className="flex items-center gap-8">
-                            <button className="flex justify-center items-center bg-gradient-to-tr from-yellow-400 to-yellow-50 hover:shadow-[0_0_20px_2px_rgba(255,215,0,0.8)] rounded-full size-[70px] text-black cursor-pointer">
+                            <button className="flex justify-center items-center bg-gradient-to-tr from-yellow-400 to-yellow-50 hover:shadow-[0_5px_10px_10px_rgba(255,218,125,0.15)] rounded-full size-[70px] text-black cursor-pointer">
                                 <FaPlay className="ml-1 text-2xl" />
                             </button>
 
