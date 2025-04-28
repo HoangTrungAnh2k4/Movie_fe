@@ -40,8 +40,6 @@ export default function Episode() {
             <div className="mt-12">
                 <ul className="flex items-center gap-12 border-[#ffffff10] border-b-2 text-sm">
                     <li className="px-2 pt-2 pb-2 border-primary border-b-2 text-primary cursor-pointer">Tập phim</li>
-                    <li className="px-2 pt-2 pb-2 cursor-pointer">Gallery</li>
-                    <li className="px-2 pt-2 pb-2 cursor-pointer">Diễn viên</li>
                 </ul>
 
                 {/* content */}

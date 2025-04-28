@@ -20,7 +20,7 @@ export default function Home() {
             <div className="bg-[linear-gradient(to_top,_#191b24_30%,_transparent_100%)] -mx-8 -mt-26 h-36"></div>
 
             {/* Type list */}
-            <div className="-mt-20">
+            <div className="z-40 relative -mt-20">
                 <h4 className="mb-6 font-semibold text-2xl">Bạn đang quan tâm gì?</h4>
                 <TypeList />
             </div>
@@ -34,8 +34,8 @@ export default function Home() {
                 <TopTrending />
             </div>
 
-            <div className="mt-20">
-                <h4 className="mb-6 font-semibold text-2xl">Top 10 phim bộ hôm nay</h4>
+            <div className="mt-16">
+                <h4 className="mb-6 font-semibold text-2xl">Top 5 phim bộ hôm nay</h4>
                 <Top10Today />
             </div>
 

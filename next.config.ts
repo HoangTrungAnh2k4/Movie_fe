@@ -11,6 +11,10 @@ const nextConfig: NextConfig = {
                 protocol: 'https',
                 hostname: 'static.nutscdn.com',
             },
+            {
+                protocol: 'https',
+                hostname: 'phimimg.com',
+            },
         ],
     },
 };

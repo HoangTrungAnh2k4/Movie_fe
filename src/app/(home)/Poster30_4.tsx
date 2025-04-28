@@ -16,7 +16,7 @@ export default function Poster30_4() {
             <Image
                 src="https://www.rophim.me/images/event_304/vn-flag-full.gif"
                 alt="Event Poster"
-                width={100}
+                width={203}
                 height={180}
                 className="-top-9 -left-125 relative w-[203px] h-[180px] -rotate-[23deg]"
             />

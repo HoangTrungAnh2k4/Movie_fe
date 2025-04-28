@@ -3,7 +3,7 @@ import { FaCheckCircle } from 'react-icons/fa';
 
 export default function Information() {
     return (
-        <div className="p-8 w-fit">
+        <div className="pl-16 w-fit">
             <Image
                 className="rounded-lg w-[160px] h-auto object-cover aspect-[2/3]"
                 src="https://static.nutscdn.com/vimg/300-0/ca47b1f251a8fba93b5856f94a4ece1b.jpg"

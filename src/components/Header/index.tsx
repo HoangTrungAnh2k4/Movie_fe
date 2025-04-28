@@ -3,12 +3,58 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
+import { Dropdown, Space } from 'antd';
+
 import { IoSearch } from 'react-icons/io5';
-import { FaBell } from 'react-icons/fa';
+import { FaBell, FaHeart, FaUser, FaSignOutAlt } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 
 const Header: React.FC = () => {
     const [scrolled, setScrolled] = useState<boolean>(false);
+
+    const handleLogout = () => {};
+
+    const items = [
+        {
+            label: (
+                <div className="mb-4 cursor-text">
+                    <p className="mb-1 text-xs">Chào</p>
+                    <p className="font-semibold text-xs">Hoàng Trung Anh</p>
+                </div>
+            ),
+            key: '0',
+        },
+        {
+            label: (
+                <Link href={'/manage_account'} className="flex items-center mb-2">
+                    <FaHeart className="mr-3 text-sm" />
+                    Yêu thích
+                </Link>
+            ),
+            key: '0',
+        },
+        {
+            label: (
+                <Link href={'/manage_account'} className="flex items-center mb-2">
+                    <FaUser className="mr-3 text-sm" />
+                    Tài khoản
+                </Link>
+            ),
+            key: '0',
+        },
+        {
+            type: 'divider' as const,
+        },
+        {
+            label: (
+                <div onClick={handleLogout} className="flex items-center">
+                    <FaSignOutAlt className="mr-3 text-sm" />
+                    Thoát
+                </div>
+            ),
+            key: '1',
+        },
+    ];
 
     useEffect((): (() => void) => {
         const handleScroll = (): void => {
@@ -45,19 +91,19 @@ const Header: React.FC = () => {
                 <input
                     type="text"
                     placeholder="Search for movies..."
-                    className="bg-transparent py-1 outline-none focus:outline-none w-full text-white text-sm placeholder:text-sm placeholder-white"
+                    className="bg-transparent py-1 outline-none focus:outline-none w-full text-white placeholder:text-xs text-sm placeholder-white"
                 />
             </div>
 
             <ul className="flex justify-center items-center gap-3 ml-16 text-sm">
                 <li className="px-3 py-1 hover:text-primary">
-                    <Link href="/">Chủ Đề</Link>
+                    <Link href="/list_movie">Chủ Đề</Link>
                 </li>
                 <li className="px-3 py-1 hover:text-primary">
-                    <Link href="/about">Phim Lẻ</Link>
+                    <Link href="/list_movie">Phim Lẻ</Link>
                 </li>
                 <li className="px-3 py-1 hover:text-primary">
-                    <Link href="/contact">Phim Bộ</Link>
+                    <Link href="/list_movie">Phim Bộ</Link>
                 </li>
             </ul>
 
@@ -65,13 +111,20 @@ const Header: React.FC = () => {
                 <div className="flex justify-center items-center border rounded-full size-[40px]">
                     <FaBell className="text-white" />
                 </div>
-                <Image
-                    src="https://www.rophim.me/images/avatars/pack1/14.jpg"
-                    alt="Movie App Logo"
-                    width={40}
-                    height={40}
-                    className="border-2 border-white rounded-full"
-                />
+
+                <Dropdown menu={{ items }} trigger={['click']} placement="bottomRight" className="">
+                    <div className="flex items-center cursor-pointer">
+                        <Space>
+                            <Image
+                                src="https://www.rophim.me/images/avatars/pack1/14.jpg"
+                                alt="Movie App Logo"
+                                width={40}
+                                height={40}
+                                className="border-2 border-white rounded-full"
+                            />
+                        </Space>
+                    </div>
+                </Dropdown>
             </div>
         </header>
     );

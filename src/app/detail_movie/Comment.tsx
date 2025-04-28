@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { IoChatboxEllipses } from 'react-icons/io5';
 import { PiPaperPlaneRightFill } from 'react-icons/pi';
 
-export default function Comment() {
+function Comment() {
     return (
         <div className="text-white">
             <div className="flex items-center gap-4">
@@ -15,7 +15,7 @@ export default function Comment() {
                     className="bg-background p-4 rounded-lg w-full h-[100px] placeholder:text-gray-600 placeholder:text-sm resize-none"
                     placeholder="Viết bình luận"
                 ></textarea>
-                <button className="flex items-center gap-2 hover:bg-[#aaaaaa] ml-auto px-4 py-2 rounded-lg text-primary cursor-pointer">
+                <button className="flex items-center gap-2 hover:bg-[#ffffff10] ml-auto px-4 py-2 rounded-lg text-primary cursor-pointer">
                     <p className="text-sm">Gửi</p>
                     <PiPaperPlaneRightFill className="text-lg" />
                 </button>
@@ -56,3 +56,5 @@ export default function Comment() {
         </div>
     );
 }
+
+export default Comment;
