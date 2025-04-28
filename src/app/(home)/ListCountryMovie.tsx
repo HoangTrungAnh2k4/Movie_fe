@@ -1,7 +1,46 @@
+'use client';
+
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 import { IoIosArrowForward } from 'react-icons/io';
+import useSWR from 'swr';
 
 export default function ListCountryMovie() {
+    const [listMovies1, setListMovies1] = useState<any[]>([]);
+    const [listMovies2, setListMovies2] = useState<any[]>([]);
+    const [listMovies3, setListMovies3] = useState<any[]>([]);
+
+    const fetcher = (urls: string[]) => Promise.all(urls.map((url) => fetch(url).then((res) => res.json())));
+
+    const movieUrls = [
+        'https://phimapi.com/phim/nguoi-hung-yeu-duoi',
+        'https://phimapi.com/phim/khi-cuoc-doi-cho-ban-qua-quyt',
+        'https://phimapi.com/phim/nu-tu-bong-toi',
+        'https://phimapi.com/phim/chuyen-doi-bac-si-noi-tru',
+        'https://phimapi.com/phim/kho-do-danh',
+        'https://phimapi.com/phim/tan-cung-cua-vo-tan',
+        'https://phimapi.com/phim/huyen-kinh',
+        'https://phimapi.com/phim/pha-chien',
+        'https://phimapi.com/phim/cuoc-song-tuoi-dep',
+        'https://phimapi.com/phim/nhung-nguoi-con-sot-lai-phan-2',
+        'https://phimapi.com/phim/nhung-manh-ghep-cam-xuc-2',
+        'https://phimapi.com/phim/chien-tranh-giua-cac-vi-sao-andor-phan-1',
+        'https://phimapi.com/phim/ban-be-hang-xom',
+    ];
+
+    const { data, error, isLoading } = useSWR(movieUrls, fetcher);
+
+    useEffect(() => {
+        if (data) {
+            setListMovies1(data.slice(0, 4));
+            setListMovies2(data.slice(4, 8));
+            setListMovies3(data.slice(8, 12));
+        }
+    }, [data]);
+
+    if (error) return <div>Failed to load</div>;
+    if (isLoading) return <div>Loading...</div>;
+
     return (
         <div className="bg-gradient-to-b from-background2 to-background p-8 rounded-xl">
             <div className="flex mb-8">
@@ -23,12 +62,12 @@ export default function ListCountryMovie() {
                 </div>
 
                 <div className="flex-grow gap-6 grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))]">
-                    {Array.from({ length: 4 }).map((_, index) => (
+                    {listMovies1.map((item, index) => (
                         <div key={index} className="group relative rounded-xl">
                             <div className="group bg-primary rounded-xl overflow-hidden cursor-pointer">
                                 <div className="rounded-xl overflow-hidden">
                                     <Image
-                                        src="https://static.nutscdn.com/vimg/500-0/65e897d29aca7803c5f1144592764bb2.jpg"
+                                        src={item?.movie?.thumb_url}
                                         alt="Movie Poster"
                                         width={400}
                                         height={200}
@@ -42,9 +81,9 @@ export default function ListCountryMovie() {
 
                             <div className="flex flex-col gap-2 mt-2 pl-4">
                                 <h3 className="font-semibold text-white hover:text-primary text-sm duration-300 cursor-pointer">
-                                    Người Hùng Yếu Đuối{' '}
+                                    {item?.movie.name}
                                 </h3>
-                                <h3 className="text-[#aaaaaa] text-xs">Người Hùng Yếu Đuối </h3>
+                                <h3 className="text-[#aaaaaa] text-xs">{item?.movie?.origin_name}</h3>
                             </div>
                         </div>
                     ))}
@@ -69,12 +108,12 @@ export default function ListCountryMovie() {
                 </div>
 
                 <div className="flex-grow gap-6 grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))]">
-                    {Array.from({ length: 4 }).map((_, index) => (
+                    {listMovies2.map((item, index) => (
                         <div key={index} className="group relative rounded-xl">
                             <div className="group bg-primary rounded-xl overflow-hidden cursor-pointer">
                                 <div className="rounded-xl overflow-hidden">
                                     <Image
-                                        src="https://static.nutscdn.com/vimg/500-0/65e897d29aca7803c5f1144592764bb2.jpg"
+                                        src={item?.movie?.thumb_url}
                                         alt="Movie Poster"
                                         width={400}
                                         height={200}
@@ -88,9 +127,9 @@ export default function ListCountryMovie() {
 
                             <div className="flex flex-col gap-2 mt-2 pl-4">
                                 <h3 className="font-semibold text-white hover:text-primary text-sm duration-300 cursor-pointer">
-                                    Người Hùng Yếu Đuối{' '}
+                                    {item?.movie.name}
                                 </h3>
-                                <h3 className="text-[#aaaaaa] text-xs">Người Hùng Yếu Đuối </h3>
+                                <h3 className="text-[#aaaaaa] text-xs">{item?.movie?.origin_name}</h3>
                             </div>
                         </div>
                     ))}
@@ -115,12 +154,12 @@ export default function ListCountryMovie() {
                 </div>
 
                 <div className="flex-grow gap-6 grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))]">
-                    {Array.from({ length: 4 }).map((_, index) => (
+                    {listMovies3.map((item, index) => (
                         <div key={index} className="group relative rounded-xl">
                             <div className="group bg-primary rounded-xl overflow-hidden cursor-pointer">
                                 <div className="rounded-xl overflow-hidden">
                                     <Image
-                                        src="https://static.nutscdn.com/vimg/500-0/65e897d29aca7803c5f1144592764bb2.jpg"
+                                        src={item?.movie?.thumb_url}
                                         alt="Movie Poster"
                                         width={400}
                                         height={200}
@@ -134,9 +173,9 @@ export default function ListCountryMovie() {
 
                             <div className="flex flex-col gap-2 mt-2 pl-4">
                                 <h3 className="font-semibold text-white hover:text-primary text-sm duration-300 cursor-pointer">
-                                    Người Hùng Yếu Đuối{' '}
+                                    {item?.movie.name}
                                 </h3>
-                                <h3 className="text-[#aaaaaa] text-xs">Người Hùng Yếu Đuối </h3>
+                                <h3 className="text-[#aaaaaa] text-xs">{item?.movie?.origin_name}</h3>
                             </div>
                         </div>
                     ))}

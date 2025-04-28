@@ -1,14 +1,36 @@
+'use client';
+
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import useSWR from 'swr';
 
 export default function ListTypeRetangle() {
+    const [listMovies, setListMovies] = useState<any[]>([]);
+
+    const fetcher = (url: string) => fetch(url).then((res) => res.json());
+    const { data, error, isLoading } = useSWR(
+        'https://phimapi.com/danh-sach/phim-moi-cap-nhat-v2?page=1&limit=6',
+        fetcher,
+    );
+
+    useEffect(() => {
+        if (data?.items) {
+            // Lấy 7 thumb_url đầu tiên
+            const thumbs = data.items;
+            setListMovies(thumbs);
+        }
+    }, [data]);
+
+    if (error) return <div>Failed to load</div>;
+    if (isLoading) return <div>Loading...</div>;
     return (
         <div className="">
             <div className="gap-6 grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))]">
-                {Array.from({ length: 6 }).map((_, index) => (
+                {listMovies.map((item, index) => (
                     <div key={index} className="group relative rounded-2xl">
                         <div className="hover:bg-primary hover:p-1 rounded-2xl overflow-hidden duration-300 cursor-pointer itemTop10">
                             <Image
-                                src="https://static.nutscdn.com/vimg/300-0/4f9cb16b41fe6cece6cb8a958f5e661c.jpg"
+                                src={item?.poster_url}
                                 alt="Movie Poster"
                                 width={400}
                                 height={600}
@@ -21,9 +43,9 @@ export default function ListTypeRetangle() {
 
                         <div className="flex flex-col items-center gap-1 mt-3">
                             <h3 className="hover:text-primary text-sm line-clamp-1 duration-300 cursor-pointer">
-                                Đêm Kinh Hoàng ở Sở Thú
+                                {item?.name}
                             </h3>
-                            <h4 className="text-[#aaaaaa] text-xs">Night of the Zoopocalypse</h4>
+                            <h4 className="text-[#aaaaaa] text-xs">{item?.origin_name}</h4>
                         </div>
                     </div>
                 ))}

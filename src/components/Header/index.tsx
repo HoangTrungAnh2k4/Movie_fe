@@ -112,6 +112,11 @@ const Header: React.FC = () => {
                     <FaBell className="text-white" />
                 </div>
 
+                <div className="flex justify-center items-start gap-2 bg-white px-3.5 py-2 rounded-full text-black">
+                    <FaUser />
+                    <p className="font-semibold text-sm">Thành viên</p>
+                </div>
+
                 <Dropdown menu={{ items }} trigger={['click']} placement="bottomRight" className="">
                     <div className="flex items-center cursor-pointer">
                         <Space>

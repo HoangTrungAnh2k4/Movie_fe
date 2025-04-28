@@ -25,7 +25,7 @@ export default function Poster30_4() {
                     src="https://www.rophim.me/images/event_304/behind-hero.webp"
                     alt="Event Poster"
                     width={600}
-                    height={300}
+                    height={400}
                     className="w-auto h-[400px] -translate-y-4"
                 />
             </div>

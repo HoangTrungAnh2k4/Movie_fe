@@ -25,8 +25,6 @@ export default function Top10Today() {
         }
     }, [data]);
 
-    console.log(listMovies);
-
     if (error) return <div>Failed to load</div>;
     if (isLoading) return <div>Loading...</div>;
 
