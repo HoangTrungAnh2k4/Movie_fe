@@ -32,7 +32,7 @@ const Header: React.FC = () => {
                     Yêu thích
                 </Link>
             ),
-            key: '0',
+            key: '1',
         },
         {
             label: (
@@ -41,7 +41,7 @@ const Header: React.FC = () => {
                     Tài khoản
                 </Link>
             ),
-            key: '0',
+            key: '2',
         },
         {
             type: 'divider' as const,
@@ -53,7 +53,7 @@ const Header: React.FC = () => {
                     Thoát
                 </div>
             ),
-            key: '1',
+            key: '3',
         },
     ];
 
@@ -116,13 +116,13 @@ const Header: React.FC = () => {
                     <FaBell className="text-white" />
                 </div>
 
-                <Link
+                {/* <Link
                     href={'/login'}
                     className="flex justify-center items-start gap-2 bg-white px-3.5 py-2 rounded-full text-black cursor-pointer cursor-pointer"
                 >
                     <FaUser />
                     <p className="font-semibold text-sm">Thành viên</p>
-                </Link>
+                </Link> */}
 
                 <Dropdown menu={{ items }} trigger={['click']} placement="bottomRight" className="">
                     <div className="flex items-center cursor-pointer">

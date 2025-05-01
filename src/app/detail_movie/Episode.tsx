@@ -21,8 +21,8 @@ export default function Episode({ episodes, infor }) {
     return (
         <div className="p-4">
             <div className="flex justify-start items-center gap-12">
-                <Link
-                    href={`/watch_movie`}
+                <div
+                    onClick={MoveToWatch}
                     className="flex items-center gap-4 hover:shadow-[0_5px_10px_10px_rgba(255,218,125,0.15)] px-8 py-3.5 rounded-full font-semibold text-black text-lg cursor-pointer"
                     style={{
                         background: 'linear-gradient(39deg, rgba(254, 207, 89, 1), rgba(255, 241, 204, 1))',
@@ -30,7 +30,7 @@ export default function Episode({ episodes, infor }) {
                 >
                     <FaPlay />
                     <p>Xem ngay</p>
-                </Link>
+                </div>
 
                 <div className="group justify-items-center hover:bg-[#ffffff10] ml-24 px-4 py-2 rounded-xl cursor-pointer">
                     <FaHeart className="group-hover:text-yellow-500 text-xl" />

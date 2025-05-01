@@ -7,8 +7,56 @@ import { FaHeart, FaUser } from 'react-icons/fa';
 import { IoIosClose } from 'react-icons/io';
 import { toast } from 'react-toastify';
 
+const arrayMockup = [
+    {
+        title: 'Người Hùng Yếu Đuối',
+        original_title: 'Weak Hero Class',
+        poster_path: 'https://static.nutscdn.com/vimg/300-0/3ac6b7f3647ae31e17d8f0675a162aa9.png',
+    },
+    {
+        title: 'Chuyện Đời Bác Sĩ Nội Trú',
+        original_title: 'Resident Playbook',
+        poster_path: 'https://static.nutscdn.com/vimg/300-0/055875f8424f76d54b2a36feaa6edc07.jpg',
+    },
+    {
+        title: 'Những Bác Sĩ Tài Hoa',
+        original_title: 'Hospital Playlist',
+        poster_path: 'https://static.nutscdn.com/vimg/300-0/7b26ede67ba7c5b7972ef48262d241e1.jpg',
+    },
+    {
+        title: 'Đội Thiếu Niên Siêu Đẳng',
+        original_title: 'Moving',
+        poster_path: 'https://static.nutscdn.com/vimg/300-0/a89e2320f513f7f6f2386936a9a88067.jpg',
+    },
+    {
+        title: 'Khó Dỗ Dành',
+        original_title: 'The First Frost',
+        poster_path: 'https://static.nutscdn.com/vimg/300-0/09d00ac5a6e7f45516547538b4f0dd78.jpg',
+    },
+    {
+        title: 'Khi Cuộc Đời Cho Bạn Quả Quýt',
+        original_title: 'When Life Gives You Tangerines',
+        poster_path: 'https://static.nutscdn.com/vimg/300-0/f9197908357fe5ff6b4887a2752bf6ef.jpg',
+    },
+    {
+        title: 'Lãng Khách',
+        original_title: 'Vagabond',
+        poster_path: 'https://static.nutscdn.com/vimg/300-0/325393bf9a2208a88571852b3a70887d.jpg',
+    },
+    {
+        title: 'Hoa Của Quỷh',
+        original_title: 'Flower of Evil',
+        poster_path: 'https://static.nutscdn.com/vimg/300-0/4e0858f4df7659e373543a2170be4e2d.jpg',
+    },
+    {
+        title: 'Đêm Kinh Hoàng ở Sở Thú',
+        original_title: 'Night of the Zoopocalypse',
+        poster_path: 'https://static.nutscdn.com/vimg/300-0/4f9cb16b41fe6cece6cb8a958f5e661c.jpg',
+    },
+];
+
 export default function ManageAccount() {
-    const [activeTab, setActiveTab] = useState<string>('favorite');
+    const [activeTab, setActiveTab] = useState<string>('account');
 
     const handleTabClick = (tab: string) => {
         setActiveTab(tab);
@@ -49,8 +97,8 @@ export default function ManageAccount() {
                         height={40}
                         className="border-2 border-white rounded-full"
                     />
-                    <p className="mt-4 font-semibold text-sm">Hoàng Trung Anh</p>
-                    <p className="mt-1 text-[#aaaaaa] text-sm">trunganh4002@gmail.com</p>
+                    <p className="mt-4 font-semibold text-sm">Nguyen Van A</p>
+                    <p className="mt-1 text-[#aaaaaa] text-sm">example@gmail.com</p>
                 </div>
             </div>
 
@@ -59,11 +107,11 @@ export default function ManageAccount() {
 
                 {activeTab === 'favorite' && (
                     <div className="gap-6 grid grid-cols-[repeat(auto-fit,minmax(170px,1fr))] mt-6">
-                        {Array.from({ length: 20 }).map((_, index) => (
+                        {arrayMockup.map((item, index) => (
                             <div key={index} className="group relative mb-2 rounded-2xl">
                                 <div className="hover:bg-primary hover:p-1 rounded-2xl overflow-hidden duration-300 cursor-pointer itemTop10">
                                     <Image
-                                        src="https://static.nutscdn.com/vimg/300-0/4f9cb16b41fe6cece6cb8a958f5e661c.jpg"
+                                        src={item.poster_path}
                                         alt="Movie Poster"
                                         width={250}
                                         height={200}
@@ -85,9 +133,9 @@ export default function ManageAccount() {
 
                                 <div className="flex flex-col items-center gap-1 mt-3">
                                     <h3 className="hover:text-primary text-sm line-clamp-1 duration-300 cursor-pointer">
-                                        Đêm Kinh Hoàng ở Sở Thú
+                                        {item.title}
                                     </h3>
-                                    <h4 className="text-[#aaaaaa] text-xs">Night of the Zoopocalypse</h4>
+                                    <h4 className="text-[#aaaaaa] text-xs">{item.original_title}</h4>
                                 </div>
                             </div>
                         ))}
@@ -102,7 +150,7 @@ export default function ManageAccount() {
                                 <input
                                     type="text"
                                     readOnly
-                                    placeholder="trunganh4002@gmail.com"
+                                    placeholder="example@gmail.com"
                                     className="px-4 py-2 border-[#ffffff14] border-[1px] rounded-lg outline-none h-fit placeholder:text-white text-sm placeholder:text-sm"
                                 />
 
@@ -110,7 +158,7 @@ export default function ManageAccount() {
                                 <input
                                     type="text"
                                     readOnly
-                                    placeholder="Hoàng Trung Anh"
+                                    placeholder="Nguyen Van A"
                                     className="px-4 py-2 border-[#ffffff14] border-[1px] rounded-lg outline-none h-fit placeholder:text-white text-sm placeholder:text-sm"
                                 />
                             </div>

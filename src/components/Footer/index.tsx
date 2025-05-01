@@ -74,14 +74,6 @@ export default function Footer() {
                     <RiNextjsFill className="text-4xl" />
                     <p className="font-semibold text-white">Nextjs</p>
                 </li>
-                <li className="flex items-center gap-2">
-                    <Image
-                        src="https://www.java.com/jcom/images/Java-horz-wht.svg"
-                        alt="TypeScript Logo"
-                        width={80}
-                        height={80}
-                    />
-                </li>
             </ul>
         </div>
     );

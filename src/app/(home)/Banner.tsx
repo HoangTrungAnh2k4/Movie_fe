@@ -41,14 +41,8 @@ function Banner() {
     if (error) return <div>Failed to load</div>;
     if (isLoading)
         return (
-            <div role="status" className="py-28 max-w-sm animate-pulse">
-                <div className="bg-gray-100 dark:bg-gray-700 mb-4 rounded-full w-48 h-2.5"></div>
-                <div className="bg-gray-100 dark:bg-gray-700 mb-2.5 rounded-full max-w-[360px] h-2"></div>
-                <div className="bg-gray-100 dark:bg-gray-700 mb-2.5 rounded-full h-2"></div>
-                <div className="bg-gray-100 dark:bg-gray-700 mb-2.5 rounded-full max-w-[330px] h-2"></div>
-                <div className="bg-gray-100 dark:bg-gray-700 mb-2.5 rounded-full max-w-[300px] h-2"></div>
-                <div className="bg-gray-100 dark:bg-gray-700 rounded-full max-w-[360px] h-2"></div>
-                <span className="sr-only">Loading...</span>
+            <div className="flex justify-center items-center bg-background h-52">
+                <div className="border-4 border-primary border-t-transparent rounded-full w-16 h-16 animate-spin" />
             </div>
         );
 
