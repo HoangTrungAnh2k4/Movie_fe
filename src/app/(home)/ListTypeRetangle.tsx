@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 
@@ -22,29 +23,47 @@ export default function ListTypeRetangle() {
     }, [data]);
 
     if (error) return <div>Failed to load</div>;
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading)
+        return (
+            <div role="status" className="max-w-sm animate-pulse">
+                <div className="bg-gray-100 dark:bg-gray-700 mb-4 rounded-full w-48 h-2.5"></div>
+                <div className="bg-gray-100 dark:bg-gray-700 mb-2.5 rounded-full max-w-[360px] h-2"></div>
+                <div className="bg-gray-100 dark:bg-gray-700 mb-2.5 rounded-full h-2"></div>
+                <div className="bg-gray-100 dark:bg-gray-700 mb-2.5 rounded-full max-w-[330px] h-2"></div>
+                <div className="bg-gray-100 dark:bg-gray-700 mb-2.5 rounded-full max-w-[300px] h-2"></div>
+                <div className="bg-gray-100 dark:bg-gray-700 rounded-full max-w-[360px] h-2"></div>
+                <span className="sr-only">Loading...</span>
+            </div>
+        );
+
     return (
         <div className="">
             <div className="gap-6 grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))]">
                 {listMovies.map((item, index) => (
                     <div key={index} className="group relative rounded-2xl">
-                        <div className="hover:bg-primary hover:p-1 rounded-2xl overflow-hidden duration-300 cursor-pointer itemTop10">
+                        <Link
+                            href={`/detail_movie/${item?.slug}`}
+                            className="block hover:bg-primary hover:p-1 rounded-2xl overflow-hidden duration-300 cursor-pointer"
+                        >
                             <Image
                                 src={item?.poster_url}
                                 alt="Movie Poster"
                                 width={400}
                                 height={600}
-                                className="rounded-xl w-full h-auto aspect-[300/450]"
+                                className="rounded-xl aspect-[300/450]"
                             />
 
                             {/* lớp phủ */}
                             <div className="top-0 left-0 absolute bg-primary opacity-0 group-hover:opacity-15 rounded-2xl w-full h-auto aspect-[300/450] transition duration-300" />
-                        </div>
+                        </Link>
 
                         <div className="flex flex-col items-center gap-1 mt-3">
-                            <h3 className="hover:text-primary text-sm line-clamp-1 duration-300 cursor-pointer">
+                            <Link
+                                href={`/detail_movie/${item?.slug}`}
+                                className="font-semibold hover:text-primary text-sm line-clamp-1 duration-300 cursor-pointer"
+                            >
                                 {item?.name}
-                            </h3>
+                            </Link>
                             <h4 className="text-[#aaaaaa] text-xs">{item?.origin_name}</h4>
                         </div>
                     </div>

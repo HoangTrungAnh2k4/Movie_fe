@@ -8,6 +8,7 @@ import { Dropdown, Space } from 'antd';
 import { IoSearch } from 'react-icons/io5';
 import { FaBell, FaHeart, FaUser, FaSignOutAlt } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 const Header: React.FC = () => {
     const [scrolled, setScrolled] = useState<boolean>(false);
@@ -91,7 +92,10 @@ const Header: React.FC = () => {
                 <input
                     type="text"
                     placeholder="Search for movies..."
-                    className="bg-transparent py-1 outline-none focus:outline-none w-full text-white placeholder:text-xs text-sm placeholder-white"
+                    onClick={() => {
+                        toast.warning('Chức năng đang được phát triển');
+                    }}
+                    className="bg-transparent py-1 outline-none focus:outline-none w-full text-white placeholder:text-[#aaaaaa] text-sm placeholder:text-sm"
                 />
             </div>
 
@@ -112,10 +116,13 @@ const Header: React.FC = () => {
                     <FaBell className="text-white" />
                 </div>
 
-                <div className="flex justify-center items-start gap-2 bg-white px-3.5 py-2 rounded-full text-black">
+                <Link
+                    href={'/login'}
+                    className="flex justify-center items-start gap-2 bg-white px-3.5 py-2 rounded-full text-black cursor-pointer cursor-pointer"
+                >
                     <FaUser />
                     <p className="font-semibold text-sm">Thành viên</p>
-                </div>
+                </Link>
 
                 <Dropdown menu={{ items }} trigger={['click']} placement="bottomRight" className="">
                     <div className="flex items-center cursor-pointer">

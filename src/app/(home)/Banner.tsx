@@ -27,7 +27,7 @@ function Banner() {
     const { data, error, isLoading } = useSWR('https://phimapi.com/danh-sach/phim-moi-cap-nhat-v3?page=1', fetcher);
 
     const moveToDetail = () => {
-        router.push('/detail_movie');
+        router.push(`/detail_movie/${listMovies[activeMovie]?.slug}`);
     };
 
     useEffect(() => {
@@ -39,7 +39,18 @@ function Banner() {
     }, [data]);
 
     if (error) return <div>Failed to load</div>;
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading)
+        return (
+            <div role="status" className="py-28 max-w-sm animate-pulse">
+                <div className="bg-gray-100 dark:bg-gray-700 mb-4 rounded-full w-48 h-2.5"></div>
+                <div className="bg-gray-100 dark:bg-gray-700 mb-2.5 rounded-full max-w-[360px] h-2"></div>
+                <div className="bg-gray-100 dark:bg-gray-700 mb-2.5 rounded-full h-2"></div>
+                <div className="bg-gray-100 dark:bg-gray-700 mb-2.5 rounded-full max-w-[330px] h-2"></div>
+                <div className="bg-gray-100 dark:bg-gray-700 mb-2.5 rounded-full max-w-[300px] h-2"></div>
+                <div className="bg-gray-100 dark:bg-gray-700 rounded-full max-w-[360px] h-2"></div>
+                <span className="sr-only">Loading...</span>
+            </div>
+        );
 
     return (
         <div
@@ -53,6 +64,10 @@ function Banner() {
                     <h1 onClick={moveToDetail} className="font-semibold hover:text-primary text-3xl cursor-pointer">
                         {listMovies[activeMovie]?.name}
                     </h1>
+
+                    <h3 onClick={moveToDetail} className="mt-2 text-[#aaaaaa] text-sm">
+                        {listMovies[activeMovie]?.origin_name}
+                    </h3>
 
                     <ul className="flex justify-start items-center gap-4 mt-8 text-xs">
                         <li className="bg-gradient-to-bl from-primary to-white px-2 py-[2px] pt-[3px] rounded-md font-semibold text-black">
@@ -85,7 +100,10 @@ function Banner() {
 
                     <div className="flex justify-between items-center gap-4 mt-16 text-xs">
                         <div className="flex items-center gap-8">
-                            <button className="flex justify-center items-center bg-gradient-to-tr from-yellow-400 to-yellow-50 hover:shadow-[0_5px_10px_10px_rgba(255,218,125,0.15)] rounded-full size-[70px] text-black cursor-pointer">
+                            <button
+                                onClick={moveToDetail}
+                                className="flex justify-center items-center bg-gradient-to-tr from-yellow-400 to-yellow-50 hover:shadow-[0_5px_10px_10px_rgba(255,218,125,0.15)] rounded-full size-[70px] text-black cursor-pointer"
+                            >
                                 <FaPlay className="ml-1 text-2xl" />
                             </button>
 

@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function TypeList() {
     const topicList = [
         {
@@ -34,13 +36,14 @@ export default function TypeList() {
     return (
         <div className="justify-between gap-4 grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] mt-4">
             {topicList.map((item, index) => (
-                <div
+                <Link
+                    href={'/list_movie'}
                     key={index}
                     className={`flex hover:-translate-y-3 cursor-pointer duration-300 flex-col justify-center ${item.cssBg} p-4 pl-6 rounded-xl h-32 text-white`}
                 >
                     <h2 className="font-bold text-lg"> {item.name}</h2>
                     <p className="mt-2 text-sm">Xem chủ đề</p>
-                </div>
+                </Link>
             ))}
         </div>
     );

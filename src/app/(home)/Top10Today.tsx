@@ -1,10 +1,11 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 
-export default function Top10Today() {
+export default function Top10Today({ moveToDetail }) {
     const [listMovies, setListMovies] = useState<any[]>([]);
 
     const fetcher = (urls: string[]) => Promise.all(urls.map((url) => fetch(url).then((res) => res.json())));
@@ -26,15 +27,27 @@ export default function Top10Today() {
     }, [data]);
 
     if (error) return <div>Failed to load</div>;
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading)
+        return (
+            <div role="status" className="max-w-sm animate-pulse">
+                <div className="bg-gray-100 dark:bg-gray-700 mb-4 rounded-full w-48 h-2.5"></div>
+                <div className="bg-gray-100 dark:bg-gray-700 mb-2.5 rounded-full max-w-[360px] h-2"></div>
+                <div className="bg-gray-100 dark:bg-gray-700 mb-2.5 rounded-full h-2"></div>
+                <div className="bg-gray-100 dark:bg-gray-700 mb-2.5 rounded-full max-w-[330px] h-2"></div>
+                <div className="bg-gray-100 dark:bg-gray-700 mb-2.5 rounded-full max-w-[300px] h-2"></div>
+                <div className="bg-gray-100 dark:bg-gray-700 rounded-full max-w-[360px] h-2"></div>
+                <span className="sr-only">Loading...</span>
+            </div>
+        );
 
     return (
         <div className="">
             <div className="gap-6 grid grid-cols-5">
                 {listMovies?.map((item, index) => (
                     <div key={index} className="group relative rounded-2xl">
-                        <div
-                            className={`hover:bg-primary overflow-hidden hover:p-1 cursor-pointer duration-300  rounded-2xl  itemTop10 ${
+                        <Link
+                            href={`/detail_movie/${item?.movie?.slug}`}
+                            className={`hover:bg-primary block overflow-hidden hover:p-1 cursor-pointer duration-300  rounded-2xl  itemTop10 ${
                                 index % 2 != 0 ? 'itemTop10Left' : 'itemTop10Right'
                             } `}
                         >
@@ -50,7 +63,7 @@ export default function Top10Today() {
 
                             {/* lớp phủ */}
                             <div className="top-0 left-0 absolute bg-primary opacity-0 group-hover:opacity-15 rounded-2xl w-full h-full transition duration-300" />
-                        </div>
+                        </Link>
 
                         <div className="flex items-center gap-2 mt-3">
                             <div

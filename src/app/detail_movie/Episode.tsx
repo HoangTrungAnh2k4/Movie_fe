@@ -6,12 +6,23 @@ import { IoChatboxEllipses } from 'react-icons/io5';
 import { FaBarsStaggered } from 'react-icons/fa6';
 
 import Comment from './Comment';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
-export default function Episode() {
+export default function Episode({ episodes, infor }) {
+    const router = useRouter();
+
+    const MoveToWatch = () => {
+        sessionStorage.setItem('watchMovieData1', JSON.stringify(infor));
+        sessionStorage.setItem('watchMovieData2', JSON.stringify(episodes));
+        router.push(`/watch_movie`);
+    };
+
     return (
         <div className="p-4">
             <div className="flex justify-start items-center gap-12">
-                <button
+                <Link
+                    href={`/watch_movie`}
                     className="flex items-center gap-4 hover:shadow-[0_5px_10px_10px_rgba(255,218,125,0.15)] px-8 py-3.5 rounded-full font-semibold text-black text-lg cursor-pointer"
                     style={{
                         background: 'linear-gradient(39deg, rgba(254, 207, 89, 1), rgba(255, 241, 204, 1))',
@@ -19,7 +30,7 @@ export default function Episode() {
                 >
                     <FaPlay />
                     <p>Xem ngay</p>
-                </button>
+                </Link>
 
                 <div className="group justify-items-center hover:bg-[#ffffff10] ml-24 px-4 py-2 rounded-xl cursor-pointer">
                     <FaHeart className="group-hover:text-yellow-500 text-xl" />
@@ -50,7 +61,7 @@ export default function Episode() {
                             className="flex items-center gap-6 hover:bg-[#ffffff10] px-4 py-2 rounded-lg w-fit text-xl cursor-pointer"
                         >
                             <FaBarsStaggered className="text-primary text-2xl" />
-                            <p className="font-semibold">Phần 4</p>
+                            <p className="font-semibold">Phần 1</p>
                             <FaCaretDown />
                         </div>
 
@@ -65,8 +76,9 @@ export default function Episode() {
                     </div>
 
                     <div className="gap-4 grid grid-cols-[repeat(auto-fit,minmax(130px,1fr))] mt-6">
-                        {Array.from({ length: 10 }, (_, index) => (
+                        {episodes?.map((item, index: number) => (
                             <div
+                                onClick={MoveToWatch}
                                 key={index}
                                 className="flex justify-center items-center gap-4 bg-[#ffffff10] px-4 rounded-lg h-[50px] hover:text-primary text-sm cursor-pointer"
                             >

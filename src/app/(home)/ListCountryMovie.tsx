@@ -1,11 +1,12 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { IoIosArrowForward } from 'react-icons/io';
 import useSWR from 'swr';
 
-export default function ListCountryMovie() {
+export default function ListCountryMovie({ moveToDetail }) {
     const [listMovies1, setListMovies1] = useState<any[]>([]);
     const [listMovies2, setListMovies2] = useState<any[]>([]);
     const [listMovies3, setListMovies3] = useState<any[]>([]);
@@ -39,7 +40,18 @@ export default function ListCountryMovie() {
     }, [data]);
 
     if (error) return <div>Failed to load</div>;
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading)
+        return (
+            <div role="status" className="max-w-sm animate-pulse">
+                <div className="bg-gray-100 dark:bg-gray-700 mb-4 rounded-full w-48 h-2.5"></div>
+                <div className="bg-gray-100 dark:bg-gray-700 mb-2.5 rounded-full max-w-[360px] h-2"></div>
+                <div className="bg-gray-100 dark:bg-gray-700 mb-2.5 rounded-full h-2"></div>
+                <div className="bg-gray-100 dark:bg-gray-700 mb-2.5 rounded-full max-w-[330px] h-2"></div>
+                <div className="bg-gray-100 dark:bg-gray-700 mb-2.5 rounded-full max-w-[300px] h-2"></div>
+                <div className="bg-gray-100 dark:bg-gray-700 rounded-full max-w-[360px] h-2"></div>
+                <span className="sr-only">Loading...</span>
+            </div>
+        );
 
     return (
         <div className="bg-gradient-to-b from-background2 to-background p-8 rounded-xl">
@@ -56,7 +68,9 @@ export default function ListCountryMovie() {
                         Phim Hàn Quốc Mới
                     </h3>
                     <div className="flex items-center gap-2 hover:text-primary cursor-pointer">
-                        <p className="text-xs">Xem toàn bộ</p>
+                        <Link href={'/list_movie'} className="text-xs">
+                            Xem toàn bộ
+                        </Link>
                         <IoIosArrowForward />
                     </div>
                 </div>
@@ -64,7 +78,10 @@ export default function ListCountryMovie() {
                 <div className="flex-grow gap-6 grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))]">
                     {listMovies1.map((item, index) => (
                         <div key={index} className="group relative rounded-xl">
-                            <div className="group bg-primary rounded-xl overflow-hidden cursor-pointer">
+                            <Link
+                                href={`/detail_movie/${item?.movie?.slug}`}
+                                className="group bg-primary rounded-xl overflow-hidden cursor-pointer"
+                            >
                                 <div className="rounded-xl overflow-hidden">
                                     <Image
                                         src={item?.movie?.thumb_url}
@@ -77,10 +94,13 @@ export default function ListCountryMovie() {
 
                                 {/* lớp phủ */}
                                 <div className="top-0 left-0 absolute bg-primary opacity-0 group-hover:opacity-15 rounded-xl w-full h-auto aspect-[500/281] transition-all duration-300" />
-                            </div>
+                            </Link>
 
                             <div className="flex flex-col gap-2 mt-2 pl-4">
-                                <h3 className="font-semibold text-white hover:text-primary text-sm duration-300 cursor-pointer">
+                                <h3
+                                    onClick={() => moveToDetail(item?.movie?.slug)}
+                                    className="font-semibold text-white hover:text-primary text-sm duration-300 cursor-pointer"
+                                >
                                     {item?.movie.name}
                                 </h3>
                                 <h3 className="text-[#aaaaaa] text-xs">{item?.movie?.origin_name}</h3>
@@ -102,14 +122,20 @@ export default function ListCountryMovie() {
                         Phim Trung Quốc Mới
                     </h3>
                     <div className="flex items-center gap-2 hover:text-primary cursor-pointer">
-                        <p className="text-xs">Xem toàn bộ</p>
+                        <Link href={'/list_movie'} className="text-xs">
+                            Xem toàn bộ
+                        </Link>
                         <IoIosArrowForward />
                     </div>
                 </div>
 
                 <div className="flex-grow gap-6 grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))]">
                     {listMovies2.map((item, index) => (
-                        <div key={index} className="group relative rounded-xl">
+                        <Link
+                            href={`/detail_movie/${item?.movie?.slug}`}
+                            key={index}
+                            className="group relative rounded-xl"
+                        >
                             <div className="group bg-primary rounded-xl overflow-hidden cursor-pointer">
                                 <div className="rounded-xl overflow-hidden">
                                     <Image
@@ -126,12 +152,15 @@ export default function ListCountryMovie() {
                             </div>
 
                             <div className="flex flex-col gap-2 mt-2 pl-4">
-                                <h3 className="font-semibold text-white hover:text-primary text-sm duration-300 cursor-pointer">
+                                <h3
+                                    onClick={() => moveToDetail(item?.movie?.slug)}
+                                    className="font-semibold text-white hover:text-primary text-sm duration-300 cursor-pointer"
+                                >
                                     {item?.movie.name}
                                 </h3>
                                 <h3 className="text-[#aaaaaa] text-xs">{item?.movie?.origin_name}</h3>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
             </div>
@@ -148,7 +177,9 @@ export default function ListCountryMovie() {
                         Phim US-UK mới
                     </h3>
                     <div className="flex items-center gap-2 hover:text-primary cursor-pointer">
-                        <p className="text-xs">Xem toàn bộ</p>
+                        <Link href={'/list_movie'} className="text-xs">
+                            Xem toàn bộ
+                        </Link>
                         <IoIosArrowForward />
                     </div>
                 </div>
@@ -156,7 +187,10 @@ export default function ListCountryMovie() {
                 <div className="flex-grow gap-6 grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))]">
                     {listMovies3.map((item, index) => (
                         <div key={index} className="group relative rounded-xl">
-                            <div className="group bg-primary rounded-xl overflow-hidden cursor-pointer">
+                            <Link
+                                href={`/detail_movie/${item?.movie?.slug}`}
+                                className="group bg-primary rounded-xl overflow-hidden cursor-pointer"
+                            >
                                 <div className="rounded-xl overflow-hidden">
                                     <Image
                                         src={item?.movie?.thumb_url}
@@ -169,10 +203,13 @@ export default function ListCountryMovie() {
 
                                 {/* lớp phủ */}
                                 <div className="top-0 left-0 absolute bg-primary opacity-0 group-hover:opacity-15 rounded-xl w-full h-auto aspect-[500/281] transition-all duration-300" />
-                            </div>
+                            </Link>
 
                             <div className="flex flex-col gap-2 mt-2 pl-4">
-                                <h3 className="font-semibold text-white hover:text-primary text-sm duration-300 cursor-pointer">
+                                <h3
+                                    onClick={() => moveToDetail(item?.movie?.slug)}
+                                    className="font-semibold text-white hover:text-primary text-sm duration-300 cursor-pointer"
+                                >
                                     {item?.movie.name}
                                 </h3>
                                 <h3 className="text-[#aaaaaa] text-xs">{item?.movie?.origin_name}</h3>

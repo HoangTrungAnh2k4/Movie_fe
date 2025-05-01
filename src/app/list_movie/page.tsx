@@ -4,12 +4,42 @@ import Image from 'next/image';
 import { FaFilter } from 'react-icons/fa6';
 import { toast } from 'react-toastify';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { useEffect, useState } from 'react';
+import useSWR from 'swr';
+import Link from 'next/link';
 
 export default function ListMovie() {
+    const [listMovies, setListMovies] = useState<any[]>([]);
+
+    const fetcher = (url: string) => fetch(url).then((res) => res.json());
+    const { data, error, isLoading } = useSWR('https://phimapi.com/danh-sach/phim-moi-cap-nhat-v3?page=2', fetcher);
+
+    useEffect(() => {
+        if (data?.items) {
+            console.log(data.items);
+
+            // Lấy 5 thumb_url đầu tiên
+            const thumbs = data.items;
+            setListMovies(thumbs);
+        }
+    }, [data]);
+
+    if (error) return <div>Failed to load</div>;
+    if (isLoading)
+        return (
+            <div role="status" className="pt-28 max-w-sm animate-pulse">
+                <div className="bg-gray-100 dark:bg-gray-700 mb-4 rounded-full w-48 h-2.5"></div>
+                <div className="bg-gray-100 dark:bg-gray-700 mb-2.5 rounded-full max-w-[360px] h-2"></div>
+                <div className="bg-gray-100 dark:bg-gray-700 mb-2.5 rounded-full h-2"></div>
+                <div className="bg-gray-100 dark:bg-gray-700 mb-2.5 rounded-full max-w-[330px] h-2"></div>
+                <div className="bg-gray-100 dark:bg-gray-700 mb-2.5 rounded-full max-w-[300px] h-2"></div>
+                <div className="bg-gray-100 dark:bg-gray-700 rounded-full max-w-[360px] h-2"></div>
+                <span className="sr-only">Loading...</span>
+            </div>
+        );
+
     return (
         <div className="px-8 pt-28 pb-12 text-white">
-            <h5 className="font-semibold text-2xl">Phim lẻ</h5>
-
             <div
                 onClick={() => {
                     toast.warning('Chức năng đang được phát triển!');
@@ -21,26 +51,32 @@ export default function ListMovie() {
             </div>
 
             <div className="gap-6 grid grid-cols-[repeat(auto-fit,minmax(170px,1fr))]">
-                {Array.from({ length: 20 }).map((_, index) => (
+                {listMovies?.map((item, index) => (
                     <div key={index} className="group relative mb-2 rounded-2xl">
-                        <div className="hover:bg-primary hover:p-1 rounded-2xl overflow-hidden duration-300 cursor-pointer itemTop10">
+                        <Link
+                            href={`/detail_movie/${item?.slug}`}
+                            className="block hover:bg-primary hover:p-1 rounded-2xl overflow-hidden duration-300 cursor-pointer"
+                        >
                             <Image
-                                src="https://static.nutscdn.com/vimg/300-0/4f9cb16b41fe6cece6cb8a958f5e661c.jpg"
+                                src={item?.poster_url}
                                 alt="Movie Poster"
                                 width={250}
                                 height={200}
-                                className="rounded-xl w-full h-auto aspect-[300/450]"
+                                className="rounded-xl object-center object-cover aspect-[2/3]"
                             />
 
                             {/* lớp phủ */}
                             <div className="top-0 left-0 absolute bg-primary opacity-0 group-hover:opacity-15 rounded-2xl h-auto aspect-[300/450] transition duration-300" />
-                        </div>
+                        </Link>
 
                         <div className="flex flex-col items-center gap-1 mt-3">
-                            <h3 className="hover:text-primary text-sm line-clamp-1 duration-300 cursor-pointer">
-                                Đêm Kinh Hoàng ở Sở Thú
-                            </h3>
-                            <h4 className="text-[#aaaaaa] text-xs">Night of the Zoopocalypse</h4>
+                            <Link
+                                href={`/detail_movie/${item?.slug}`}
+                                className="hover:text-primary text-sm line-clamp-1 duration-300 cursor-pointer"
+                            >
+                                {item?.name}
+                            </Link>
+                            <h4 className="text-[#aaaaaa] text-xs line-clamp-1">{item?.origin_name}</h4>
                         </div>
                     </div>
                 ))}
@@ -48,16 +84,26 @@ export default function ListMovie() {
 
             {/* pagination */}
             <div className="flex justify-center items-center gap-4 mt-12">
-                <button className="flex justify-center items-center bg-[#2f3346] hover:opacity-90 p-4 rounded-full size-[50px] cursor-pointer">
+                <button
+                    onClick={() => {
+                        toast.warning('Chức năng đang được phát triển!');
+                    }}
+                    className="flex justify-center items-center bg-[#2f3346] hover:opacity-90 p-4 rounded-full size-[50px] cursor-pointer"
+                >
                     <FaArrowLeft className="" />
                 </button>
                 <div className="flex items-center gap-4 bg-[#2f3346] px-8 rounded-full h-[50px]">
                     <span>Trang </span>
-                    <span className="font-medium text-primary">3</span>
+                    <span className="font-medium text-primary">1</span>
                     <span>/</span>
                     <span>25</span>
                 </div>
-                <button className="flex justify-center items-center bg-[#2f3346] hover:opacity-90 p-4 rounded-full size-[50px] cursor-pointer">
+                <button
+                    onClick={() => {
+                        toast.warning('Chức năng đang được phát triển!');
+                    }}
+                    className="flex justify-center items-center bg-[#2f3346] hover:opacity-90 p-4 rounded-full size-[50px] cursor-pointer"
+                >
                     <FaArrowRight className="" />
                 </button>
             </div>
