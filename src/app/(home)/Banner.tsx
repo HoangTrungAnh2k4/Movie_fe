@@ -15,6 +15,8 @@ type ThumbItem = {
     quality: string;
     category: CategoryItem[];
     type: string;
+    slug: string;
+    origin_name: string;
 };
 
 function Banner() {
