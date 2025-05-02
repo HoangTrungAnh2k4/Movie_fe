@@ -107,7 +107,7 @@ export default function WatchMovie() {
                             </div>
 
                             <div className="gap-4 grid grid-cols-[repeat(auto-fit,minmax(130px,1fr))] mt-6">
-                                {episodes?.map((item, index: number) => (
+                                {episodes?.map((item, index) => (
                                     <div
                                         key={index}
                                         className="flex justify-center items-center gap-4 bg-[#ffffff10] px-4 rounded-lg h-[50px] hover:text-primary text-sm cursor-pointer"
