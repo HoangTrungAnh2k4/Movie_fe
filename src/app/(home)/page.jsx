@@ -15,7 +15,7 @@ import ListTypeRetangle from './ListTypeRetangle';
 import ListCountryMovie from './ListCountryMovie';
 
 export default function Home() {
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();
 

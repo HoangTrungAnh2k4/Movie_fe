@@ -1,27 +1,43 @@
 {
-  "compilerOptions": {
-    "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
+    "compilerOptions": {
+        "target": "ES2017",
+        "lib": ["dom", "dom.iterable", "esnext"],
+        "allowJs": true,
+        "skipLibCheck": true,
+        "strict": true,
+        "noEmit": true,
+        "esModuleInterop": true,
+        "module": "esnext",
+        "moduleResolution": "bundler",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "jsx": "preserve",
+        "incremental": true,
+        "plugins": [
+            {
+                "name": "next"
+            }
+        ],
+        "paths": {
+            "@/*": ["./src/*"]
+        }
+    },
+    "include": [
+        "next-env.d.ts",
+        "**/*.ts",
+        "**/*.tsx",
+        ".next/types/**/*.ts",
+        "tailwind.config.js",
+        "src/app/detail_movie/Information.jsx",
+        "src/app/detail_movie/Episode.jsx",
+        "src/app/detail_movie/[name]/page.jsx",
+        "src/app/(home)/page.jsx",
+        "src/app/list_movie/page.jsx",
+        "src/app/(home)/TopTrending.jsx",
+        "src/app/(home)/TopCinema.jsx",
+        "src/app/(home)/Top10Today.jsx",
+        "src/app/(home)/ListTypeRetangle.jsx",
+        "src/app/(home)/ListCountryMovie.jsx"
     ],
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "tailwind.config.js"],
-  "exclude": ["node_modules"]
+    "exclude": ["node_modules"]
 }

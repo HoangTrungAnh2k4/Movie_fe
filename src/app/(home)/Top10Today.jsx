@@ -5,10 +5,10 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 
-export default function Top10Today({ moveToDetail }) {
-    const [listMovies, setListMovies] = useState<any[]>([]);
+export default function Top10Today() {
+    const [listMovies, setListMovies] = useState([]);
 
-    const fetcher = (urls: string[]) => Promise.all(urls.map((url) => fetch(url).then((res) => res.json())));
+    const fetcher = (urls) => Promise.all(urls.map((url) => fetch(url).then((res) => res.json())));
 
     const movieUrls = [
         'https://phimapi.com/phim/nguoi-hung-yeu-duoi',

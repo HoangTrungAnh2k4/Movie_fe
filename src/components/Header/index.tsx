@@ -25,7 +25,7 @@ const Header: React.FC = () => {
         });
         return await res.json();
     };
-    const { data, error, isLoading } = useSWR(`${AUTH_URL}/get_user`, fetcher);
+    const { data } = useSWR(`${AUTH_URL}/get_user`, fetcher);
 
     const handleLogout = () => {
         localStorage.removeItem('access_token');

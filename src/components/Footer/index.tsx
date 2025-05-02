@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { BiLogoTypescript } from 'react-icons/bi';
 import { RiNextjsFill } from 'react-icons/ri';
 
 export default function Footer() {

@@ -12,7 +12,7 @@ export default function DetailMovie() {
     const [infor, setInfor] = useState({});
     const [episodes, setEpisodes] = useState([]);
 
-    const fetcher = (url: string) => fetch(url).then((res) => res.json());
+    const fetcher = (url) => fetch(url).then((res) => res.json());
     const { data, error, isLoading } = useSWR(`https://phimapi.com/phim/${name}`, fetcher);
 
     useEffect(() => {

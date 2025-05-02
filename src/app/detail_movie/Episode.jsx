@@ -75,7 +75,7 @@ export default function Episode({ episodes, infor }) {
                     </div>
 
                     <div className="gap-4 grid grid-cols-[repeat(auto-fit,minmax(130px,1fr))] mt-6">
-                        {episodes?.map((item, index: number) => (
+                        {episodes?.map((item, index) => (
                             <div
                                 onClick={MoveToWatch}
                                 key={index}

@@ -70,7 +70,7 @@ export default function ManageAccount() {
         });
         return await res.json();
     };
-    const { data, error, isLoading } = useSWR(`${AUTH_URL}/get_user`, fetcher);
+    const { data, error } = useSWR(`${AUTH_URL}/get_user`, fetcher);
 
     const handleTabClick = (tab: string) => {
         setActiveTab(tab);

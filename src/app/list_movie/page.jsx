@@ -9,9 +9,9 @@ import useSWR from 'swr';
 import Link from 'next/link';
 
 export default function ListMovie() {
-    const [listMovies, setListMovies] = useState<any[]>([]);
+    const [listMovies, setListMovies] = useState([]);
 
-    const fetcher = (url: string) => fetch(url).then((res) => res.json());
+    const fetcher = (url) => fetch(url).then((res) => res.json());
     const { data, error, isLoading } = useSWR('https://phimapi.com/danh-sach/phim-moi-cap-nhat-v3?page=2', fetcher);
 
     useEffect(() => {

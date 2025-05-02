@@ -7,11 +7,11 @@ import { IoIosArrowForward } from 'react-icons/io';
 import useSWR from 'swr';
 
 export default function ListCountryMovie({ moveToDetail }) {
-    const [listMovies1, setListMovies1] = useState<any[]>([]);
-    const [listMovies2, setListMovies2] = useState<any[]>([]);
-    const [listMovies3, setListMovies3] = useState<any[]>([]);
+    const [listMovies1, setListMovies1] = useState([]);
+    const [listMovies2, setListMovies2] = useState([]);
+    const [listMovies3, setListMovies3] = useState([]);
 
-    const fetcher = (urls: string[]) => Promise.all(urls.map((url) => fetch(url).then((res) => res.json())));
+    const fetcher = (urls) => Promise.all(urls.map((url) => fetch(url).then((res) => res.json())));
 
     const movieUrls = [
         'https://phimapi.com/phim/nguoi-hung-yeu-duoi',

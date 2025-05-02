@@ -6,9 +6,9 @@ import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 
 export default function TopCinema() {
-    const [listMovies, setListMovies] = useState<any[]>([]);
+    const [listMovies, setListMovies] = useState([]);
 
-    const fetcher = (url: string) => fetch(url).then((res) => res.json());
+    const fetcher = (url) => fetch(url).then((res) => res.json());
     const { data, error, isLoading } = useSWR(
         'https://phimapi.com/danh-sach/phim-moi-cap-nhat-v3?page=1&limit=4',
         fetcher,

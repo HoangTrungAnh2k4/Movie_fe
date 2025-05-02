@@ -8,10 +8,10 @@ import { FaArrowTrendUp, FaArrowTrendDown, FaHeartCircleCheck } from 'react-icon
 import useSWR from 'swr';
 
 export default function TopTrending() {
-    const [listMovies1, setListMovies1] = useState<any[]>([]);
-    const [listMovies2, setListMovies2] = useState<any[]>([]);
+    const [listMovies1, setListMovies1] = useState([]);
+    const [listMovies2, setListMovies2] = useState([]);
 
-    const fetcher = (url: string) => fetch(url).then((res) => res.json());
+    const fetcher = (url) => fetch(url).then((res) => res.json());
     const { data, error, isLoading } = useSWR('https://phimapi.com/danh-sach/phim-moi-cap-nhat-v3?page=1', fetcher);
 
     useEffect(() => {
