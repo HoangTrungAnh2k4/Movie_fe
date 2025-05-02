@@ -37,7 +37,8 @@
         "src/app/(home)/TopCinema.jsx",
         "src/app/(home)/Top10Today.jsx",
         "src/app/(home)/ListTypeRetangle.jsx",
-        "src/app/(home)/ListCountryMovie.jsx"
+        "src/app/(home)/ListCountryMovie.jsx",
+        "src/app/watch_movie/page.jsx"
     ],
     "exclude": ["node_modules"]
 }
