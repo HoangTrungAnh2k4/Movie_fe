@@ -6,7 +6,6 @@ import { IoChatboxEllipses } from 'react-icons/io5';
 import { FaBarsStaggered } from 'react-icons/fa6';
 
 import Comment from './Comment';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 export default function Episode({ episodes, infor }) {

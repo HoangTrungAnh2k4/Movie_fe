@@ -9,18 +9,34 @@ import { IoSearch } from 'react-icons/io5';
 import { FaBell, FaHeart, FaUser, FaSignOutAlt } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import useSWR from 'swr';
+
+const AUTH_URL = process.env.NEXT_PUBLIC_AUTH_URL;
 
 const Header: React.FC = () => {
     const [scrolled, setScrolled] = useState<boolean>(false);
 
-    const handleLogout = () => {};
+    const fetcher = async (url: string) => {
+        const accessToken = localStorage.getItem('access_token');
+        const res = await fetch(url, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        });
+        return await res.json();
+    };
+    const { data, error, isLoading } = useSWR(`${AUTH_URL}/get_user`, fetcher);
+
+    const handleLogout = () => {
+        localStorage.removeItem('access_token');
+        window.location.href = '/login';
+    };
 
     const items = [
         {
             label: (
                 <div className="mb-4 cursor-text">
-                    <p className="mb-1 text-xs">Chào</p>
-                    <p className="font-semibold text-xs">Hoàng Trung Anh</p>
+                    <p className="mb-1 text-xs">Xin chào</p>
                 </div>
             ),
             key: '0',
@@ -116,27 +132,31 @@ const Header: React.FC = () => {
                     <FaBell className="text-white" />
                 </div>
 
-                {/* <Link
-                    href={'/login'}
-                    className="flex justify-center items-start gap-2 bg-white px-3.5 py-2 rounded-full text-black cursor-pointer cursor-pointer"
-                >
-                    <FaUser />
-                    <p className="font-semibold text-sm">Thành viên</p>
-                </Link> */}
+                {!data?.email && (
+                    <Link
+                        href={'/login'}
+                        className="flex justify-center items-start gap-2 bg-white px-3.5 py-2 rounded-full text-black cursor-pointer cursor-pointer"
+                    >
+                        <FaUser />
+                        <p className="font-semibold text-sm">Thành viên</p>
+                    </Link>
+                )}
 
-                <Dropdown menu={{ items }} trigger={['click']} placement="bottomRight" className="">
-                    <div className="flex items-center cursor-pointer">
-                        <Space>
-                            <Image
-                                src="https://www.rophim.me/images/avatars/pack1/14.jpg"
-                                alt="Movie App Logo"
-                                width={40}
-                                height={40}
-                                className="border-2 border-white rounded-full"
-                            />
-                        </Space>
-                    </div>
-                </Dropdown>
+                {data?.email && (
+                    <Dropdown menu={{ items }} trigger={['click']} placement="bottomRight" className="">
+                        <div className="flex items-center cursor-pointer">
+                            <Space>
+                                <Image
+                                    src="https://www.rophim.me/images/avatars/pack1/14.jpg"
+                                    alt="Movie App Logo"
+                                    width={40}
+                                    height={40}
+                                    className="border-2 border-white rounded-full"
+                                />
+                            </Space>
+                        </div>
+                    </Dropdown>
+                )}
             </div>
         </header>
     );

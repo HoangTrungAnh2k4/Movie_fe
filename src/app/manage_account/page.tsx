@@ -6,6 +6,9 @@ import { useState } from 'react';
 import { FaHeart, FaUser } from 'react-icons/fa';
 import { IoIosClose } from 'react-icons/io';
 import { toast } from 'react-toastify';
+import useSWR from 'swr';
+
+const AUTH_URL = process.env.NEXT_PUBLIC_AUTH_URL;
 
 const arrayMockup = [
     {
@@ -58,9 +61,27 @@ const arrayMockup = [
 export default function ManageAccount() {
     const [activeTab, setActiveTab] = useState<string>('account');
 
+    const fetcher = async (url: string) => {
+        const accessToken = localStorage.getItem('access_token');
+        const res = await fetch(url, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        });
+        return await res.json();
+    };
+    const { data, error, isLoading } = useSWR(`${AUTH_URL}/get_user`, fetcher);
+
     const handleTabClick = (tab: string) => {
         setActiveTab(tab);
     };
+
+    console.log(data, 'data');
+    console.log(error, 'error');
+
+    if (error || data?.message === 'Access_token is expired or invalid') {
+        window.location.href = '/login';
+    }
 
     return (
         <div className="flex gap-6 pt-28 pl-5 text-white">
@@ -97,8 +118,8 @@ export default function ManageAccount() {
                         height={40}
                         className="border-2 border-white rounded-full"
                     />
-                    <p className="mt-4 font-semibold text-sm">Nguyen Van A</p>
-                    <p className="mt-1 text-[#aaaaaa] text-sm">example@gmail.com</p>
+                    <p className="mt-4 font-semibold text-sm">{data?.name}</p>
+                    <p className="mt-1 text-[#aaaaaa] text-sm">{data?.email}</p>
                 </div>
             </div>
 
@@ -150,7 +171,7 @@ export default function ManageAccount() {
                                 <input
                                     type="text"
                                     readOnly
-                                    placeholder="example@gmail.com"
+                                    placeholder={data?.email}
                                     className="px-4 py-2 border-[#ffffff14] border-[1px] rounded-lg outline-none h-fit placeholder:text-white text-sm placeholder:text-sm"
                                 />
 
@@ -158,7 +179,7 @@ export default function ManageAccount() {
                                 <input
                                     type="text"
                                     readOnly
-                                    placeholder="Nguyen Van A"
+                                    placeholder={data?.name}
                                     className="px-4 py-2 border-[#ffffff14] border-[1px] rounded-lg outline-none h-fit placeholder:text-white text-sm placeholder:text-sm"
                                 />
                             </div>
