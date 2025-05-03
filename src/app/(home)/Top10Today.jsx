@@ -42,12 +42,15 @@ export default function Top10Today() {
 
     return (
         <div className="">
-            <div className="gap-6 grid grid-cols-5">
+            <div className="flex lg:flex-none gap-4 lg:grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] mt-4 pt-4 overflow-x-auto">
                 {listMovies?.map((item, index) => (
-                    <div key={index} className="group relative rounded-2xl">
+                    <div
+                        key={index}
+                        className="group relative flex-shrink-0 rounded-2xl w-[160px] sm:w-[250px] lg:w-auto"
+                    >
                         <Link
                             href={`/detail_movie/${item?.movie?.slug}`}
-                            className={`hover:bg-primary block overflow-hidden hover:p-1 cursor-pointer duration-300  rounded-2xl  itemTop10 ${
+                            className={`hover:bg-primary block overflow-hidden hover:p-1 lg:w-auto w-[160px] sm:w-[250px] cursor-pointer duration-300  rounded-2xl  itemTop10 ${
                                 index % 2 != 0 ? 'itemTop10Left' : 'itemTop10Right'
                             } `}
                         >
@@ -56,7 +59,7 @@ export default function Top10Today() {
                                 alt="Movie Poster"
                                 width={400}
                                 height={600}
-                                className={`rounded-xl object-center object-cover aspect-[2/3] ${
+                                className={`rounded-xl object-center object-cover aspect-[2/3] lg:w-auto w-[160px] sm:w-[250px]  ${
                                     index % 2 != 0 ? 'itemTop10Left' : 'itemTop10Right'
                                 }`}
                             />
@@ -67,15 +70,14 @@ export default function Top10Today() {
 
                         <div className="flex items-center gap-2 mt-3">
                             <div
-                                className=""
+                                className="text-3xl sm:text-6xl"
                                 style={{
                                     background: 'linear-gradient(39deg, rgba(254, 207, 89, 1), rgba(255, 241, 204, 1))',
                                     WebkitBackgroundClip: 'text',
                                     WebkitTextFillColor: 'transparent',
                                     fontStyle: 'italic',
                                     fontWeight: '800',
-                                    fontSize: '4.2em',
-                                    lineHeight: '1',
+
                                     width: '50px',
                                 }}
                             >
@@ -85,8 +87,8 @@ export default function Top10Today() {
                                 <h3 className="font-semibold text-white hover:text-primary text-sm line-clamp-1 duration-300 cursor-pointer">
                                     {item.movie?.name}
                                 </h3>
-                                <h3 className="text-[#aaaaaa] text-xs">{item?.movie?.origin_name}</h3>
-                                <ul className="flex justify-start gap-4 mt-[2px] text-[#aaa]">
+                                <h3 className="text-[#aaaaaa] text-xs line-clamp-1">{item?.movie?.origin_name}</h3>
+                                <ul className="hidden sm:flex justify-start gap-4 mt-[2px] text-[#aaa]">
                                     <li className="text-xs line-clamp-1">{item?.movie?.type}</li>
                                     <li className="text-xs line-clamp-1">{item?.movie?.year}</li>
                                     <li className="text-xs line-clamp-1">{item?.movie?.episode_current}</li>

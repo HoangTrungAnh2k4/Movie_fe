@@ -21,6 +21,17 @@
     }
 }
 
+@media (max-width: 768px) {
+    .custom-toast {
+        font-size: 12px; /* Nhỏ hơn cho mobile */
+        padding: 8px 16px; /* Giảm padding */
+        width: fit-content; /* Chiếm 90% chiều rộng màn hình */
+        margin-bottom: 20px;
+        margin-left: 12px; /* Căn trái */
+        border-radius: 8px; /* Bo tròn góc */
+    }
+}
+
 body {
     background: var(--color-background);
     color: var(--foreground);

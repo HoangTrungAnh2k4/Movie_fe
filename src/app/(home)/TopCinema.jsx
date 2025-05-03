@@ -36,20 +36,20 @@ export default function TopCinema() {
             </div>
         );
     return (
-        <div className="gap-4 grid grid-cols-[repeat(auto-fit,minmax(330px,1fr))]">
+        <div className="flex lg:flex-none gap-4 lg:grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] mt-4 pt-4 overflow-x-auto">
             {listMovies.map((item, index) => (
-                <div key={index} className="group relative rounded-xl">
+                <div key={index} className="group relative w-[160px] sm:w-[250px] lg:w-auto">
                     <Link
                         href={`/detail_movie/${item?.slug}`}
-                        className="block hover:bg-primary hover:p-1 rounded-2xl overflow-hidden duration-300 cursor-pointer"
+                        className="block hover:bg-primary hover:p-1 w-[160px] sm:w-[250px] lg:w-auto overflow-hidden duration-300 cursor-pointer"
                     >
-                        <div className="rounded-xl overflow-hidden">
+                        <div className="rounded-lg overflow-hidden">
                             <Image
                                 src={item?.thumb_url}
                                 alt="Movie Poster"
                                 width={500}
                                 height={200}
-                                className="rounded-xl h-full object-center object-cover aspect-[500/281]"
+                                className="w-[160px] sm:w-[250px] lg:w-auto h-full object-center object-cover aspect-[500/281]"
                             />
                         </div>
 
@@ -57,13 +57,13 @@ export default function TopCinema() {
                         <div className="top-0 left-0 absolute bg-primary opacity-0 group-hover:opacity-15 rounded-xl w-full h-auto aspect-[500/281] transition-all duration-300" />
                     </Link>
 
-                    <div className="z-20 relative flex items-end gap-4 shadow-2xl -mt-[60px] px-6">
+                    <div className="z-20 relative flex items-end gap-4 shadow-2xl mt-4 lg:-mt-[60px] lg:px-6">
                         <Image
                             src={item?.poster_url}
                             alt="Movie Poster"
                             width={400}
                             height={200}
-                            className="border border-[#aaaaaa] rounded-xl w-[80px] h-auto aspect-[100/157]"
+                            className="hidden lg:block border border-[#aaaaaa] rounded-lg w-[80px] h-auto aspect-[100/157]"
                         />
                         <div className="flex flex-col gap-1">
                             <Link
@@ -72,7 +72,7 @@ export default function TopCinema() {
                             >
                                 {item?.name}
                             </Link>
-                            <h3 className="text-[#aaaaaa] text-xs">{item?.origin_name} </h3>
+                            <h3 className="text-[#aaaaaa] text-xs line-clamp-1">{item?.origin_name} </h3>
                             <ul className="flex justify-start gap-4 mt-[2px] text-[#aaa]">
                                 <li className="text-xs line-clamp-1">{item?.movie?.type}</li>
                                 <li className="text-xs line-clamp-1">{item?.movie?.year}</li>

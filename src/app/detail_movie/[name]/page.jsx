@@ -34,7 +34,7 @@ export default function DetailMovie() {
         <div className="">
             {/* banner */}
             <div
-                className="relative inset-0 bg-cover bg-no-repeat bg-center shadow-[inset_150px_0_150px_150px_rgba(0,0,0,0.5)] w-full h-[500px] text-white"
+                className="z-0 relative inset-0 bg-cover bg-no-repeat bg-center shadow-[inset_150px_0_150px_150px_rgba(0,0,0,0.5)] w-full h-[250px] lg:h-[500px] text-white"
                 style={{
                     backgroundImage: `url('${infor?.thumb_url}')`,
                 }}
@@ -50,9 +50,9 @@ export default function DetailMovie() {
             </div>
 
             {/* content */}
-            <div className="flex justify-start text-white">
+            <div className="z-50 relative flex lg:flex-row flex-col justify-start text-white">
                 {/* information */}
-                <div className="py-2 pb-6 w-[30%]">
+                <div className="-mt-20 lg:-mt-0 py-2 pb-6 lg:w-[30%]">
                     <Information infor={infor} />
                 </div>
 

@@ -50,14 +50,17 @@ function Banner() {
 
     return (
         <div
-            className="inset-0 bg-cover bg-no-repeat bg-center shadow-[inset_150px_0_200px_200px_rgba(0,0,0,0.8)] w-full h-[650px] text-white"
+            className="inset-0 bg-cover bg-no-repeat bg-center shadow-[inset_150px_0_200px_200px_rgba(0,0,0,0.8)] w-full h-[400px] lg:h-[650px] text-white"
             style={{
                 backgroundImage: `url(${listMovies[activeMovie]?.thumb_url})`,
             }}
         >
             <div className="flex h-full">
-                <div className="flex flex-col flex-1 justify-center px-8 h-full">
-                    <h1 onClick={moveToDetail} className="font-semibold hover:text-primary text-3xl cursor-pointer">
+                <div className="flex flex-col flex-1 justify-center items-center lg:items-start px-8 h-full">
+                    <h1
+                        onClick={moveToDetail}
+                        className="font-semibold hover:text-primary text-lg lg:text-3xl line-clamp-1 cursor-pointer"
+                    >
                         {listMovies[activeMovie]?.name}
                     </h1>
 
@@ -80,7 +83,7 @@ function Banner() {
                         </li>
                     </ul>
 
-                    <ul className="flex justify-start items-center gap-4 mt-4 text-xs">
+                    <ul className="hidden lg:flex justify-start items-center gap-4 mt-4 text-xs">
                         {listMovies[activeMovie]?.category?.map((item: CategoryItem, index: number) => (
                             <li key={index} className="bg-[#f3f3f310] px-2 py-[2px] pt-[3px] rounded-md text-xs">
                                 {item.name}
@@ -88,14 +91,14 @@ function Banner() {
                         ))}
                     </ul>
 
-                    <p className="mt-8 w-[35%] text-sm line-clamp-3">
+                    <p className="hidden lg:block mt-8 w-[35%] text-sm line-clamp-3">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad unde aut similique veritatis
                         reiciendis quis dignissimos aliquam sit blanditiis explicabo. Consectetur dolore iusto quasi
                         nostrum doloremque minus, inventore ipsa dolorem.
                     </p>
 
-                    <div className="flex justify-between items-center gap-4 mt-16 text-xs">
-                        <div className="flex items-center gap-8">
+                    <div className="flex justify-center lg:justify-between items-center gap-4 mt-6 lg:mt-16 w-full text-xs">
+                        <div className="hidden lg:flex items-center gap-8">
                             <button
                                 onClick={moveToDetail}
                                 className="flex justify-center items-center bg-gradient-to-tr from-yellow-400 to-yellow-50 hover:shadow-[0_5px_10px_10px_rgba(255,218,125,0.15)] rounded-full size-[70px] text-black cursor-pointer"
@@ -121,11 +124,11 @@ function Banner() {
                                         key={index}
                                         className={`${
                                             activeMovie === index ? 'border-[3px] border-white' : 'border-0'
-                                        } w-[80px]`}
+                                        } lg:w-[80px] w-[40px] rounded-full lg:rounded-none overflow-hidden `}
                                         onClick={() => setActiveMovie(index)}
                                     >
                                         <Image
-                                            className="object-center object-cover aspect-[25/14] cursor-pointer"
+                                            className="object-center object-cover aspect-1/1 lg:aspect-[25/14] cursor-pointer"
                                             src={item.thumb_url}
                                             width={80}
                                             height={80}

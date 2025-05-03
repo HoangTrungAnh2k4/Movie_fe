@@ -38,19 +38,19 @@ export default function ListTypeRetangle() {
 
     return (
         <div className="">
-            <div className="gap-6 grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))]">
+            <div className="flex lg:flex-none gap-4 lg:grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] mt-4 pt-4 overflow-x-auto">
                 {listMovies.map((item, index) => (
-                    <div key={index} className="group relative rounded-2xl">
+                    <div key={index} className="group relative rounded-2xl w-[160px] sm:w-[250px] lg:w-auto">
                         <Link
                             href={`/detail_movie/${item?.slug}`}
-                            className="block hover:bg-primary hover:p-1 rounded-2xl overflow-hidden duration-300 cursor-pointer"
+                            className="block hover:bg-primary hover:p-1 rounded-2xl w-[160px] sm:w-[250px] lg:w-auto overflow-hidden duration-300 cursor-pointer"
                         >
                             <Image
                                 src={item?.poster_url}
                                 alt="Movie Poster"
                                 width={400}
                                 height={600}
-                                className="rounded-xl aspect-[300/450]"
+                                className="rounded-xl w-[160px] sm:w-[250px] lg:w-auto aspect-[300/450]"
                             />
 
                             {/* lớp phủ */}
@@ -64,7 +64,7 @@ export default function ListTypeRetangle() {
                             >
                                 {item?.name}
                             </Link>
-                            <h4 className="text-[#aaaaaa] text-xs">{item?.origin_name}</h4>
+                            <h4 className="text-[#aaaaaa] text-xs line-clamp-1">{item?.origin_name}</h4>
                         </div>
                     </div>
                 ))}

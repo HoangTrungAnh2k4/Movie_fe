@@ -37,14 +37,14 @@ export default function Home() {
             <div
                 className={`${
                     isLoading ? 'opacity-30 pointer-events-none' : 'opacity-100'
-                } bg-background mx-auto px-8 pb-20 w-full max-w-[1600px] text-white transition-opacity`}
+                } bg-background mx-auto lg:px-8 px-4   pb-20 w-full max-w-[1600px] text-white transition-opacity`}
             >
-                <div className="-mx-8">
+                <div className="-mx-4 lg:-mx-8">
                     <Banner moveToDetail={moveToDetail} />
                 </div>
 
                 {/* Lớp phủ để che ranh giới của banner với phần còn lại */}
-                <div className="bg-[linear-gradient(to_top,_#191b24_30%,_transparent_100%)] -mx-8 -mt-26 h-36"></div>
+                <div className="bg-[linear-gradient(to_top,_#191b24_30%,_transparent_100%)] -mx-4 lg:-mx-8 -mt-26 h-36"></div>
 
                 <div className="z-40 relative -mt-20">
                     <h4 className="mb-6 font-semibold text-2xl">Bạn đang quan tâm gì?</h4>
@@ -52,7 +52,7 @@ export default function Home() {
                     <TypeList />
                 </div>
 
-                <div className="mt-20">
+                <div className="mt-12 lg:mt-20">
                     <Poster30_4 />
                 </div>
 
@@ -60,13 +60,13 @@ export default function Home() {
                     <TopTrending moveToDetail={moveToDetail} />
                 </div>
 
-                <div className="mt-16">
+                <div className="mt-12 lg:mt-16">
                     <h4 className="mb-6 font-semibold text-2xl">Top 5 phim bộ hôm nay</h4>
 
                     <Top10Today moveToDetail={moveToDetail} />
                 </div>
 
-                <div className="mt-20">
+                <div className="mt-12 lg:mt-20">
                     <div className="flex items-center gap-6 mb-6">
                         <h4 className="font-semibold text-2xl">Mãn nhãn với phim chiếu rạp</h4>
                         <div className="group flex justify-center items-center gap-2 mt-0.5 p-1 border border-[#fff6] rounded-full w-8 hover:w-28 overflow-hidden hover:text-primary transition-all duration-300 cursor-pointer">
@@ -80,7 +80,7 @@ export default function Home() {
                     <TopCinema moveToDetail={moveToDetail} />
                 </div>
 
-                <div className="mt-20">
+                <div className="mt-12 lg:mt-20">
                     <div className="flex items-center gap-6 mb-6">
                         <h4 className="font-semibold text-2xl">Phim điện ảnh mới coóng</h4>
                         <div className="group flex justify-center items-center gap-2 mt-0.5 p-1 border border-[#fff6] rounded-full w-8 hover:w-28 overflow-hidden hover:text-primary transition-all duration-300 cursor-pointer">
@@ -94,7 +94,7 @@ export default function Home() {
                     <ListTypeRetangle moveToDetail={moveToDetail} />
                 </div>
 
-                <div className="mt-20">
+                <div className="lg:-mx-0 mt-12 lg:mt-20">
                     <ListCountryMovie moveToDetail={moveToDetail} />
                 </div>
             </div>

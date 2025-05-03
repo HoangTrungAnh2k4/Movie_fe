@@ -19,10 +19,10 @@ export default function Episode({ episodes, infor }) {
 
     return (
         <div className="p-4">
-            <div className="flex justify-start items-center gap-12">
+            <div className="flex lg:flex-row flex-col justify-start items-center gap-6 lg:gap-12">
                 <div
                     onClick={MoveToWatch}
-                    className="flex items-center gap-4 hover:shadow-[0_5px_10px_10px_rgba(255,218,125,0.15)] px-8 py-3.5 rounded-full font-semibold text-black text-lg cursor-pointer"
+                    className="flex items-center gap-4 hover:shadow-[0_5px_10px_10px_rgba(255,218,125,0.15)] px-18 lg:px-8 py-2.5 lg:py-3.5 rounded-full font-semibold text-black text-lg cursor-pointer"
                     style={{
                         background: 'linear-gradient(39deg, rgba(254, 207, 89, 1), rgba(255, 241, 204, 1))',
                     }}
@@ -31,23 +31,25 @@ export default function Episode({ episodes, infor }) {
                     <p>Xem ngay</p>
                 </div>
 
-                <div className="group justify-items-center hover:bg-[#ffffff10] ml-24 px-4 py-2 rounded-xl cursor-pointer">
-                    <FaHeart className="group-hover:text-yellow-500 text-xl" />
-                    <p className="mt-2 text-xs">Yêu thích</p>
-                </div>
+                <ul className="flex justify-center items-center gap-4">
+                    <div className="group justify-items-center hover:bg-[#ffffff10] lg:ml-24 px-4 py-2 rounded-xl cursor-pointer">
+                        <FaHeart className="group-hover:text-yellow-500 text-xl" />
+                        <p className="mt-2 text-xs">Yêu thích</p>
+                    </div>
 
-                <div className="group justify-items-center hover:bg-[#ffffff10] px-4 py-2 rounded-xl cursor-pointer">
-                    <PiPaperPlaneTiltFill className="group-hover:text-yellow-500 text-xl" />
-                    <p className="mt-2 text-xs">Chia sẻ</p>
-                </div>
+                    <div className="group justify-items-center hover:bg-[#ffffff10] px-4 py-2 rounded-xl cursor-pointer">
+                        <IoChatboxEllipses className="group-hover:text-yellow-500 text-xl" />
+                        <p className="mt-2 text-xs">Bình luận</p>
+                    </div>
 
-                <div className="group justify-items-center hover:bg-[#ffffff10] px-4 py-2 rounded-xl cursor-pointer">
-                    <IoChatboxEllipses className="group-hover:text-yellow-500 text-xl" />
-                    <p className="mt-2 text-xs">Bình luận</p>
-                </div>
+                    <div className="group justify-items-center hover:bg-[#ffffff10] px-4 py-2 rounded-xl cursor-pointer">
+                        <PiPaperPlaneTiltFill className="group-hover:text-yellow-500 text-xl" />
+                        <p className="mt-2 text-xs">Chia sẻ</p>
+                    </div>
+                </ul>
             </div>
 
-            <div className="mt-12">
+            <div className="mt-6 lg:mt-12">
                 <ul className="flex items-center gap-12 border-[#ffffff10] border-b-2 text-sm">
                     <li className="px-2 pt-2 pb-2 border-primary border-b-2 text-primary cursor-pointer">Tập phim</li>
                 </ul>
@@ -74,7 +76,7 @@ export default function Episode({ episodes, infor }) {
                         </div>
                     </div>
 
-                    <div className="gap-4 grid grid-cols-[repeat(auto-fit,minmax(130px,1fr))] mt-6">
+                    <div className="gap-4 grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))] mt-6">
                         {episodes?.map((item, index) => (
                             <div
                                 onClick={MoveToWatch}

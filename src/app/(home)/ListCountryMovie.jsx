@@ -54,11 +54,11 @@ export default function ListCountryMovie({ moveToDetail }) {
         );
 
     return (
-        <div className="bg-gradient-to-b from-background2 to-background p-8 rounded-xl">
-            <div className="flex mb-8">
-                <div className="flex flex-col flex-shink-0 gap-2 text-wrap">
+        <div className="bg-gradient-to-b from-background2 to-background p-6 lg:p-8 rounded-xl">
+            <div className="flex lg:flex-row flex-col mb-8">
+                <div className="flex flex-row lg:flex-col flex-shink-0 justify-between lg:justify-start gap-2 lg:w-[15%] text-wrap">
                     <h3
-                        className="w-[200px] font-semibold text-[1.8em] text-gradient"
+                        className="w-[200px] font-semibold text-gradient lg:text-[1.8em] text-xl"
                         style={{
                             background: 'linear-gradient(235deg, rgb(255, 255, 255) 30%, rgb(103, 65, 150) 130%)',
                             WebkitBackgroundClip: 'text',
@@ -75,44 +75,46 @@ export default function ListCountryMovie({ moveToDetail }) {
                     </div>
                 </div>
 
-                <div className="flex-grow gap-6 grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))]">
+                <div className="flex lg:flex-none gap-3 lg:gap-6 lg:grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] mt-4 lg:mt-0 lg:w-[85%] overflow-x-auto">
                     {listMovies1.map((item, index) => (
-                        <div key={index} className="group relative rounded-xl">
-                            <Link
-                                href={`/detail_movie/${item?.movie?.slug}`}
-                                className="group bg-primary rounded-xl overflow-hidden cursor-pointer"
-                            >
+                        <Link
+                            href={`/detail_movie/${item?.movie?.slug}`}
+                            key={index}
+                            className="group relative rounded-xl w-[160px] sm:w-[250px] lg:w-auto"
+                        >
+                            <div className="group bg-primary rounded-xl w-[160px] sm:w-[250px] lg:w-auto overflow-hidden cursor-pointer">
                                 <div className="rounded-xl overflow-hidden">
                                     <Image
                                         src={item?.movie?.thumb_url}
                                         alt="Movie Poster"
                                         width={400}
                                         height={200}
-                                        className="rounded-xl aspect-[500/281] group-hover:scale-x-[98%] group-hover:scale-y-[96%] transition-transform duration-300"
+                                        className="rounded-xl w-[160px] sm:w-[250px] lg:w-auto aspect-[500/281] group-hover:scale-x-[98%] group-hover:scale-y-[96%] transition-transform duration-300"
                                     />
                                 </div>
 
                                 {/* lớp phủ */}
                                 <div className="top-0 left-0 absolute bg-primary opacity-0 group-hover:opacity-15 rounded-xl w-full h-auto aspect-[500/281] transition-all duration-300" />
-                            </Link>
+                            </div>
 
-                            <div className="flex flex-col gap-2 mt-2 pl-4">
+                            <div className="flex flex-col gap-2 mt-2 lg:pl-4">
                                 <h3
                                     onClick={() => moveToDetail(item?.movie?.slug)}
-                                    className="font-semibold text-white hover:text-primary text-sm duration-300 cursor-pointer"
+                                    className="font-semibold text-white hover:text-primary text-sm line-clamp-1 duration-300 cursor-pointer"
                                 >
                                     {item?.movie.name}
                                 </h3>
-                                <h3 className="text-[#aaaaaa] text-xs">{item?.movie?.origin_name}</h3>
+                                <h3 className="text-[#aaaaaa] text-xs line-clamp-1">{item?.movie?.origin_name}</h3>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
             </div>
-            <div className="flex mb-8">
-                <div className="flex flex-col flex-shink-0 gap-2 text-wrap">
+
+            <div className="flex lg:flex-row flex-col mb-8">
+                <div className="flex flex-row lg:flex-col flex-shink-0 justify-between lg:justify-start gap-2 lg:w-[15%] text-wrap">
                     <h3
-                        className="w-[200px] font-semibold text-[1.8em] text-gradient"
+                        className="w-[200px] font-semibold text-gradient lg:text-[1.8em] text-xl"
                         style={{
                             background: 'linear-gradient(235deg, rgb(255, 255, 255) 30%, rgb(247, 161, 11) 130%)',
                             WebkitBackgroundClip: 'text',
@@ -129,21 +131,21 @@ export default function ListCountryMovie({ moveToDetail }) {
                     </div>
                 </div>
 
-                <div className="flex-grow gap-6 grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))]">
-                    {listMovies2.map((item, index) => (
+                <div className="flex lg:flex-none gap-3 lg:gap-6 lg:grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] mt-4 lg:mt-0 lg:w-[85%] overflow-x-auto">
+                    {listMovies1.map((item, index) => (
                         <Link
                             href={`/detail_movie/${item?.movie?.slug}`}
                             key={index}
-                            className="group relative rounded-xl"
+                            className="group relative rounded-xl w-[160px] sm:w-[250px] lg:w-auto"
                         >
-                            <div className="group bg-primary rounded-xl overflow-hidden cursor-pointer">
+                            <div className="group bg-primary rounded-xl w-[160px] sm:w-[250px] lg:w-auto overflow-hidden cursor-pointer">
                                 <div className="rounded-xl overflow-hidden">
                                     <Image
                                         src={item?.movie?.thumb_url}
                                         alt="Movie Poster"
                                         width={400}
                                         height={200}
-                                        className="rounded-xl aspect-[500/281] group-hover:scale-x-[98%] group-hover:scale-y-[96%] transition-transform duration-300"
+                                        className="rounded-xl w-[160px] sm:w-[250px] lg:w-auto aspect-[500/281] group-hover:scale-x-[98%] group-hover:scale-y-[96%] transition-transform duration-300"
                                     />
                                 </div>
 
@@ -151,30 +153,31 @@ export default function ListCountryMovie({ moveToDetail }) {
                                 <div className="top-0 left-0 absolute bg-primary opacity-0 group-hover:opacity-15 rounded-xl w-full h-auto aspect-[500/281] transition-all duration-300" />
                             </div>
 
-                            <div className="flex flex-col gap-2 mt-2 pl-4">
+                            <div className="flex flex-col gap-2 mt-2 lg:pl-4">
                                 <h3
                                     onClick={() => moveToDetail(item?.movie?.slug)}
-                                    className="font-semibold text-white hover:text-primary text-sm duration-300 cursor-pointer"
+                                    className="font-semibold text-white hover:text-primary text-sm line-clamp-1 duration-300 cursor-pointer"
                                 >
                                     {item?.movie.name}
                                 </h3>
-                                <h3 className="text-[#aaaaaa] text-xs">{item?.movie?.origin_name}</h3>
+                                <h3 className="text-[#aaaaaa] text-xs line-clamp-1">{item?.movie?.origin_name}</h3>
                             </div>
                         </Link>
                     ))}
                 </div>
             </div>
-            <div className="flex mb-6">
-                <div className="flex flex-col flex-shink-0 gap-2 text-wrap">
+
+            <div className="flex lg:flex-row flex-col mb-8">
+                <div className="flex flex-row lg:flex-col flex-shink-0 justify-between lg:justify-start gap-2 lg:w-[15%] text-wrap">
                     <h3
-                        className="w-[200px] font-semibold text-[1.8em] text-gradient"
+                        className="w-[200px] font-semibold text-gradient lg:text-[1.8em] text-xl"
                         style={{
                             background: 'linear-gradient(235deg, rgb(255, 255, 255) 30%, rgb(255, 0, 153) 130%)',
-                            WebkitBackgroundClip: 'text',
                             WebkitTextFillColor: 'transparent',
+                            WebkitBackgroundClip: 'text',
                         }}
                     >
-                        Phim US-UK mới
+                        Phim US-UK Mới
                     </h3>
                     <div className="flex items-center gap-2 hover:text-primary cursor-pointer">
                         <Link href={'/list_movie'} className="text-xs">
@@ -184,37 +187,38 @@ export default function ListCountryMovie({ moveToDetail }) {
                     </div>
                 </div>
 
-                <div className="flex-grow gap-6 grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))]">
-                    {listMovies3.map((item, index) => (
-                        <div key={index} className="group relative rounded-xl">
-                            <Link
-                                href={`/detail_movie/${item?.movie?.slug}`}
-                                className="group bg-primary rounded-xl overflow-hidden cursor-pointer"
-                            >
+                <div className="flex lg:flex-none gap-3 lg:gap-6 lg:grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] mt-4 lg:mt-0 lg:w-[85%] overflow-x-auto">
+                    {listMovies1.map((item, index) => (
+                        <Link
+                            href={`/detail_movie/${item?.movie?.slug}`}
+                            key={index}
+                            className="group relative rounded-xl w-[160px] sm:w-[250px] lg:w-auto"
+                        >
+                            <div className="group bg-primary rounded-xl w-[160px] sm:w-[250px] lg:w-auto overflow-hidden cursor-pointer">
                                 <div className="rounded-xl overflow-hidden">
                                     <Image
                                         src={item?.movie?.thumb_url}
                                         alt="Movie Poster"
                                         width={400}
                                         height={200}
-                                        className="rounded-xl aspect-[500/281] group-hover:scale-x-[98%] group-hover:scale-y-[96%] transition-transform duration-300"
+                                        className="rounded-xl w-[160px] sm:w-[250px] lg:w-auto aspect-[500/281] group-hover:scale-x-[98%] group-hover:scale-y-[96%] transition-transform duration-300"
                                     />
                                 </div>
 
                                 {/* lớp phủ */}
                                 <div className="top-0 left-0 absolute bg-primary opacity-0 group-hover:opacity-15 rounded-xl w-full h-auto aspect-[500/281] transition-all duration-300" />
-                            </Link>
+                            </div>
 
-                            <div className="flex flex-col gap-2 mt-2 pl-4">
+                            <div className="flex flex-col gap-2 mt-2 lg:pl-4">
                                 <h3
                                     onClick={() => moveToDetail(item?.movie?.slug)}
-                                    className="font-semibold text-white hover:text-primary text-sm duration-300 cursor-pointer"
+                                    className="font-semibold text-white hover:text-primary text-sm line-clamp-1 duration-300 cursor-pointer"
                                 >
                                     {item?.movie.name}
                                 </h3>
-                                <h3 className="text-[#aaaaaa] text-xs">{item?.movie?.origin_name}</h3>
+                                <h3 className="text-[#aaaaaa] text-xs line-clamp-1">{item?.movie?.origin_name}</h3>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
             </div>

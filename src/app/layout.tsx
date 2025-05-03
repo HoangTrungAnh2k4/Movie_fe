@@ -32,7 +32,7 @@ export default function RootLayout({
                 {children}
                 <Footer />
                 {/* Toastify */}
-                <ToastContainer autoClose={1500} />
+                <ToastContainer autoClose={1500} position="bottom-left" toastClassName="custom-toast" />
             </body>
         </html>
     );

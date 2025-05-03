@@ -4,8 +4,8 @@ import { RiNextjsFill } from 'react-icons/ri';
 
 export default function Footer() {
     return (
-        <div className="flex bg-headerColor px-16 py-8 text-white">
-            <div className="flex flex-col items-start gap-6 w-1/2">
+        <div className="flex lg:flex-row flex-col items-center lg:items-start bg-headerColor px-8 lg:px-16 py-8 w-full text-white">
+            <div className="flex flex-col items-center lg:items-start gap-6 w-full lg:w-1/2">
                 <div className="flex items-center gap-2 bg-[#78140f] px-3 py-2 rounded-full w-fit">
                     <Image
                         src="https://www.rophim.me/images/vn_flag.svg"
@@ -30,9 +30,9 @@ export default function Footer() {
                 </p>
             </div>
 
-            <h3 className="mb-4 font-bold text-lg">Technologies Used:</h3>
+            <h3 className="hidden lg:block mt-6 lg:mt-0 mb-4 font-bold text-lg">Technologies Used:</h3>
 
-            <ul className="flex flex-col items-start gap-4 pl-16">
+            <ul className="flex flex-row lg:flex-col justify-start items-center lg:items-start gap-4 mt-4 lg:pl-16">
                 <li className="flex items-center gap-2">
                     <RiNextjsFill className="text-4xl" />
                     <p className="font-semibold text-white">Nextjs</p>

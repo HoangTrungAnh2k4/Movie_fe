@@ -3,7 +3,7 @@ import { FaArrowRight } from 'react-icons/fa6';
 
 export default function Poster30_4() {
     return (
-        <div className="flex justify-between bg-[#fedaa8] px-12 rounded-xl w-full h-[350px]">
+        <div className="hidden sm:flex justify-between bg-[#fedaa8] px-12 rounded-xl w-full h-[350px]">
             <div className="flex">
                 <Image
                     src="https://www.rophim.me/images/event_304/hero.webp"

@@ -36,9 +36,9 @@ export default function TopTrending() {
         );
 
     return (
-        <div className="flex bg-transparent border border-[#fff2] rounded-xl">
+        <div className="hidden lg:flex bg-transparent border border-[#fff2] rounded-xl">
             {/* left col */}
-            <div className="flex-1 py-6 pl-16 border-[#fff2] border-r h-full">
+            <div className="flex-1 py-6 pl-6 lg:pl-16 border-[#fff2] border-r h-full">
                 <div className="flex items-center gap-4">
                     <BiSolidMovie className="text-primary text-2xl" />
                     <h4 className="font-semibold"> SÔI NỔI NHẤT</h4>
@@ -67,7 +67,7 @@ export default function TopTrending() {
             </div>
 
             {/* right col */}
-            <div className="flex-1 py-6 pl-16 h-full">
+            <div className="flex-1 py-6 pl-6 lg:pl-16 h-full">
                 <div className="flex items-center gap-4">
                     <FaHeartCircleCheck className="text-primary text-2xl" />
                     <h4 className="font-semibold"> YÊU THÍCH NHẤT</h4>

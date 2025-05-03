@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 import { Dropdown, Space } from 'antd';
 
-import { IoSearch } from 'react-icons/io5';
+import { IoSearch, IoMenuOutline } from 'react-icons/io5';
 import { FaBell, FaHeart, FaUser, FaSignOutAlt } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
@@ -92,30 +92,39 @@ const Header: React.FC = () => {
 
     return (
         <header
-            className="z-50 fixed flex items-center px-4 py-6 pr-6 w-full h-[70px] text-white transition-all header"
+            className="z-50 fixed flex justify-start items-center px-4 py-6 pr-6 w-full h-[70px] text-white transition-all header"
             style={{
                 backgroundColor: scrolled ? '#0F111A' : 'transparent',
                 willChange: 'background-color',
             }}
         >
+            <div className="sm:hidden flex justify-center items-center mr-4 text-4xl">
+                <IoMenuOutline />
+            </div>
+
             <Link href={'/'} className="flex justify-center items-center gap-2 logo">
                 <Image src="/ro-icon.svg" alt="Movie App Logo" width={40} height={40} />
                 <p className="font-bold text-xl">Movie App</p>
             </Link>
 
-            <div className="flex justify-start items-center gap-3 bg-[#ffffff14] ml-6 px-4 py-2 rounded-lg w-[25%] h-fit">
-                <IoSearch className="font-semibold text-xl" />
+            <div className="flex justify-start items-center gap-3 lg:bg-[#ffffff14] ml-auto lg:ml-6 px-2 lg:px-4 py-2 rounded-lg lg:w-[25%] h-fit">
+                <IoSearch
+                    onClick={() => {
+                        toast.warning('Chức năng đang được phát triển');
+                    }}
+                    className="font-semibold sm:text-xl text-2xl"
+                />
                 <input
                     type="text"
                     placeholder="Search for movies..."
                     onClick={() => {
                         toast.warning('Chức năng đang được phát triển');
                     }}
-                    className="bg-transparent py-1 outline-none focus:outline-none w-full text-white placeholder:text-[#aaaaaa] text-sm placeholder:text-sm"
+                    className="hidden lg:block bg-transparent py-1 outline-none focus:outline-none w-full text-white placeholder:text-[#aaaaaa] text-sm placeholder:text-sm"
                 />
             </div>
 
-            <ul className="flex justify-center items-center gap-3 ml-16 text-sm">
+            <ul className="hidden sm:flex justify-center items-center gap-3 ml-16 text-sm">
                 <li className="px-3 py-1 hover:text-primary">
                     <Link href="/list_movie">Chủ Đề</Link>
                 </li>
@@ -127,7 +136,7 @@ const Header: React.FC = () => {
                 </li>
             </ul>
 
-            <div className="flex justify-center items-center gap-4 ml-auto">
+            <div className="hidden sm:flex justify-center items-center gap-4 ml-auto">
                 <div className="flex justify-center items-center border rounded-full size-[40px]">
                     <FaBell className="text-white" />
                 </div>
