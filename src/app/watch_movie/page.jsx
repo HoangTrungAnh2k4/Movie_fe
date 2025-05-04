@@ -36,12 +36,12 @@ export default function WatchMovie() {
             </h3>
             <WatchMovieComponent url={'https://youtu.be/LXb3EKWsInQ?si=4VlSzf0Wgn4nbIgm'} />
 
-            <div className="flex mt-12 px-8">
+            <div className="flex lg:flex-row flex-col mt-12 px-8">
                 {/* col left */}
-                <div className="pr-6 border-[#ffffff10] border-r-2 w-[70%]">
+                <div className="lg:pr-6 border-[#ffffff10] lg:border-r-2 lg:w-[70%]">
                     <div className="flex items-start gap-8">
                         <Image
-                            className="rounded-lg h-fit object-cover aspect-[2/3]"
+                            className="rounded-lg w-[70px] lg:w-[100px] h-fit object-cover aspect-[2/3]"
                             src={
                                 infor?.poster_url ||
                                 'https://static.nutscdn.com/vimg/300-0/055875f8424f76d54b2a36feaa6edc07.jpg'
@@ -52,7 +52,7 @@ export default function WatchMovie() {
                         />
 
                         <div className="flex-shrink-0">
-                            <h3 className="font-semibold text-xl">{infor?.name}</h3>
+                            <h3 className="font-semibold lg:text-xl">{infor?.name}</h3>
                             <h3 className="mt-3 text-primary text-sm">{infor?.origin_name}</h3>
                             <ul className="flex justify-start items-center gap-4 mt-4 text-xs">
                                 <li className="bg-gradient-to-bl from-primary to-white px-2 py-[2px] pt-[3px] rounded-md font-semibold text-black">
@@ -67,14 +67,14 @@ export default function WatchMovie() {
                                 </li>
                             </ul>
 
-                            <ul className="flex gap-2 mt-4">
+                            <ul className="hidden lg:block flex gap-2 mt-4">
                                 <li className="bg-[#f3f3f310] px-2 py-1.5 rounded-md text-xs">Hành Động</li>
                                 <li className="bg-[#f3f3f310] px-2 py-1.5 rounded-md text-xs">Hình Sự</li>
                                 <li className="bg-[#f3f3f310] px-2 py-1.5 rounded-md text-xs">Tâm Lý</li>
                             </ul>
                         </div>
 
-                        <p className="text-[#aaaaaa] text-sm">{infor?.content}</p>
+                        <p className="hidden lg:block text-[#aaaaaa] text-sm">{infor?.content}</p>
                     </div>
 
                     <div className="mt-8">
@@ -126,7 +126,7 @@ export default function WatchMovie() {
                 </div>
 
                 {/* col right */}
-                <div className="pl-6 w-[30%]">
+                <div className="hidden lg:block pl-6 :w-[30%]">
                     <h4 className="font-semibold text-xl">Diễn viên</h4>
                     <ul className="flex justify-between -mx-4 mt-6">
                         <li className="justify-items-center w-[33%]">

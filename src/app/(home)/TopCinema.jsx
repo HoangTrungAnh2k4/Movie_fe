@@ -38,20 +38,18 @@ export default function TopCinema() {
     return (
         <div className="flex lg:flex-none gap-4 lg:grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] mt-4 pt-4 overflow-x-auto">
             {listMovies.map((item, index) => (
-                <div key={index} className="group relative w-[160px] sm:w-[250px] lg:w-auto">
+                <div key={index} className="group relative rounded-lg w-[160px] sm:w-[250px] lg:w-auto overflow-hidden">
                     <Link
                         href={`/detail_movie/${item?.slug}`}
                         className="block hover:bg-primary hover:p-1 w-[160px] sm:w-[250px] lg:w-auto overflow-hidden duration-300 cursor-pointer"
                     >
-                        <div className="rounded-lg overflow-hidden">
-                            <Image
-                                src={item?.thumb_url}
-                                alt="Movie Poster"
-                                width={500}
-                                height={200}
-                                className="w-[160px] sm:w-[250px] lg:w-auto h-full object-center object-cover aspect-[500/281]"
-                            />
-                        </div>
+                        <Image
+                            src={item?.thumb_url}
+                            alt="Movie Poster"
+                            width={500}
+                            height={200}
+                            className="rounded-lg w-[160px] sm:w-[250px] lg:w-auto h-full object-center object-cover aspect-[500/281]"
+                        />
 
                         {/* lớp phủ */}
                         <div className="top-0 left-0 absolute bg-primary opacity-0 group-hover:opacity-15 rounded-xl w-full h-auto aspect-[500/281] transition-all duration-300" />

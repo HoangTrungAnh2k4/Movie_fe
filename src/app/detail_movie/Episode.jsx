@@ -77,16 +77,17 @@ export default function Episode({ episodes, infor }) {
                     </div>
 
                     <div className="gap-4 grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))] mt-6">
-                        {episodes?.map((item, index) => (
-                            <div
-                                onClick={MoveToWatch}
-                                key={index}
-                                className="flex justify-center items-center gap-4 bg-[#ffffff10] px-4 rounded-lg h-[50px] hover:text-primary text-sm cursor-pointer"
-                            >
-                                <FaPlay />
-                                <p>Tập {index + 1}</p>
-                            </div>
-                        ))}
+                        {Array.isArray(episodes) &&
+                            episodes?.map((item, index) => (
+                                <div
+                                    onClick={MoveToWatch}
+                                    key={index}
+                                    className="flex justify-center items-center gap-4 bg-[#ffffff10] px-4 rounded-lg h-[50px] hover:text-primary text-sm cursor-pointer"
+                                >
+                                    <FaPlay />
+                                    <p>Tập {index + 1}</p>
+                                </div>
+                            ))}
                     </div>
                 </div>
 

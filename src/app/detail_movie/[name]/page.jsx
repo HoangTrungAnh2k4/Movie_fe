@@ -22,16 +22,25 @@ export default function DetailMovie() {
         }
     }, [data]);
 
+    if (data?.status === false) {
+        return (
+            <div className="flex flex-col justify-center items-center gap-4 bg-background px-4 h-screen text-center">
+                <h2 className="font-semibold text-red-500 text-2xl">Bộ phim này đang bị lỗi</h2>
+                <p className="text-red-300 text-lg">Vui lòng xem phim khác</p>
+            </div>
+        );
+    }
+
     if (error) return <div>Failed to load</div>;
     if (isLoading)
         return (
-            <div className="flex justify-center items-center bg-background h-52">
+            <div className="flex justify-center items-center bg-background h-screen">
                 <div className="border-4 border-primary border-t-transparent rounded-full w-16 h-16 animate-spin" />
             </div>
         );
 
     return (
-        <div className="">
+        <div className="min-h-screen">
             {/* banner */}
             <div
                 className="z-0 relative inset-0 bg-cover bg-no-repeat bg-center shadow-[inset_150px_0_150px_150px_rgba(0,0,0,0.5)] w-full h-[250px] lg:h-[500px] text-white"

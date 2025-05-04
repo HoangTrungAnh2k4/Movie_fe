@@ -10,14 +10,14 @@ export default function Poster30_4() {
                     alt="Event Poster"
                     width={300}
                     height={400}
-                    className="top-0 -left-10 z-50 relative w-[350px] h-[350px]"
+                    className="top-0 -left-10 z-30 relative w-[350px] h-[350px]"
                 />
                 <Image
                     src="https://www.rophim.me/images/event_304/vn-flag-full.gif"
                     alt="Event Poster"
                     width={203}
                     height={180}
-                    className="-top-8 -left-86 z-40 relative w-[203px] h-[180px] -rotate-[23deg]"
+                    className="-top-8 -left-86 z-20 relative w-[203px] h-[180px] -rotate-[23deg]"
                 />
             </div>
 
