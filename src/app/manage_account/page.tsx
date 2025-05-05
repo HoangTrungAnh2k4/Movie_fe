@@ -1,86 +1,75 @@
 'use client';
 
+import { useUserStore } from '@/store/userStore';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaHeart, FaUser } from 'react-icons/fa';
 import { IoIosClose } from 'react-icons/io';
 import { toast } from 'react-toastify';
 import useSWR from 'swr';
 
-const AUTH_URL = process.env.NEXT_PUBLIC_AUTH_URL;
-
-const arrayMockup = [
-    {
-        title: 'Người Hùng Yếu Đuối',
-        original_title: 'Weak Hero Class',
-        poster_path: 'https://static.nutscdn.com/vimg/300-0/3ac6b7f3647ae31e17d8f0675a162aa9.png',
-    },
-    {
-        title: 'Chuyện Đời Bác Sĩ Nội Trú',
-        original_title: 'Resident Playbook',
-        poster_path: 'https://static.nutscdn.com/vimg/300-0/055875f8424f76d54b2a36feaa6edc07.jpg',
-    },
-    {
-        title: 'Những Bác Sĩ Tài Hoa',
-        original_title: 'Hospital Playlist',
-        poster_path: 'https://static.nutscdn.com/vimg/300-0/7b26ede67ba7c5b7972ef48262d241e1.jpg',
-    },
-    {
-        title: 'Đội Thiếu Niên Siêu Đẳng',
-        original_title: 'Moving',
-        poster_path: 'https://static.nutscdn.com/vimg/300-0/a89e2320f513f7f6f2386936a9a88067.jpg',
-    },
-    {
-        title: 'Khó Dỗ Dành',
-        original_title: 'The First Frost',
-        poster_path: 'https://static.nutscdn.com/vimg/300-0/09d00ac5a6e7f45516547538b4f0dd78.jpg',
-    },
-    {
-        title: 'Khi Cuộc Đời Cho Bạn Quả Quýt',
-        original_title: 'When Life Gives You Tangerines',
-        poster_path: 'https://static.nutscdn.com/vimg/300-0/f9197908357fe5ff6b4887a2752bf6ef.jpg',
-    },
-    {
-        title: 'Lãng Khách',
-        original_title: 'Vagabond',
-        poster_path: 'https://static.nutscdn.com/vimg/300-0/325393bf9a2208a88571852b3a70887d.jpg',
-    },
-    {
-        title: 'Hoa Của Quỷh',
-        original_title: 'Flower of Evil',
-        poster_path: 'https://static.nutscdn.com/vimg/300-0/4e0858f4df7659e373543a2170be4e2d.jpg',
-    },
-    {
-        title: 'Đêm Kinh Hoàng ở Sở Thú',
-        original_title: 'Night of the Zoopocalypse',
-        poster_path: 'https://static.nutscdn.com/vimg/300-0/4f9cb16b41fe6cece6cb8a958f5e661c.jpg',
-    },
-];
+const USER_URL = process.env.NEXT_PUBLIC_USER_URL;
 
 export default function ManageAccount() {
     const [activeTab, setActiveTab] = useState<string>('account');
 
-    const fetcher = async (url: string) => {
-        const accessToken = localStorage.getItem('access_token');
-        const res = await fetch(url, {
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
-            },
-        });
-        return await res.json();
-    };
-    const { data, error } = useSWR(`${AUTH_URL}/get_user`, fetcher);
+    const { user } = useUserStore();
+
+    const shouldFetch = (user?.favorite ?? []).length > 0;
+    const movieUrls = shouldFetch ? user?.favorite.map((item) => `https://phimapi.com/phim/${item}`) : null;
+
+    const fetcher = (urls: string[]) => Promise.all(urls.map((url) => fetch(url).then((res) => res.json())));
+
+    const { data, error, isLoading } = useSWR(shouldFetch ? movieUrls : null, fetcher);
 
     const handleTabClick = (tab: string) => {
         setActiveTab(tab);
     };
 
-    console.log(data, 'data');
-    console.log(error, 'error');
+    const deleteFavorite = async (nameSlug: string) => {
+        const res = await fetch(`${USER_URL}/delete_favorite`, {
+            method: 'delete',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+            },
+            body: JSON.stringify({
+                favorite: nameSlug,
+            }),
+        });
 
-    if (error || data?.message === 'Access_token is expired or invalid') {
-        window.location.href = '/login';
+        const data = await res.json();
+
+        if (res.ok) {
+            toast.success('Xóa phim khỏi danh sách yêu thích thành công!');
+        } else {
+            if (data?.message === 'Không thể thêm vào danh sách yêu thích.') {
+                toast.error('Phim đã có trong danh sách yêu thích!');
+            }
+        }
+    };
+
+    useEffect(() => {
+        const accessToken = localStorage.getItem('access_token');
+        if (!accessToken) {
+            window.location.href = '/login';
+        }
+    }, [user]);
+
+    if (isLoading) {
+        return (
+            <div className="z-50 fixed inset-0 flex justify-center items-center bg-background">
+                <div className="border-4 border-primary border-t-transparent rounded-full w-16 h-16 animate-spin" />
+            </div>
+        );
+    }
+    if (error) {
+        return (
+            <div className="flex justify-center items-center h-screen font-semibold text-red-700 text-2xl">
+                Error loading data
+            </div>
+        );
     }
 
     return (
@@ -118,8 +107,8 @@ export default function ManageAccount() {
                         height={40}
                         className="border-2 border-white rounded-full"
                     />
-                    <p className="mt-4 font-semibold text-sm">{data?.name}</p>
-                    <p className="mt-1 text-[#aaaaaa] text-sm">{data?.email}</p>
+                    <p className="mt-4 font-semibold text-sm">{user?.name}</p>
+                    <p className="mt-1 text-[#aaaaaa] text-sm">{user?.email}</p>
                 </div>
             </div>
 
@@ -127,36 +116,41 @@ export default function ManageAccount() {
                 <h5 className="font-semibold text-xl">{activeTab === 'favorite' ? 'Yêu thích' : 'Tài khoản'}</h5>
 
                 {activeTab === 'favorite' && (
-                    <div className="gap-6 grid grid-cols-[repeat(auto-fit,minmax(170px,1fr))] mt-6">
-                        {arrayMockup.map((item, index) => (
+                    <div className="flex flex-wrap gap-6 mt-6">
+                        {data?.map((item, index) => (
                             <div key={index} className="group relative mb-2 rounded-2xl">
-                                <div className="hover:bg-primary hover:p-1 rounded-2xl overflow-hidden duration-300 cursor-pointer itemTop10">
+                                <Link
+                                    href={`/detail_movie/${item?.movie?.slug}`}
+                                    className="hover:bg-primary hover:p-1 rounded-2xl overflow-hidden duration-300 cursor-pointer itemTop10"
+                                >
                                     <Image
-                                        src={item.poster_path}
+                                        src={item?.movie?.poster_url}
                                         alt="Movie Poster"
-                                        width={250}
-                                        height={200}
-                                        className="rounded-xl w-full h-auto aspect-[300/450]"
+                                        width={150}
+                                        height={225}
+                                        className="rounded-xl w-[150px] h-auto aspect-[300/450]"
                                     />
 
                                     {/* lớp phủ */}
                                     <div className="top-0 left-0 absolute bg-primary opacity-0 group-hover:opacity-15 rounded-2xl h-auto aspect-[300/450] transition duration-300" />
 
                                     <button
-                                        onClick={() => {
-                                            toast.warning('Chức năng đang được phát triển!');
+                                        onClick={(e) => {
+                                            e.stopPropagation(); // ngăn sự kiện lan ra <Link>
+                                            e.preventDefault();
+                                            deleteFavorite(item?.movie?.slug);
                                         }}
                                         className="top-2 right-2 absolute bg-background2 hover:bg-[#aaaaaa] p-1 rounded-full"
                                     >
                                         <IoIosClose className="text-2xl cursor-pointer" />
                                     </button>
-                                </div>
+                                </Link>
 
                                 <div className="flex flex-col items-center gap-1 mt-3">
                                     <h3 className="hover:text-primary text-sm line-clamp-1 duration-300 cursor-pointer">
-                                        {item.title}
+                                        {item?.movie?.name}
                                     </h3>
-                                    <h4 className="text-[#aaaaaa] text-xs">{item.original_title}</h4>
+                                    <h4 className="text-[#aaaaaa] text-xs">{item?.movie?.origin_name}</h4>
                                 </div>
                             </div>
                         ))}
@@ -171,7 +165,7 @@ export default function ManageAccount() {
                                 <input
                                     type="text"
                                     readOnly
-                                    placeholder={data?.email}
+                                    placeholder={user?.email}
                                     className="px-4 py-2 border-[#ffffff14] border-[1px] rounded-lg outline-none h-fit placeholder:text-white text-sm placeholder:text-sm"
                                 />
 
@@ -179,7 +173,7 @@ export default function ManageAccount() {
                                 <input
                                     type="text"
                                     readOnly
-                                    placeholder={data?.name}
+                                    placeholder={user?.name}
                                     className="px-4 py-2 border-[#ffffff14] border-[1px] rounded-lg outline-none h-fit placeholder:text-white text-sm placeholder:text-sm"
                                 />
                             </div>

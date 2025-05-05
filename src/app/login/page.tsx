@@ -1,11 +1,17 @@
 'use client';
 
+import { useUserStore } from '@/store/userStore';
+import { useRouter } from 'next/navigation';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { toast } from 'react-toastify';
 
 export default function Login() {
     const AUTH_URL = process.env.NEXT_PUBLIC_AUTH_URL;
+
+    const router = useRouter();
+    const { setUser } = useUserStore();
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -31,10 +37,13 @@ export default function Login() {
                 }),
             });
 
+            console.log('login', response);
+
             if (response.ok) {
                 const data = await response.json();
                 localStorage.setItem('access_token', data.access_token);
-                window.location.href = '/';
+                setUser(data.user);
+                router.push('/');
             } else {
                 toast.error('Tên tài khoản hoặc mật khẩu không đúng!');
             }
@@ -45,8 +54,8 @@ export default function Login() {
 
     return (
         <div className="flex justify-center items-center h-screen text-white">
-            <div className="flex bg-[#1e2545] rounded-xl w-[50%] h-[400px]">
-                <div className="w-1/2">
+            <div className="flex bg-[#1e2545] rounded-xl sm:w-[80%] xl:w-[50%] h-[400px]">
+                <div className="hidden sm:block w-1/2">
                     <Image
                         src="https://www.rophim.me/images/rophim-login.jpg"
                         alt="image"
@@ -56,9 +65,9 @@ export default function Login() {
                     />
                 </div>
 
-                <div className="flex flex-col justify-center px-10 w-1/2 i">
+                <div className="flex flex-col justify-center px-10 sm:w-1/2">
                     <h4 className="font-semibold text-lg">Đăng nhập</h4>
-                    <p className="mt-4 text-[#aaaaaa] text-sm">
+                    <p className="flex-shrink-0 mt-4 text-[#aaaaaa] text-sm">
                         Nếu bạn chưa có tài khoản,{' '}
                         <Link href="/register" className="text-primary hover:underline">
                             đăng ký ngay

@@ -6,26 +6,13 @@ import { useRouter } from 'next/navigation';
 import useSWR from 'swr';
 import { useEffect, useState } from 'react';
 
-type CategoryItem = { name: string };
-type ThumbItem = {
-    thumb_url: string;
-    name: string;
-    year: string;
-    time: string;
-    quality: string;
-    category: CategoryItem[];
-    type: string;
-    slug: string;
-    origin_name: string;
-};
-
-function Banner() {
+function Banner({ list_movie, setList_movie }) {
     const router = useRouter();
-    const [activeMovie, setActiveMovie] = useState<number>(0);
+    const [activeMovie, setActiveMovie] = useState(0);
 
-    const [listMovies, setListMovies] = useState<ThumbItem[]>([]);
+    const [listMovies, setListMovies] = useState([]);
 
-    const fetcher = (url: string) => fetch(url).then((res) => res.json());
+    const fetcher = (url) => fetch(url).then((res) => res.json());
     const { data, error, isLoading } = useSWR('https://phimapi.com/danh-sach/phim-moi-cap-nhat-v3?page=1', fetcher);
 
     const moveToDetail = () => {
@@ -34,8 +21,10 @@ function Banner() {
 
     useEffect(() => {
         if (data?.items) {
-            // Lấy 5 thumb_url đầu tiên
+            setList_movie(data.items);
+
             const thumbs = data.items.slice(0, 5);
+
             setListMovies(thumbs);
         }
     }, [data]);
@@ -84,7 +73,7 @@ function Banner() {
                     </ul>
 
                     <ul className="hidden lg:flex justify-start items-center gap-4 mt-4 text-xs">
-                        {listMovies[activeMovie]?.category?.map((item: CategoryItem, index: number) => (
+                        {listMovies[activeMovie]?.category?.map((item, index) => (
                             <li key={index} className="bg-[#f3f3f310] px-2 py-[2px] pt-[3px] rounded-md text-xs">
                                 {item.name}
                             </li>
@@ -118,7 +107,7 @@ function Banner() {
 
                         {/* slider */}
                         <ul className="flex justify-center items-center gap-4">
-                            {listMovies.map((item: ThumbItem, index: number) => {
+                            {listMovies.map((item, index) => {
                                 return (
                                     <li
                                         key={index}

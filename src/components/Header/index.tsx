@@ -5,27 +5,39 @@ import Image from 'next/image';
 
 import { Dropdown, Space } from 'antd';
 
+import { useUserStore } from '@/store/userStore';
+
 import { IoSearch, IoMenuOutline } from 'react-icons/io5';
 import { FaBell, FaHeart, FaUser, FaSignOutAlt } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import useSWR from 'swr';
 
-const AUTH_URL = process.env.NEXT_PUBLIC_AUTH_URL;
+const USER_URL = process.env.NEXT_PUBLIC_USER_URL;
 
 const Header: React.FC = () => {
     const [scrolled, setScrolled] = useState<boolean>(false);
+    const { setUser } = useUserStore();
 
     const fetcher = async (url: string) => {
         const accessToken = localStorage.getItem('access_token');
         const res = await fetch(url, {
             headers: {
-                Authorization: `Bearer ${accessToken}`,
+                authorization: `Bearer ${accessToken}`,
             },
         });
         return await res.json();
     };
-    const { data } = useSWR(`${AUTH_URL}/get_user`, fetcher);
+
+    const { data } = useSWR(`${USER_URL}/get_user`, fetcher, { shouldRetryOnError: false });
+
+    useEffect(() => {
+        if (data?.email) {
+            setUser(data);
+        } else {
+            setUser(null);
+        }
+    }, [data, setUser]);
 
     const handleLogout = () => {
         localStorage.removeItem('access_token');
@@ -92,7 +104,7 @@ const Header: React.FC = () => {
 
     return (
         <header
-            className="z-50 fixed flex justify-start items-center px-4 py-6 pr-6 w-full h-[70px] text-white transition-all header"
+            className="z-[100] fixed flex justify-start items-center px-4 py-6 pr-6 w-full h-[70px] text-white transition-all header"
             style={{
                 backgroundColor: scrolled ? '#0F111A' : 'transparent',
                 willChange: 'background-color',

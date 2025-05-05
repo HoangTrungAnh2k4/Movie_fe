@@ -7,6 +7,9 @@ import { FaBarsStaggered } from 'react-icons/fa6';
 
 import Comment from './Comment';
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
+
+const USER_URL = process.env.NEXT_PUBLIC_USER_URL;
 
 export default function Episode({ episodes, infor }) {
     const router = useRouter();
@@ -17,8 +20,36 @@ export default function Episode({ episodes, infor }) {
         router.push(`/watch_movie`);
     };
 
+    const addFavorite = async () => {
+        if (/\s/.test(infor?.slug)) {
+            toast.error('Tên phim không được chứa khoảng trắng! Vui lòng chọn phim khác!');
+            return;
+        }
+
+        const res = await fetch(`${USER_URL}/add_favorite`, {
+            method: 'put',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+            },
+            body: JSON.stringify({
+                favorite: infor?.slug,
+            }),
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+            toast.success('Thêm vào danh sách yêu thích thành công!');
+        } else {
+            if (data?.message === 'Không thể thêm vào danh sách yêu thích.') {
+                toast.error('Phim đã có trong danh sách yêu thích!');
+            }
+        }
+    };
+
     return (
-        <div className="p-4">
+        <div className="p-4" id="episode-section">
             <div className="flex lg:flex-row flex-col justify-start items-center gap-6 lg:gap-12">
                 <div
                     onClick={MoveToWatch}
@@ -32,12 +63,22 @@ export default function Episode({ episodes, infor }) {
                 </div>
 
                 <ul className="flex justify-center items-center gap-4">
-                    <div className="group justify-items-center hover:bg-[#ffffff10] lg:ml-24 px-4 py-2 rounded-xl cursor-pointer">
+                    <div
+                        onClick={addFavorite}
+                        className="group justify-items-center hover:bg-[#ffffff10] lg:ml-24 px-4 py-2 rounded-xl cursor-pointer"
+                    >
                         <FaHeart className="group-hover:text-yellow-500 text-xl" />
                         <p className="mt-2 text-xs">Yêu thích</p>
                     </div>
 
-                    <div className="group justify-items-center hover:bg-[#ffffff10] px-4 py-2 rounded-xl cursor-pointer">
+                    <div
+                        onClick={() => {
+                            const commentInput = document.querySelector('textarea');
+                            commentInput.focus();
+                            document.getElementById('episode-section').scrollIntoView({ behavior: 'smooth' });
+                        }}
+                        className="group justify-items-center hover:bg-[#ffffff10] px-4 py-2 rounded-xl cursor-pointer"
+                    >
                         <IoChatboxEllipses className="group-hover:text-yellow-500 text-xl" />
                         <p className="mt-2 text-xs">Bình luận</p>
                     </div>
@@ -92,7 +133,7 @@ export default function Episode({ episodes, infor }) {
                 </div>
 
                 <div className="mt-12">
-                    <Comment />
+                    <Comment nameSlug={infor?.slug} />
                 </div>
             </div>
         </div>

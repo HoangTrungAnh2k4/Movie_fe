@@ -1,65 +1,27 @@
-'use client';
-
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import useSWR from 'swr';
 
-export default function Top10Today() {
-    const [listMovies, setListMovies] = useState([]);
-
-    const fetcher = (urls) => Promise.all(urls.map((url) => fetch(url).then((res) => res.json())));
-
-    const movieUrls = [
-        'https://phimapi.com/phim/nguoi-hung-yeu-duoi',
-        'https://phimapi.com/phim/khi-cuoc-doi-cho-ban-qua-quyt',
-        'https://phimapi.com/phim/doi-thieu-nien-sieu-dang',
-        'https://phimapi.com/phim/chuyen-doi-bac-si-noi-tru',
-        'https://phimapi.com/phim/kho-do-danh',
-    ];
-
-    const { data, error, isLoading } = useSWR(movieUrls, fetcher);
-
-    useEffect(() => {
-        if (data) {
-            setListMovies(data);
-        }
-    }, [data]);
-
-    if (error) return <div>Failed to load</div>;
-    if (isLoading)
-        return (
-            <div role="status" className="max-w-sm animate-pulse">
-                <div className="bg-gray-100 dark:bg-gray-700 mb-4 rounded-full w-48 h-2.5"></div>
-                <div className="bg-gray-100 dark:bg-gray-700 mb-2.5 rounded-full max-w-[360px] h-2"></div>
-                <div className="bg-gray-100 dark:bg-gray-700 mb-2.5 rounded-full h-2"></div>
-                <div className="bg-gray-100 dark:bg-gray-700 mb-2.5 rounded-full max-w-[330px] h-2"></div>
-                <div className="bg-gray-100 dark:bg-gray-700 mb-2.5 rounded-full max-w-[300px] h-2"></div>
-                <div className="bg-gray-100 dark:bg-gray-700 rounded-full max-w-[360px] h-2"></div>
-                <span className="sr-only">Loading...</span>
-            </div>
-        );
-
+export default function Top10Today({ list_movie }) {
     return (
         <div className="">
-            <div className="flex lg:flex-none gap-4 lg:grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] mt-4 pt-4 overflow-x-auto">
-                {listMovies?.map((item, index) => (
+            <div className="flex lg:flex-none gap-4 lg:grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] mt-4 pt-4 overflow-x-auto not-scroll">
+                {list_movie?.map((item, index) => (
                     <div
                         key={index}
                         className="group relative flex-shrink-0 rounded-2xl w-[160px] sm:w-[250px] lg:w-auto"
                     >
                         <Link
-                            href={`/detail_movie/${item?.movie?.slug}`}
+                            href={`/detail_movie/${item?.slug}`}
                             className={`hover:bg-primary block overflow-hidden hover:p-1 lg:w-auto w-[160px] sm:w-[250px] cursor-pointer duration-300  rounded-2xl  itemTop10 ${
                                 index % 2 != 0 ? 'itemTop10Left' : 'itemTop10Right'
                             } `}
                         >
                             <Image
-                                src={item?.movie?.poster_url}
+                                src={item?.poster_url}
                                 alt="Movie Poster"
                                 width={400}
                                 height={600}
-                                className={`rounded-xl object-center object-cover aspect-[2/3] lg:w-auto w-[160px] sm:w-[250px]  ${
+                                className={`rounded-xl object-center object-cover aspect-[2/3] lg:w-[400px] w-[160px] sm:w-[250px]  ${
                                     index % 2 != 0 ? 'itemTop10Left' : 'itemTop10Right'
                                 }`}
                             />
@@ -84,14 +46,14 @@ export default function Top10Today() {
                                 {index + 1}
                             </div>
                             <div className="flex flex-col gap-1">
-                                <h3 className="font-semibold text-white hover:text-primary text-sm line-clamp-1 duration-300 cursor-pointer">
-                                    {item.movie?.name}
+                                <h3 className="font-semibold text-white hover:text-primary text-sm lg:text-lg line-clamp-1 duration-300 cursor-pointer">
+                                    {item.name}
                                 </h3>
-                                <h3 className="text-[#aaaaaa] text-xs line-clamp-1">{item?.movie?.origin_name}</h3>
+                                <h3 className="text-[#aaaaaa] text-xs lg:text-sm line-clamp-1">{item?.origin_name}</h3>
                                 <ul className="hidden sm:flex justify-start gap-4 mt-[2px] text-[#aaa]">
-                                    <li className="text-xs line-clamp-1">{item?.movie?.type}</li>
-                                    <li className="text-xs line-clamp-1">{item?.movie?.year}</li>
-                                    <li className="text-xs line-clamp-1">{item?.movie?.episode_current}</li>
+                                    <li className="text-xs line-clamp-1">{item?.type}</li>
+                                    <li className="text-xs line-clamp-1">{item?.year}</li>
+                                    <li className="text-xs line-clamp-1">{item?.episode_current}</li>
                                 </ul>
                             </div>
                         </div>

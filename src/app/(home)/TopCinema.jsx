@@ -1,43 +1,10 @@
-'use client';
-
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import useSWR from 'swr';
 
-export default function TopCinema() {
-    const [listMovies, setListMovies] = useState([]);
-
-    const fetcher = (url) => fetch(url).then((res) => res.json());
-    const { data, error, isLoading } = useSWR(
-        'https://phimapi.com/danh-sach/phim-moi-cap-nhat-v3?page=1&limit=4',
-        fetcher,
-    );
-
-    useEffect(() => {
-        if (data?.items) {
-            // Lấy 5 thumb_url đầu tiên
-            const thumbs = data.items.slice(0, 4);
-            setListMovies(thumbs);
-        }
-    }, [data]);
-
-    if (error) return <div>Failed to load</div>;
-    if (isLoading)
-        return (
-            <div role="status" className="max-w-sm animate-pulse">
-                <div className="bg-gray-100 dark:bg-gray-700 mb-4 rounded-full w-48 h-2.5"></div>
-                <div className="bg-gray-100 dark:bg-gray-700 mb-2.5 rounded-full max-w-[360px] h-2"></div>
-                <div className="bg-gray-100 dark:bg-gray-700 mb-2.5 rounded-full h-2"></div>
-                <div className="bg-gray-100 dark:bg-gray-700 mb-2.5 rounded-full max-w-[330px] h-2"></div>
-                <div className="bg-gray-100 dark:bg-gray-700 mb-2.5 rounded-full max-w-[300px] h-2"></div>
-                <div className="bg-gray-100 dark:bg-gray-700 rounded-full max-w-[360px] h-2"></div>
-                <span className="sr-only">Loading...</span>
-            </div>
-        );
+export default function TopCinema({ list_movie }) {
     return (
-        <div className="flex lg:flex-none gap-4 lg:grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] mt-4 pt-4 overflow-x-auto">
-            {listMovies.map((item, index) => (
+        <div className="flex gap-4 lg:grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] mt-4 pt-4 overflow-x-auto not-scroll">
+            {list_movie?.map((item, index) => (
                 <div key={index} className="group relative rounded-lg w-[160px] sm:w-[250px] lg:w-auto overflow-hidden">
                     <Link
                         href={`/detail_movie/${item?.slug}`}
@@ -66,11 +33,11 @@ export default function TopCinema() {
                         <div className="flex flex-col gap-1">
                             <Link
                                 href={`/detail_movie/${item?.slug}`}
-                                className="font-semibold text-white hover:text-primary text-sm line-clamp-1 duration-300 cursor-pointer"
+                                className="font-semibold text-white hover:text-primary text-sm lg:text-base line-clamp-1 duration-300 cursor-pointer"
                             >
                                 {item?.name}
                             </Link>
-                            <h3 className="text-[#aaaaaa] text-xs line-clamp-1">{item?.origin_name} </h3>
+                            <h3 className="text-[#aaaaaa] text-xs lg:text-sm line-clamp-1">{item?.origin_name} </h3>
                             <ul className="flex justify-start gap-4 mt-[2px] text-[#aaa]">
                                 <li className="text-xs line-clamp-1">{item?.movie?.type}</li>
                                 <li className="text-xs line-clamp-1">{item?.movie?.year}</li>

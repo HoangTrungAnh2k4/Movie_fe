@@ -67,7 +67,7 @@ export default function WatchMovie() {
                                 </li>
                             </ul>
 
-                            <ul className="hidden lg:block flex gap-2 mt-4">
+                            <ul className="hidden lg:flex gap-2 mt-4">
                                 <li className="bg-[#f3f3f310] px-2 py-1.5 rounded-md text-xs">Hành Động</li>
                                 <li className="bg-[#f3f3f310] px-2 py-1.5 rounded-md text-xs">Hình Sự</li>
                                 <li className="bg-[#f3f3f310] px-2 py-1.5 rounded-md text-xs">Tâm Lý</li>

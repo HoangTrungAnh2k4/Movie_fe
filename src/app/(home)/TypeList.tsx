@@ -34,15 +34,15 @@ export default function TypeList() {
         },
     ];
     return (
-        <div className="flex sm:flex-none gap-4 sm:grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] mt-4 pt-4 overflow-x-auto">
+        <div className="flex gap-4 lg:grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] mt-4 pt-4 overflow-x-auto not-scroll">
             {topicList.map((item, index) => (
                 <Link
                     href={'/list_movie'}
                     key={index}
-                    className={`flex hover:-translate-y-3 cursor-pointer duration-300 flex-col justify-center ${item.cssBg} p-4 sm:px-6 px-4 rounded-xl  sm:h-32 h-20 flex-shrink-0 sm:w-auto w-[120px] text-white`}
+                    className={`flex hover:-translate-y-3 cursor-pointer duration-300 flex-col justify-center ${item.cssBg} p-4 lg:px-6 px-4 rounded-xl  lg:h-32 h-20 flex-shrink-0 lg:w-auto w-[120px] text-white`}
                 >
-                    <h2 className="font-bold text-sm sm:text-lg"> {item.name}</h2>
-                    <p className="hidden sm:block mt-2 text-sm">Xem chủ đề</p>
+                    <h2 className="font-bold text-sm lg:text-lg"> {item.name}</h2>
+                    <p className="hidden lg:block mt-2 text-sm">Xem chủ đề</p>
                 </Link>
             ))}
         </div>
