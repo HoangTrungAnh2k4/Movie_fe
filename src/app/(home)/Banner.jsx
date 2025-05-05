@@ -136,8 +136,6 @@ function Banner({ list_movie, setList_movie }) {
                                 <button
                                     onClick={(e) => {
                                         addFavorite(listMovies[activeMovie]?.slug);
-
-                                        e.target.classList.add('text-primary');
                                     }}
                                     className="flex justify-center items-center px-5 py-2 border-[#ffffff10] border-r-2 h-full hover:text-primary cursor-pointer"
                                 >
