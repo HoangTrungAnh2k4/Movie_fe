@@ -91,7 +91,7 @@ export default function Login() {
 
                         <button
                             type="submit"
-                            className="bg-primary hover:opacity-90 mt-6 px-4 py-2 rounded-lg w-full font-medium text-background2 cursor-pointer"
+                            className="bg-primary hover:opacity-90 mt-6 px-4 py-2 rounded-lg w-full font-medium font-semibold text-background2 cursor-pointer"
                         >
                             Đăng nhập
                         </button>

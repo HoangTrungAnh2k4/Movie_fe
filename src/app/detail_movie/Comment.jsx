@@ -1,8 +1,10 @@
 import Image from 'next/image';
 import { IoChatboxEllipses } from 'react-icons/io5';
 import { PiPaperPlaneRightFill } from 'react-icons/pi';
+import { toast } from 'react-toastify';
 import useSWR, { mutate } from 'swr';
 
+const AUTH_URL = process.env.NEXT_PUBLIC_AUTH_URL;
 const USER_URL = process.env.NEXT_PUBLIC_USER_URL;
 
 function Comment({ nameSlug }) {
@@ -17,7 +19,7 @@ function Comment({ nameSlug }) {
         return await res.json();
     };
 
-    const commentApiUrl = `${USER_URL}/get_comment/${nameSlug}`;
+    const commentApiUrl = `${AUTH_URL}/get_comment/${nameSlug}`;
     const { data } = useSWR(commentApiUrl, fetcher);
 
     const handleAddComment = async () => {
@@ -37,10 +39,12 @@ function Comment({ nameSlug }) {
             });
 
             if (res.ok) {
-                const data = await res.json();
-                console.log(data);
                 commentInput.value = '';
                 mutate(commentApiUrl);
+            }
+
+            if (res.status === 401) {
+                toast.error('Bạn cần đăng nhập để bình luận!');
             }
         }
     };

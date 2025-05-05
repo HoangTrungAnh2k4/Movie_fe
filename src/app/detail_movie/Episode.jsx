@@ -8,11 +8,16 @@ import { FaBarsStaggered } from 'react-icons/fa6';
 import Comment from './Comment';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
+import { useUserStore } from '@/store/userStore';
+import { useEffect, useState } from 'react';
 
 const USER_URL = process.env.NEXT_PUBLIC_USER_URL;
 
 export default function Episode({ episodes, infor }) {
+    const [activeFavorite, setActiveFavorite] = useState(false);
     const router = useRouter();
+
+    const { user } = useUserStore();
 
     const MoveToWatch = () => {
         sessionStorage.setItem('watchMovieData1', JSON.stringify(infor));
@@ -39,6 +44,11 @@ export default function Episode({ episodes, infor }) {
 
         const data = await res.json();
 
+        if (res.status === 401) {
+            toast.error('Bạn cần đăng nhập để thêm vào danh sách yêu thích!');
+            return;
+        }
+
         if (res.ok) {
             toast.success('Thêm vào danh sách yêu thích thành công!');
         } else {
@@ -47,6 +57,13 @@ export default function Episode({ episodes, infor }) {
             }
         }
     };
+
+    useEffect(() => {
+        console.log('User:', user);
+        const favoriteMovies = user?.favorite || [];
+        const isFavorite = favoriteMovies.some((movie) => movie === infor?.slug);
+        setActiveFavorite(isFavorite);
+    }, [user, infor]);
 
     return (
         <div className="p-4" id="episode-section">
@@ -67,7 +84,9 @@ export default function Episode({ episodes, infor }) {
                         onClick={addFavorite}
                         className="group justify-items-center hover:bg-[#ffffff10] lg:ml-24 px-4 py-2 rounded-xl cursor-pointer"
                     >
-                        <FaHeart className="group-hover:text-yellow-500 text-xl" />
+                        <FaHeart
+                            className={`group-hover:text-yellow-500 text-xl ${activeFavorite ? 'text-primary' : ''}`}
+                        />
                         <p className="mt-2 text-xs">Yêu thích</p>
                     </div>
 

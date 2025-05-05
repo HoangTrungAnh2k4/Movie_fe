@@ -5,6 +5,10 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import useSWR from 'swr';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import Link from 'next/link';
+
+const USER_URL = process.env.NEXT_PUBLIC_USER_URL;
 
 function Banner({ list_movie, setList_movie }) {
     const router = useRouter();
@@ -17,6 +21,39 @@ function Banner({ list_movie, setList_movie }) {
 
     const moveToDetail = () => {
         router.push(`/detail_movie/${listMovies[activeMovie]?.slug}`);
+    };
+
+    const addFavorite = async (nameSlug) => {
+        if (/\s/.test(nameSlug)) {
+            toast.error('Tên phim không được chứa khoảng trắng! Vui lòng chọn phim khác!');
+            return;
+        }
+
+        const res = await fetch(`${USER_URL}/add_favorite`, {
+            method: 'put',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+            },
+            body: JSON.stringify({
+                favorite: nameSlug,
+            }),
+        });
+
+        const data = await res.json();
+
+        if (res.status === 401) {
+            toast.error('Bạn cần đăng nhập để thêm vào danh sách yêu thích!');
+            return;
+        }
+
+        if (res.ok) {
+            toast.success('Thêm vào danh sách yêu thích thành công!');
+        } else {
+            if (data?.message === 'Không thể thêm vào danh sách yêu thích.') {
+                toast.error('Phim đã có trong danh sách yêu thích!');
+            }
+        }
     };
 
     useEffect(() => {
@@ -96,12 +133,22 @@ function Banner({ list_movie, setList_movie }) {
                             </button>
 
                             <div className="flex items-center border-[#ffffff10] border-2 hover:border-white rounded-full w-fit h-[50px]">
-                                <button className="flex justify-center items-center px-5 py-2 border-[#ffffff10] border-r-2 h-full text-white hover:text-primary cursor-pointer">
+                                <button
+                                    onClick={(e) => {
+                                        addFavorite(listMovies[activeMovie]?.slug);
+
+                                        e.target.classList.add('text-primary');
+                                    }}
+                                    className="flex justify-center items-center px-5 py-2 border-[#ffffff10] border-r-2 h-full hover:text-primary cursor-pointer"
+                                >
                                     <FaHeart className="ml-1 text-xl" />
                                 </button>
-                                <button className="flex justify-center items-center px-5 py-2 h-full text-white hover:text-primary cursor-pointer">
+                                <Link
+                                    href={`/detail_movie/${listMovies[activeMovie]?.slug}`}
+                                    className="flex justify-center items-center px-5 py-2 h-full text-white hover:text-primary cursor-pointer"
+                                >
                                     <FaExclamationCircle className="ml-1 text-2xl rotate-180" />
-                                </button>
+                                </Link>
                             </div>
                         </div>
 

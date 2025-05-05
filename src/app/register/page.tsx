@@ -2,10 +2,12 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 
 export default function Register() {
     const AUTH_URL = process.env.NEXT_PUBLIC_AUTH_URL;
+    const router = useRouter();
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -38,7 +40,7 @@ export default function Register() {
             if (response.ok) {
                 const data = await response.json();
                 localStorage.setItem('access_token', data.access_token);
-                window.location.href = '/login';
+                router.push('/login');
                 toast.success('Đăng ký thành công!');
             } else if (response.status === 409) {
                 toast.error('Email đã tồn tại!');

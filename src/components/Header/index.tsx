@@ -29,7 +29,7 @@ const Header: React.FC = () => {
         return await res.json();
     };
 
-    const { data } = useSWR(`${USER_URL}/get_user`, fetcher, { shouldRetryOnError: false });
+    const { data } = useSWR(`${USER_URL}/get_user`, fetcher);
 
     useEffect(() => {
         if (data?.email) {
@@ -129,7 +129,7 @@ const Header: React.FC = () => {
                 <input
                     type="text"
                     placeholder="Search for movies..."
-                    onClick={() => {
+                    onChange={() => {
                         toast.warning('Chức năng đang được phát triển');
                     }}
                     className="hidden lg:block bg-transparent py-1 outline-none focus:outline-none w-full text-white placeholder:text-[#aaaaaa] text-sm placeholder:text-sm"
@@ -149,7 +149,12 @@ const Header: React.FC = () => {
             </ul>
 
             <div className="hidden sm:flex justify-center items-center gap-4 ml-auto">
-                <div className="flex justify-center items-center border rounded-full size-[40px]">
+                <div
+                    onClick={() => {
+                        toast.success('Bạn không có thông báo nào!');
+                    }}
+                    className="flex justify-center items-center border rounded-full size-[40px]"
+                >
                     <FaBell className="text-white" />
                 </div>
 
