@@ -49,47 +49,63 @@ export default function ListMovie() {
 
             <div
                 ref={filterRef}
-                className="hidden flex-col gap-5 mb-12 py-6 pr-10 border-[#fff3] border-[1px] rounded-xl"
+                className="hidden flex-col gap-5 mb-12 py-6 lg:pr-8 border-[#fff3] border-[1px] rounded-xl lg:;pl-0"
             >
-                <ul className="flex items-start gap-6">
-                    <h4 className="mt-2 mr-2 w-[130px] font-semibold text-sm text-end">Quốc gia: </h4>
-                    <li className="px-3 py-2 border-[#fff3] border-[1px] rounded-lg text-primary text-sm">Tất cả</li>
-                    <li className="opacity-80 px-3 py-2 text-[#fff] hover:text-primary text-sm cursor-pointer">
-                        Hàn Quốc
-                    </li>
-                    <li className="opacity-80 px-3 py-2 text-[#fff] hover:text-primary text-sm cursor-pointer">
-                        Trung Quốc
-                    </li>
-                    <li className="opacity-80 px-3 py-2 text-[#fff] hover:text-primary text-sm cursor-pointer">
-                        Nhật Bản
-                    </li>
-                    <li className="opacity-80 px-3 py-2 text-[#fff] hover:text-primary text-sm cursor-pointer">Mỹ</li>
-                    <li className="opacity-80 px-3 py-2 text-[#fff] hover:text-primary text-sm cursor-pointer">
-                        Việt Nam
-                    </li>
-                    <li className="opacity-80 px-3 py-2 text-[#fff] hover:text-primary text-sm cursor-pointer">
-                        Âu Mỹ
-                    </li>
-                </ul>
-
-                <ul className="flex items-start gap-6">
-                    <h4 className="mt-2 mr-2 w-[130px] font-semibold text-sm text-end">Loại phim: </h4>
-                    <li className="px-3 py-2 border-[#fff3] border-[1px] rounded-lg text-primary text-sm">Tất cả</li>
-                    <li className="opacity-80 px-3 py-2 text-[#fff hover:text-primary text-sm cursor-pointer]">
-                        Phim bộ
-                    </li>
-                    <li className="opacity-80 px-3 py-2 text-[#fff] hover:text-primary text-sm cursor-pointer">
-                        Phim lẻ
-                    </li>
-                </ul>
-
-                <ul className="flex items-start gap-6">
-                    <h4 className="flex-shrink-0 mt-2 mr-2 w-[130px] font-semibold text-sm text-end">Thể loại: </h4>
-                    <ul className="flex flex-wrap items-center gap-x-6 gap-y-2">
+                <ul className="flex items-start gap-2">
+                    <h4 className="flex-shrink-0 mt-2 mr-2 w-[80px] lg:w-[130px] font-semibold text-sm text-end">
+                        Quốc gia:{' '}
+                    </h4>
+                    <ul className="flex flex-wrap items-center gap-y-2">
                         <li className="flex-shrink-0 px-3 py-2 border-[#fff3] border-[1px] rounded-lg text-primary text-sm">
                             Tất cả
                         </li>
-                        <li className="flex-shrink-0 opacity-80 px-3 py-2 text-[#fff] text-sm">Bí ẩn</li>
+                        <li className="opacity-80 px-3 py-2 text-[#fff] hover:text-primary text-sm cursor-pointer">
+                            Hàn Quốc
+                        </li>
+                        <li className="opacity-80 px-3 py-2 text-[#fff] hover:text-primary text-sm cursor-pointer">
+                            Trung Quốc
+                        </li>
+                        <li className="opacity-80 px-3 py-2 text-[#fff] hover:text-primary text-sm cursor-pointer">
+                            Nhật Bản
+                        </li>
+                        <li className="opacity-80 px-3 py-2 text-[#fff] hover:text-primary text-sm cursor-pointer">
+                            Mỹ
+                        </li>
+                        <li className="opacity-80 px-3 py-2 text-[#fff] hover:text-primary text-sm cursor-pointer">
+                            Việt Nam
+                        </li>
+                        <li className="opacity-80 px-3 py-2 text-[#fff] hover:text-primary text-sm cursor-pointer">
+                            Âu Mỹ
+                        </li>
+                    </ul>
+                </ul>
+
+                <ul className="flex items-start gap-2">
+                    <h4 className="flex-shrink-0 mt-2 mr-2 w-[80px] lg:w-[130px] font-semibold text-sm text-end">
+                        Loại phim:{' '}
+                    </h4>
+                    <ul className="flex flex-wrap items-center gap-y-2">
+                        <li className="flex-shrink-0 px-3 py-2 border-[#fff3] border-[1px] rounded-lg text-primary text-sm">
+                            Tất cả
+                        </li>
+                        <li className="opacity-80 px-3 py-2 text-[#fff hover:text-primary text-sm cursor-pointer]">
+                            Phim bộ
+                        </li>
+                        <li className="opacity-80 px-3 py-2 text-[#fff] hover:text-primary text-sm cursor-pointer">
+                            Phim lẻ
+                        </li>
+                    </ul>
+                </ul>
+
+                <ul className="flex items-start gap-2">
+                    <h4 className="flex-shrink-0 mt-2 mr-2 w-[80px] lg:w-[130px] font-semibold text-sm text-end">
+                        Thể loại:
+                    </h4>
+                    <ul className="flex flex-wrap items-center gap-y-2">
+                        <li className="flex-shrink-0 mr-4 px-3 py-2 border-[#fff3] border-[1px] rounded-lg text-primary text-sm">
+                            Tất cả
+                        </li>
+                        <li className="opacity-80 px-3 py-2 text-[#fff] text-sm">Bí ẩn</li>
                         <li className="opacity-80 px-3 py-2 text-[#fff] hover:text-primary text-sm cursor-pointer">
                             Hành động
                         </li>
@@ -141,31 +157,53 @@ export default function ListMovie() {
                     </ul>
                 </ul>
 
-                <ul className="flex items-start gap-6">
-                    <h4 className="mt-2 mr-2 w-[130px] font-semibold text-sm text-end">Năm sản xuất: </h4>
-                    <li className="px-3 py-2 border-[#fff3] border-[1px] rounded-lg text-primary text-sm">Tất cả</li>
-                    <li className="opacity-80 px-3 py-2 text-[#fff hover:text-primary text-sm cursor-pointer]">2025</li>
-                    <li className="opacity-80 px-3 py-2 text-[#fff] hover:text-primary text-sm cursor-pointer">2024</li>
-                    <li className="opacity-80 px-3 py-2 text-[#fff] hover:text-primary text-sm cursor-pointer">2023</li>
-                    <li className="opacity-80 px-3 py-2 text-[#fff] hover:text-primary text-sm cursor-pointer">2022</li>
-                    <li className="opacity-80 px-3 py-2 text-[#fff] hover:text-primary text-sm cursor-pointer">2021</li>
+                <ul className="flex items-start gap-2">
+                    <h4 className="flex-shrink-0 mt-2 mr-2 w-[80px] lg:w-[130px] font-semibold text-sm text-end">
+                        Năm sản xuất:
+                    </h4>
+                    <ul className="flex flex-wrap items-center gap-y-2">
+                        <li className="px-3 py-2 border-[#fff3] border-[1px] rounded-lg text-primary text-sm">
+                            Tất cả
+                        </li>
+                        <li className="opacity-80 px-3 py-2 text-[#fff hover:text-primary text-sm cursor-pointer">
+                            2025
+                        </li>
+                        <li className="opacity-80 px-3 py-2 text-[#fff] hover:text-primary text-sm cursor-pointer">
+                            2024
+                        </li>
+                        <li className="opacity-80 px-3 py-2 text-[#fff] hover:text-primary text-sm cursor-pointer">
+                            2023
+                        </li>
+                        <li className="opacity-80 px-3 py-2 text-[#fff] hover:text-primary text-sm cursor-pointer">
+                            2022
+                        </li>
+                        <li className="opacity-80 px-3 py-2 text-[#fff] hover:text-primary text-sm cursor-pointer">
+                            2021
+                        </li>
+                    </ul>
                 </ul>
 
-                <ul className="flex items-start gap-6">
-                    <h4 className="mt-2 mr-2 w-[130px] font-semibold text-sm text-end">Sắp xếp: </h4>
-                    <li className="px-3 py-2 border-[#fff3] border-[1px] rounded-lg text-primary text-sm">Tất cả</li>
-                    <li className="opacity-80 px-3 py-2 text-[#fff hover:text-primary text-sm cursor-pointer]">
-                        Mới cập nhật
-                    </li>
-                    <li className="opacity-80 px-3 py-2 text-[#fff] hover:text-primary text-sm cursor-pointer">
-                        Lượt xem
-                    </li>
-                    <li className="opacity-80 px-3 py-2 text-[#fff] hover:text-primary text-sm cursor-pointer">
-                        Điểm IMDb
-                    </li>
+                <ul className="flex items-start gap-2">
+                    <h4 className="flex-shrink-0 mt-2 mr-2 w-[80px] lg:w-[130px] font-semibold text-sm text-end">
+                        Sắp xếp:{' '}
+                    </h4>
+                    <ul className="flex flex-wrap items-center gap-y-2">
+                        <li className="px-3 py-2 border-[#fff3] border-[1px] rounded-lg text-primary text-sm">
+                            Tất cả
+                        </li>
+                        <li className="opacity-80 px-3 py-2 text-[#fff hover:text-primary text-sm cursor-pointer]">
+                            Mới cập nhật
+                        </li>
+                        <li className="opacity-80 px-3 py-2 text-[#fff] hover:text-primary text-sm cursor-pointer">
+                            Lượt xem
+                        </li>
+                        <li className="opacity-80 px-3 py-2 text-[#fff] hover:text-primary text-sm cursor-pointer">
+                            Điểm IMDb
+                        </li>
+                    </ul>
                 </ul>
 
-                <div className="flex gap-4 mt-4 ml-[200px]">
+                <div className="flex justify-center gap-4 mt-4 lg:ml-[200px]">
                     <button
                         onClick={() => {
                             toast.warning('Chức năng đang được phát triển!');
@@ -186,7 +224,7 @@ export default function ListMovie() {
                 </div>
             </div>
 
-            <div className="gap-6 grid grid-cols-[repeat(auto-fit,minmax(170px,1fr))]">
+            <div className="gap-4 lg:gap-6 grid grid-cols-2 sm:grid-cols-5 lg:grid-cols-[repeat(auto-fit,minmax(170px,1fr))]">
                 {listMovies?.map((item, index) => (
                     <div key={index} className="group relative mb-2 rounded-2xl">
                         <Link
