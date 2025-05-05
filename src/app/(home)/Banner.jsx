@@ -39,7 +39,7 @@ function Banner({ list_movie, setList_movie }) {
 
     return (
         <div
-            className="inset-0 bg-cover bg-no-repeat bg-center shadow-[inset_150px_0_200px_200px_rgba(0,0,0,0.8)] w-full h-[400px] lg:h-[650px] text-white"
+            className="inset-0 bg-cover bg-no-repeat bg-center shadow-[inset_0_200px_500px_200px_rgba(0,0,0,0.3)] lg:shadow-[inset_150px_0_200px_200px_rgba(0,0,0,0.8)] w-full h-[400px] lg:h-[650px] text-white"
             style={{
                 backgroundImage: `url(${listMovies[activeMovie]?.thumb_url})`,
             }}

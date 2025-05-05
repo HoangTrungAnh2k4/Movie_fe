@@ -4,7 +4,7 @@ import Link from 'next/link';
 export default function Top10Today({ list_movie }) {
     return (
         <div className="">
-            <div className="flex lg:flex-none gap-4 lg:grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] mt-4 pt-4 overflow-x-auto not-scroll">
+            <div className="flex lg:flex-none gap-4 lg:grid grid-cols-[repeat(auto-fit,minmax(170px,1fr))] mt-4 pt-4 overflow-x-auto not-scroll">
                 {list_movie?.map((item, index) => (
                     <div
                         key={index}

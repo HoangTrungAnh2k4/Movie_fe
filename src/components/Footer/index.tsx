@@ -31,7 +31,7 @@ export default function Footer() {
 
             <h3 className="hidden lg:block mt-6 lg:mt-0 mb-4 font-bold text-lg">Công nghệ sử dụng:</h3>
 
-            <ul className="flex flex-row lg:flex-col justify-start items-center lg:items-start gap-4 mt-4 lg:mt-0 lg:pl-16">
+            <ul className="flex flex-row lg:flex-col flex-wrap justify-start items-center lg:items-start gap-4 mt-4 lg:mt-0 lg:pl-16">
                 <li className="flex items-center gap-6">
                     <Image
                         src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg"
