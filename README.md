@@ -4,16 +4,17 @@
 
 ## 🚀 Công nghệ sử dụng
 
--   **Next.js** – Framework React mạnh mẽ cho cả client-side và server-side rendering.
--   **Tailwind CSS** – Công cụ utility-first để xây dựng giao diện nhanh chóng và chuẩn thiết kế.
--   **Node.js** – Nền tảng backend để xây dựng API và xử lý logic máy chủ.
--   **MongoDB** – Cơ sở dữ liệu NoSQL lưu trữ thông tin phim và người dùng.
--   **JWT (JSON Web Token)** – Hệ thống xác thực người dùng an toàn, không lưu session phía server.
+-   **React.js** 
+-   **Tailwind CSS** 
+-   **Next.js** 
+-   **Node.js (Express)** 
+-   **MongoDB**
 
 ## 🔐 Tính năng
 
 -   Hiển thị danh sách phim từ api free.
 -   Xác thực người dùng bằng JWT.
--   Giao diện đơn giản, dễ sử dụng.
+-   Quản lý danh sách phim yêu thích
+-   (Responsive) Giao diện phù hợp với nhiều loại thiết bị 
 
-## ⚙️ Cài đặt và chạy dự án
+
