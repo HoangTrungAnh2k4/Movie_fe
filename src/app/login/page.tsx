@@ -6,8 +6,10 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { toast } from 'react-toastify';
+import { useState } from 'react';
 
 export default function Login() {
+    const [loading, setLoading] = useState<boolean>(false);
     const AUTH_URL = process.env.NEXT_PUBLIC_AUTH_URL;
 
     const router = useRouter();
@@ -26,6 +28,7 @@ export default function Login() {
         }
 
         try {
+            setLoading(true);
             const response = await fetch(`${AUTH_URL}/login`, {
                 method: 'POST',
                 headers: {
@@ -88,6 +91,10 @@ export default function Login() {
                             required
                             className="block mb-2 px-4 py-2 border-[#ffffff10] border-[1px] rounded-lg w-full placeholder:text-[#aaaaaa] placeholder:text-xs"
                         />
+
+                        {loading && (
+                            <div className="border-4 mx-auto border-primary border-t-transparent rounded-full w-10 h-10 animate-spin" />
+                        )}
 
                         <button
                             type="submit"

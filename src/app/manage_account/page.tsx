@@ -73,33 +73,33 @@ export default function ManageAccount() {
     }
 
     return (
-        <div className="flex gap-6 pt-28 pl-5 text-white">
-            <div className="bg-[#25272f] p-10 rounded-2xl w-[300px] h-screen">
-                <h5 className="font-semibold text-xl">Quản lý tài khoản</h5>
-                <ul className="flex flex-col mt-6">
+        <div className="flex sm:flex-row flex-col lg:gap-6 gap-3 pt-28 px-5 text-white">
+            <div className="bg-[#25272f]  lg:p-10 p-6 rounded-2xl sm:w-[300px]  h-auto sm:h-screen">
+                <h5 className="font-semibold text-center sm:text-left text-xl">Quản lý tài khoản</h5>
+                <ul className="flex sm:flex-col flex-row gap-6 sm:gap-0 items-center justify-center sm:items-start mt-6">
                     <Link
                         href={'/manage_account'}
-                        className={`flex items-center  pb-4 border-b-[2px] border-[#2e313a] text-sm ${
+                        className={`flex sm:flex-row flex-col gap-2 justify-center sm:justify-start items-center hover:text-primary py-4  sm:mb-2 text-sm ${
                             activeTab === 'favorite' ? 'text-primary' : ''
                         }`}
                         onClick={() => handleTabClick('favorite')}
                     >
-                        <FaHeart className="mr-3 text-xl" />
+                        <FaHeart className="text-xl" />
                         Yêu thích
                     </Link>
                     <Link
                         href={'/manage_account'}
-                        className={`flex items-center py-4  mb-2 text-sm ${
+                        className={`flex sm:flex-row flex-col gap-2 justify-center sm:justify-start items-center hover:text-primary py-4  sm:mb-2 text-sm ${
                             activeTab === 'account' ? 'text-primary' : ''
                         }`}
                         onClick={() => handleTabClick('account')}
                     >
-                        <FaUser className="mr-3 text-xl" />
+                        <FaUser className=" text-xl" />
                         Tài khoản
                     </Link>
                 </ul>
 
-                <div className="flex flex-col mt-60">
+                <div className="sm:flex hidden flex-col sm:mt-60">
                     <Image
                         src="https://www.rophim.me/images/avatars/pack1/14.jpg"
                         alt="Movie App Logo"
@@ -112,13 +112,15 @@ export default function ManageAccount() {
                 </div>
             </div>
 
-            <div className="flex-grow px-12">
-                <h5 className="font-semibold text-xl">{activeTab === 'favorite' ? 'Yêu thích' : 'Tài khoản'}</h5>
+            <div className="flex-grow sm:px-12 px-4 ">
+                <h5 className="font-semibold hidden sm:block text-xl">
+                    {activeTab === 'favorite' ? 'Yêu thích' : 'Tài khoản'}
+                </h5>
 
                 {activeTab === 'favorite' && (
                     <div className="flex flex-wrap gap-6 mt-6">
                         {data?.map((item, index) => (
-                            <div key={index} className="group relative mb-2 rounded-2xl">
+                            <div key={index} className="group w-[150px] relative mb-2 rounded-2xl">
                                 <Link
                                     href={`/detail_movie/${item?.movie?.slug}`}
                                     className="hover:bg-primary hover:p-1 rounded-2xl overflow-hidden duration-300 cursor-pointer itemTop10"
@@ -159,7 +161,7 @@ export default function ManageAccount() {
 
                 {activeTab === 'account' && (
                     <div className="container">
-                        <div className="flex items-center gap-36">
+                        <div className="flex sm:flex-row flex-col sm:items-center sm:gap-36 gap-4">
                             <div className="flex flex-col">
                                 <label className="mt-6 mb-2 text-[#aaaaaa] text-sm">Email</label>
                                 <input
