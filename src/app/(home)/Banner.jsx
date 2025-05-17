@@ -17,7 +17,10 @@ function Banner({ setList_movie }) {
     const [listMovies, setListMovies] = useState([]);
 
     const fetcher = (url) => fetch(url).then((res) => res.json());
-    const { data, error, isLoading } = useSWR('https://phimapi.com/danh-sach/phim-moi-cap-nhat-v3?page=1', fetcher);
+    const { data, error, isLoading } = useSWR('https://phimapi.com/danh-sach/phim-moi-cap-nhat-v3?page=1', fetcher, {
+        revalidateOnFocus: false,
+        dedupingInterval: 60000,
+    });
 
     const moveToDetail = () => {
         router.push(`/detail_movie/${listMovies[activeMovie]?.slug}`);
@@ -56,6 +59,18 @@ function Banner({ setList_movie }) {
         }
     };
 
+    const optimizeUrl = (url) => {
+        if (url === '') {
+            return null;
+        }
+
+        if (!url) {
+            return null;
+        }
+
+        return url;
+    };
+
     useEffect(() => {
         if (data?.items) {
             setList_movie(data.items);
@@ -69,20 +84,30 @@ function Banner({ setList_movie }) {
     if (error) return <div>Failed to load</div>;
     if (isLoading)
         return (
-            <div className="flex justify-center items-center bg-background lg:h-[600px] h-[350px]">
+            <div className="flex justify-center items-center bg-background h-[350px] lg:h-[600px]">
                 <div className="border-4 border-primary border-t-transparent rounded-full w-16 h-16 animate-spin" />
             </div>
         );
 
     return (
-        <div
-            className="inset-0 bg-cover bg-no-repeat bg-center shadow-[inset_0_200px_500px_200px_rgba(0,0,0,0.3)] lg:shadow-[inset_150px_0_200px_200px_rgba(0,0,0,0.8)] w-full h-[400px] lg:h-[650px] text-white"
-            style={{
-                backgroundImage: `url(${listMovies[activeMovie]?.thumb_url})`,
-            }}
-        >
-            <div className="flex h-full">
-                <div className="flex flex-col flex-1 justify-center items-center lg:items-start px-8 h-full">
+        <div className="relative w-full h-[400px] lg:h-[650px] overflow-hidden text-white">
+            {/* Ảnh nền dùng Image với fill và objectFit cover */}
+            <Image
+                src={optimizeUrl(listMovies[activeMovie]?.thumb_url)}
+                alt={listMovies[activeMovie]?.name || 'Movie thumbnail'}
+                fill
+                style={{ objectFit: 'cover' }}
+                priority
+                className="z-10 absolute opacity-85"
+            />
+            {/* Lớp overlay tối ở rìa, sáng ở giữa */}
+            <div className="z-10 absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(0,0,0,0)_0,_rgba(0,0,0,0.9)_100%)] pointer-events-none"></div>
+
+            {/* Gradient làm mờ */}
+            <div className="bottom-0 z-20 absolute bg-gradient-to-b from-transparent to-background w-full h-80" />
+
+            <div className="z-20 absolute flex bg-transparent h-full">
+                <div className="flex flex-col flex-1 justify-center items-center lg:items-start bg-transparent px-8 h-full">
                     <h1
                         onClick={moveToDetail}
                         className="font-semibold hover:text-primary text-lg lg:text-3xl line-clamp-1 cursor-pointer"
