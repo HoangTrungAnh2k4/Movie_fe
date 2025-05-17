@@ -10,7 +10,7 @@ import Link from 'next/link';
 
 const USER_URL = process.env.NEXT_PUBLIC_USER_URL;
 
-function Banner({ list_movie, setList_movie }) {
+function Banner({ setList_movie }) {
     const router = useRouter();
     const [activeMovie, setActiveMovie] = useState(0);
 
@@ -69,7 +69,7 @@ function Banner({ list_movie, setList_movie }) {
     if (error) return <div>Failed to load</div>;
     if (isLoading)
         return (
-            <div className="flex justify-center items-center bg-background h-52">
+            <div className="flex justify-center items-center bg-background lg:h-[600px] h-[350px]">
                 <div className="border-4 border-primary border-t-transparent rounded-full w-16 h-16 animate-spin" />
             </div>
         );
