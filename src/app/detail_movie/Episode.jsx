@@ -51,6 +51,7 @@ export default function Episode({ episodes, infor }) {
 
         if (res.ok) {
             toast.success('Thêm vào danh sách yêu thích thành công!');
+            setActiveFavorite(true);
         } else {
             if (data?.message === 'Không thể thêm vào danh sách yêu thích.') {
                 toast.error('Phim đã có trong danh sách yêu thích!');
@@ -59,7 +60,6 @@ export default function Episode({ episodes, infor }) {
     };
 
     useEffect(() => {
-        console.log('User:', user);
         const favoriteMovies = user?.favorite || [];
         const isFavorite = favoriteMovies.some((movie) => movie === infor?.slug);
         setActiveFavorite(isFavorite);
