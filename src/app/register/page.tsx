@@ -1,118 +1,167 @@
 'use client';
 
-import Image from 'next/image';
+import { registerApi } from '@/api/authApi';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa6';
 import { toast } from 'react-toastify';
 
-export default function Register() {
-    const [loading, setLoading] = useState(false);
+export default function RegisterPage() {
+    const [rememberMe, setRememberMe] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
-    const AUTH_URL = process.env.NEXT_PUBLIC_AUTH_URL;
     const router = useRouter();
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
 
-        const formData = new FormData(event.currentTarget);
-        const email = formData.get('email')?.toString().trim();
-        const password = formData.get('password')?.toString();
-        const name = formData.get('name')?.toString().trim();
+        const email = (document.getElementById('email') as HTMLInputElement).value;
+        const password = (document.getElementById('password') as HTMLInputElement).value;
+        const confirmPassword = (document.getElementById('confirm-password') as HTMLInputElement).value;
 
-        if (!email || !password || !name) {
-            {
-                toast.error('Vui lòng nhập đầy đủ thông tin!');
-                return;
-            }
+        if (!email || !password || !confirmPassword) {
+            toast.error('Please fill in all fields');
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            toast.error('Passwords do not match');
+            return;
         }
 
         try {
-            setLoading(true);
+            const res = await registerApi(email, password);
 
-            const response = await fetch(`${AUTH_URL}/register`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    name,
-                    email,
-                    password,
-                }),
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                localStorage.setItem('access_token', data.access_token);
-                toast.success('Đăng ký thành công!');
-                setTimeout(() => {
-                    router.push('/');
-                }, 1000);
-            } else if (response.status === 409) {
-                toast.error('Email đã tồn tại!');
+            if (res.status === 201) {
+                localStorage.setItem('justRegistered', 'true');
+                router.push('/login');
             }
-        } catch (error) {
-            console.error('Error:', error);
+        } catch (error: any) {
+            if (error.response && error.response.status === 409) {
+                toast.error('Email này đã được sử dụng.');
+            } else {
+                toast.error('Lỗi trong quá trình đăng ký.');
+                console.error('Register error:', error);
+            }
         }
     };
 
     return (
-        <div className="flex justify-center items-center h-screen text-white">
-            <div className="flex bg-[#1e2545] rounded-xl lg:w-[50%] w-[80%] h-[400px]">
-                <div className="w-1/2">
-                    <Image
-                        src="https://www.rophim.me/images/rophim-login.jpg"
-                        alt="image"
-                        width={200}
-                        height={200}
-                        className="rounded-l-xl w-full h-full object-cover object-top"
-                    />
+        <div className="flex justify-center items-center bg-gray-50 px-4 min-h-screen">
+            <div className="bg-white shadow-sm p-8 rounded-lg w-full max-w-md">
+                {/* Header */}
+                <div className="mb-8 text-center">
+                    <h1 className="mb-2 font-semibold text-gray-900 text-2xl">ĐĂNG KÝ TÀI KHOẢN</h1>
+                    <p className="text-gray-600 text-sm">Vui lòng nhập thông tin của bạn.</p>
                 </div>
 
-                <div className="flex flex-col justify-center px-10 w-1/2 i">
-                    <h4 className="font-semibold text-lg">Đăng ký</h4>
-                    <p className="mt-4 text-[#aaaaaa] text-sm">
-                        Nếu bạn đã có tài khoản,{' '}
-                        <Link href="/login" className="text-primary hover:underline">
-                            đăng nhập ngay
-                        </Link>
-                    </p>
-                    <form onSubmit={handleSubmit}>
+                {/* Form */}
+                <form className="space-y-6" onSubmit={handleSubmit}>
+                    {/* Email Field */}
+                    <div>
+                        <label htmlFor="email" className="block mb-2 font-medium text-gray-700 text-sm">
+                            Email
+                        </label>
                         <input
-                            name="name"
-                            type="text"
-                            placeholder="Name"
-                            required
-                            className="block mt-6 mb-3 px-4 py-2 border-[#ffffff10] border-[1px] rounded-lg w-full placeholder:text-[#aaaaaa] placeholder:text-xs"
-                        />
-                        <input
-                            name="email"
                             type="email"
-                            placeholder="Email"
+                            id="email"
+                            placeholder="Enter your email"
+                            className="px-3 py-2 border border-gray-300 rounded-lg outline-none focus:outline-none w-full text-sm"
                             required
-                            className="block mt-6 mb-3 px-4 py-2 border-[#ffffff10] border-[1px] rounded-lg w-full placeholder:text-[#aaaaaa] placeholder:text-xs"
                         />
-                        <input
-                            name="password"
-                            type="password"
-                            placeholder="Mật khẩu"
-                            required
-                            className="block mb-4 px-4 py-2 border-[#ffffff10] border-[1px] rounded-lg w-full placeholder:text-[#aaaaaa] placeholder:text-xs"
-                        />
+                    </div>
 
-                        {loading && (
-                            <div className="border-4 mx-auto border-primary border-t-transparent rounded-full w-10 h-10 animate-spin" />
-                        )}
+                    {/* Password Field */}
+                    <div>
+                        <label htmlFor="password" className="block mb-2 font-medium text-gray-700 text-sm">
+                            Password
+                        </label>
+                        <div className="relative">
+                            <input
+                                type={showPassword ? 'text' : 'password'}
+                                id="password"
+                                placeholder="••••••••••"
+                                className="px-3 py-2 pr-10 border border-gray-300 rounded-lg outline-none w-full"
+                                required
+                            />
+                            <button
+                                type="button"
+                                tabIndex={-1}
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="right-0 absolute inset-y-0 flex items-center pr-3 cursor-pointer"
+                            >
+                                {showPassword ? (
+                                    <FaRegEyeSlash className="opacity-40 hover:opacity-100 text-lg" />
+                                ) : (
+                                    <FaRegEye className="opacity-40 hover:opacity-100 text-lg" />
+                                )}
+                            </button>
+                        </div>
+                    </div>
 
-                        <button
-                            type="submit"
-                            className="bg-primary hover:opacity-90 mt-6 px-4 py-2 rounded-lg w-full  font-semibold text-background2 cursor-pointer"
-                        >
-                            Đăng ký
-                        </button>
-                    </form>
-                </div>
+                    {/* Password confirm Field */}
+                    <div>
+                        <label htmlFor="confirm-password" className="block mb-2 font-medium text-gray-700 text-sm">
+                            Confirm Password
+                        </label>
+                        <div className="relative">
+                            <input
+                                type={showPassword ? 'text' : 'password'}
+                                id="confirm-password"
+                                placeholder="••••••••••"
+                                className="px-3 py-2 pr-10 border border-gray-300 rounded-lg outline-none w-full"
+                                required
+                            />
+                            <button
+                                type="button"
+                                tabIndex={-1}
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="right-0 absolute inset-y-0 flex items-center pr-3 cursor-pointer"
+                            >
+                                {showPassword ? (
+                                    <FaRegEyeSlash className="opacity-40 hover:opacity-100 text-lg" />
+                                ) : (
+                                    <FaRegEye className="opacity-40 hover:opacity-100 text-lg" />
+                                )}
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Remember Me and Forgot Password */}
+                    <div className="flex justify-between items-center">
+                        <div className="flex items-center">
+                            <input
+                                type="checkbox"
+                                id="remember"
+                                checked={rememberMe}
+                                onChange={(e) => setRememberMe(e.target.checked)}
+                                className="border-gray-300 rounded focus:ring-red-500 w-4 h-4 text-red-500"
+                            />
+                            <label htmlFor="remember" className="block ml-2 text-gray-700 text-sm">
+                                Remember me
+                            </label>
+                        </div>
+                    </div>
+
+                    {/* Sign In Button */}
+                    <button
+                        type="submit"
+                        className="bg-red-500 hover:bg-red-600 px-4 py-3 rounded-lg w-full font-medium text-white transition duration-200 cursor-pointer"
+                    >
+                        Sign up
+                    </button>
+                </form>
+
+                <p className="mt-6 text-gray-600 text-sm text-center">
+                    Already have an account?{' '}
+                    <Link
+                        href="/login"
+                        className="font-medium text-red-500 hover:text-red-600 hover:underline cursor-pointer"
+                    >
+                        Sign in
+                    </Link>
+                </p>
             </div>
         </div>
     );

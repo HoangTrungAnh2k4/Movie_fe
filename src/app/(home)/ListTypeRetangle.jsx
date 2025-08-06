@@ -2,8 +2,6 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import useSWR from 'swr';
 
 export default function ListTypeRetangle({ list_movie }) {
     return (
@@ -30,7 +28,7 @@ export default function ListTypeRetangle({ list_movie }) {
                         <div className="flex flex-col items-center gap-1 mt-3">
                             <Link
                                 href={`/detail_movie/${item?.slug}`}
-                                className="font-semibold hover:text-primary text-sm lg:text-base line-clamp-1 duration-300 cursor-pointer"
+                                className="text-sm font-semibold duration-300 cursor-pointer hover:text-primary lg:text-base line-clamp-1"
                             >
                                 {item?.name}
                             </Link>

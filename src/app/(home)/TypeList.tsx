@@ -33,6 +33,7 @@ export default function TypeList() {
             cssBg: 'bg-gradient-to-b from-[#a73939] via-[#a73939] to-[#ff6f6fc9]',
         },
     ];
+
     return (
         <div className="flex gap-4 lg:grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] mt-4 pt-4 overflow-x-auto not-scroll">
             {topicList.map((item, index) => (
@@ -41,8 +42,8 @@ export default function TypeList() {
                     key={index}
                     className={`flex hover:-translate-y-3 cursor-pointer duration-300 flex-col justify-center ${item.cssBg} p-4 lg:px-6 px-4 rounded-xl  lg:h-32 h-20 flex-shrink-0 lg:w-auto sm:w-[140px] w-[120px] text-white`}
                 >
-                    <h2 className="font-bold text-sm lg:text-lg"> {item.name}</h2>
-                    <p className="hidden lg:block mt-2 text-sm">Xem chủ đề</p>
+                    <h2 className="text-sm font-bold lg:text-lg"> {item.name}</h2>
+                    <p className="hidden mt-2 text-sm lg:block">Xem chủ đề</p>
                 </Link>
             ))}
         </div>

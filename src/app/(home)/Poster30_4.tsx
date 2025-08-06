@@ -27,7 +27,7 @@ export default function Poster30_4() {
                     alt="Event Poster"
                     width={600}
                     height={400}
-                    className="w-auto h-[400px] -translate-y-4"
+                    className="h-[400px] w-auto -translate-y-4"
                 />
             </div>
             <div className="flex flex-col justify-center items-center py-6">

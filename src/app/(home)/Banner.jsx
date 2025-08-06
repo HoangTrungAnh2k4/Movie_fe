@@ -60,13 +60,9 @@ function Banner({ setList_movie }) {
     };
 
     const optimizeUrl = (url) => {
-        if (url === '') {
-            return null;
-        }
+        if (url === '') return null;
 
-        if (!url) {
-            return null;
-        }
+        if (!url) return null;
 
         return url;
     };
@@ -92,14 +88,16 @@ function Banner({ setList_movie }) {
     return (
         <div className="relative w-full h-[400px] lg:h-[650px] overflow-hidden text-white">
             {/* Ảnh nền dùng Image với fill và objectFit cover */}
-            <Image
-                src={optimizeUrl(listMovies[activeMovie]?.thumb_url)}
-                alt={listMovies[activeMovie]?.name || 'Movie thumbnail'}
-                fill
-                style={{ objectFit: 'cover' }}
-                priority
-                className="z-10 absolute opacity-85"
-            />
+            {optimizeUrl(listMovies[activeMovie]?.thumb_url) && (
+                <Image
+                    src={listMovies[activeMovie]?.thumb_url}
+                    alt="Movie thumbnail"
+                    fill
+                    style={{ objectFit: 'cover' }}
+                    priority
+                    className="z-10 absolute opacity-85"
+                />
+            )}
             {/* Lớp overlay tối ở rìa, sáng ở giữa */}
             <div className="z-10 absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(0,0,0,0)_0,_rgba(0,0,0,0.9)_100%)] pointer-events-none"></div>
 
@@ -191,7 +189,7 @@ function Banner({ setList_movie }) {
                                             src={item.thumb_url}
                                             width={80}
                                             height={80}
-                                            alt=""
+                                            alt="thumbnail"
                                         />
                                     </li>
                                 );

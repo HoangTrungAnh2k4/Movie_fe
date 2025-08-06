@@ -107,7 +107,6 @@ export default function ManageAccount() {
                         height={40}
                         className="border-2 border-white rounded-full"
                     />
-                    <p className="mt-4 font-semibold text-sm">{user?.name}</p>
                     <p className="mt-1 text-[#aaaaaa] text-sm">{user?.email}</p>
                 </div>
             </div>
@@ -168,14 +167,6 @@ export default function ManageAccount() {
                                     type="text"
                                     readOnly
                                     placeholder={user?.email}
-                                    className="px-4 py-2 border-[#ffffff14] border-[1px] rounded-lg outline-none h-fit placeholder:text-white text-sm placeholder:text-sm"
-                                />
-
-                                <label className="mt-6 mb-2 text-[#aaaaaa] text-sm">Họ tên</label>
-                                <input
-                                    type="text"
-                                    readOnly
-                                    placeholder={user?.name}
                                     className="px-4 py-2 border-[#ffffff14] border-[1px] rounded-lg outline-none h-fit placeholder:text-white text-sm placeholder:text-sm"
                                 />
                             </div>
