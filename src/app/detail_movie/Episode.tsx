@@ -10,10 +10,11 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { useUserStore } from '@/store/userStore';
 import { useEffect, useState } from 'react';
+import { addFavoriteMovieApi } from '@/api/userApi';
 
 const USER_URL = process.env.NEXT_PUBLIC_USER_URL;
 
-export default function Episode({ episodes, infor }) {
+export default function Episode({ episodes, infor }: { episodes: any; infor: any }) {
     const [activeFavorite, setActiveFavorite] = useState(false);
     const router = useRouter();
 
@@ -39,7 +40,7 @@ export default function Episode({ episodes, infor }) {
                 return;
             }
 
-            if (res.ok) {
+            if (res.status === 200) {
                 toast.success('Thêm vào danh sách yêu thích thành công!');
                 setActiveFavorite(true);
             }
@@ -83,8 +84,10 @@ export default function Episode({ episodes, infor }) {
                     <div
                         onClick={() => {
                             const commentInput = document.querySelector('textarea');
-                            commentInput.focus();
-                            document.getElementById('episode-section').scrollIntoView({ behavior: 'smooth' });
+                            if (commentInput) {
+                                commentInput.focus();
+                            }
+                            document.getElementById('episode-section')?.scrollIntoView({ behavior: 'smooth' });
                         }}
                         className="group justify-items-center hover:bg-[#ffffff10] px-4 py-2 rounded-xl cursor-pointer"
                     >

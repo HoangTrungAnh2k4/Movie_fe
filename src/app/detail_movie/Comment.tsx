@@ -1,5 +1,5 @@
+import { useComments } from '@/api/fetchDataApi';
 import { addCommentApi } from '@/api/movieApi';
-import { useComments } from '@/hooks/useComment';
 import Image from 'next/image';
 import { IoChatboxEllipses } from 'react-icons/io5';
 import { PiPaperPlaneRightFill } from 'react-icons/pi';

@@ -2,13 +2,12 @@
 
 import { useEffect } from 'react';
 import { useUserStore } from '@/store/userStore';
-import { getProfileApi } from '@/api/userApi';
 import { toast, ToastContainer } from 'react-toastify';
 import { usePathname, useRouter } from 'next/navigation';
 import Header from './header';
 import Footer from './footer';
 import { getCookie } from 'cookies-next/client';
-import { isProtectedRoute } from '@/lib/protectedRoutes';
+import { useProfile } from '@/api/fetchDataApi';
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
@@ -17,36 +16,27 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
     const setUser = useUserStore((state) => state.setUser);
 
     const noLayoutRoutes = ['/login', '/register'];
-
     const isNoLayout = noLayoutRoutes.includes(pathname);
 
-    const hasCookie = getCookie('access_token');
+    const hasCookie = Boolean(getCookie('access_token'));
+
+    const { data: profile, error } = useProfile(hasCookie);
 
     useEffect(() => {
-        if (!hasCookie) {
-            return;
-        }
+        if (!hasCookie) return;
 
-        const fetchProfile = async () => {
-            try {
-                const res = await getProfileApi();
+        if (profile) {
+            console.log('User profile fetched successfully:', profile);
+            setUser(profile);
+        } else if (error) {
+            console.log('Failed to fetch profile:', error);
 
-                if (res.statusText === 'OK') {
-                    setUser(res.data);
-                } else {
-                    console.log('Failed to fetch user profile');
-                }
-            } catch (e: any) {
-                if (e.status === 401) {
-                    console.log('Unauthorized access, redirecting to login');
-
-                    router.push('/login');
-                }
+            // Nếu lỗi 401 thì redirect
+            if (error?.response?.status === 401) {
+                router.push('/login');
             }
-        };
-
-        fetchProfile();
-    }, [setUser, pathname]);
+        }
+    }, [profile, error, hasCookie, setUser, router]);
 
     if (isNoLayout)
         return (

@@ -29,7 +29,7 @@
         ".next/types/**/*.ts",
         "tailwind.config.js",
         "src/app/detail_movie/Information.jsx",
-        "src/app/detail_movie/Episode.jsx",
+        "src/app/detail_movie/Episode.tsx",
         "src/app/detail_movie/[name]/page.jsx",
         "src/app/(home)/page.jsx",
         "src/app/list_movie/page.jsx",
