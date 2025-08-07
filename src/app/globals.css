@@ -9,6 +9,7 @@
     --color-secondary: #1c1c1e;
     --color-background: #191b24;
     --color-background2: #282b3a;
+    --color-background3: #3a3a3a;
     --color-headerColor: #0f111a;
 }
 
@@ -142,4 +143,19 @@ body {
         4.826% 99.95%,
         5.761% 100%
     );
+}
+
+body[data-scroll-locked] {
+    overflow: auto !important;
+    margin-right: 0 !important;
+    padding-right: 0 !important;
+}
+
+.with-scroll-bars-hidden {
+    overflow: auto !important;
+    padding-right: 0 !important;
+}
+
+.width-before-scroll-bar {
+    margin-right: 0 !important;
 }

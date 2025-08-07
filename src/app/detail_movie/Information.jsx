@@ -5,7 +5,7 @@ import { IoIosArrowDown } from 'react-icons/io';
 export default function information({ infor }) {
     if (!infor) {
         return (
-            <div role="status" className="py-28 max-w-sm animate-pulse">
+            <div role="status" className="max-w-sm py-28 animate-pulse">
                 <div className="bg-gray-100 dark:bg-gray-700 mb-4 rounded-full w-48 h-2.5"></div>
                 <div className="bg-gray-100 dark:bg-gray-700 mb-2.5 rounded-full max-w-[360px] h-2"></div>
                 <div className="bg-gray-100 dark:bg-gray-700 mb-2.5 rounded-full h-2"></div>
@@ -18,24 +18,24 @@ export default function information({ infor }) {
     }
 
     return (
-        <div className="justify-items-center lg:justify-items-start lg:pr-4 lg:pl-16 w-full lg:w-fit">
-            <Image
-                className="rounded-lg w-[120px] lg:w-[160px] h-auto object-cover aspect-[2/3]"
-                src={infor?.poster_url || 'https://static.nutscdn.com/vimg/300-0/055875f8424f76d54b2a36feaa6edc07.jpg'}
-                width={160}
-                height={240}
-                alt=""
-            />
-            <h3 className="mt-4 font-semibold text-lg lg:text-2xl">{infor?.name}</h3>
+        <div className="w-full justify-items-center lg:justify-items-start lg:pr-4 lg:pl-16 lg:w-fit">
+            {infor?.poster_url && (
+                <Image
+                    className="rounded-lg w-[120px] lg:w-[160px] h-auto object-cover aspect-[2/3]"
+                    src={infor?.poster_url}
+                    width={160}
+                    height={240}
+                    alt=""
+                />
+            )}
+            <h3 className="mt-4 text-lg font-semibold lg:text-2xl">{infor?.name}</h3>
             <h3 className="mt-3 text-[#aaaaaa] lg:text-primary text-sm">{infor?.origin_name}</h3>
-
-            <div className="lg:hidden flex items-center gap-2 mt-6 font-semibold text-primary text-sm">
+            <div className="flex items-center gap-2 mt-6 text-sm font-semibold lg:hidden text-primary">
                 Thông tin phim <IoIosArrowDown className="text-xl" />
             </div>
-
             {/* sub information */}
-            <div className="hidden lg:block mt-4">
-                <ul className="flex justify-start items-center gap-4 mt-4 text-xs">
+            <div className="hidden mt-4 lg:block">
+                <ul className="flex items-center justify-start gap-4 mt-4 text-xs">
                     <li className="bg-gradient-to-bl from-primary to-white px-2 py-[2px] pt-[3px] rounded-md font-semibold text-black">
                         {infor?.quality}
                     </li>
@@ -54,16 +54,16 @@ export default function information({ infor }) {
                     <li className="bg-[#f3f3f310] px-2 py-1.5 rounded-md text-xs">Tâm Lý</li>
                 </ul>
 
-                <h5 className="mt-6 mb-2 font-semibold text-white text-sm">Giới thiệu:</h5>
+                <h5 className="mt-6 mb-2 text-sm font-semibold text-white">Giới thiệu:</h5>
 
                 <p className="text-[#aaaaaa] text-sm">{infor?.content}</p>
 
-                <div className="flex gap-4 mt-6 mb-2 text-white text-sm">
+                <div className="flex gap-4 mt-6 mb-2 text-sm text-white">
                     <p className="font-semibold">Thời lượng:</p>
                     <p className="text-[#aaaaaa] text-sm">{infor?.time}</p>
                 </div>
 
-                <div className="flex gap-4 mt-6 mb-2 text-white text-sm">
+                <div className="flex gap-4 mt-6 mb-2 text-sm text-white">
                     <p className="font-semibold">Quốc gia:</p>
                     <p className="text-[#aaaaaa] text-sm">
                         {infor?.country && infor.country.length > 0 ? infor.country[0].name : 'Không rõ'}
@@ -71,7 +71,7 @@ export default function information({ infor }) {
                 </div>
 
                 <p className="mt-6 font-semibold">Diễn viên:</p>
-                <ul className="flex justify-between -mx-4 mt-6">
+                <ul className="flex justify-between mt-6 -mx-4">
                     <li className="justify-items-center w-[33%]">
                         <Image
                             className="mb-2 rounded-full h-auto object-center object-cover aspect-[1/1]"
@@ -104,7 +104,7 @@ export default function information({ infor }) {
                         <p className="text-sm">Choi Woo-shik</p>
                     </li>
                 </ul>
-                <ul className="flex justify-between -mx-4 mt-6">
+                <ul className="flex justify-between mt-6 -mx-4">
                     <li className="justify-items-center w-[33%]">
                         <Image
                             className="mb-2 rounded-full h-auto object-center object-cover aspect-[1/1]"

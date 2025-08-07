@@ -1,51 +1,56 @@
+import { addCommentApi } from '@/api/movieApi';
+import { useComments } from '@/hooks/useComment';
 import Image from 'next/image';
 import { IoChatboxEllipses } from 'react-icons/io5';
 import { PiPaperPlaneRightFill } from 'react-icons/pi';
 import { toast } from 'react-toastify';
-import useSWR, { mutate } from 'swr';
 
-const AUTH_URL = process.env.NEXT_PUBLIC_AUTH_URL;
-const USER_URL = process.env.NEXT_PUBLIC_USER_URL;
+type CommentProps = {
+    id: string;
+    content: string;
+    createdAt: string;
+    username: string;
+};
 
-function Comment({ nameSlug }) {
-    const fetcher = async (url) => {
-        const accessToken = localStorage.getItem('access_token');
-        const res = await fetch(url, {
-            headers: {
-                authorization: `Bearer ${accessToken}`,
-            },
-        });
+const avatarUrls = [
+    'https://www.rophim.me/images/avatars/pack1/13.jpg',
+    'https://www.rophim.me/images/avatars/pack1/26.jpg',
+    'https://www.rophim.me/images/avatars/pack1/36.jpg',
+    'https://www.rophim.me/images/avatars/pack1/22.jpg',
+];
 
-        return await res.json();
-    };
+const getRandomAvatar = () => {
+    const randomIndex = Math.floor(Math.random() * avatarUrls.length);
+    return avatarUrls[randomIndex];
+};
 
-    const commentApiUrl = `${AUTH_URL}/get_comment/${nameSlug}`;
-    const { data } = useSWR(commentApiUrl, fetcher);
+function Comment({ nameSlug }: { nameSlug: string }) {
+    const { data: comments, mutate } = useComments(nameSlug);
 
     const handleAddComment = async () => {
         const commentInput = document.querySelector('textarea');
+        if (!commentInput) {
+            return;
+        }
         const commentText = commentInput.value.trim();
-        if (commentText) {
-            const res = await fetch(`${USER_URL}/add_comment`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    authorization: `Bearer ${localStorage.getItem('access_token')}`,
-                },
-                body: JSON.stringify({
-                    comment: commentText,
-                    movieName: nameSlug,
-                }),
-            });
 
-            if (res.ok) {
+        if (!commentText) {
+            return;
+        }
+        try {
+            const res = await addCommentApi(nameSlug, commentText);
+
+            if (res.status === 201) {
                 commentInput.value = '';
-                mutate(commentApiUrl);
+                if (mutate) {
+                    mutate();
+                }
             }
-
-            if (res.status === 401) {
+        } catch (error: any) {
+            if (error.response?.status === 401) {
                 toast.error('Bạn cần đăng nhập để bình luận!');
             }
+            console.log('Error adding comment:', error);
         }
     };
 
@@ -53,13 +58,19 @@ function Comment({ nameSlug }) {
         <div className="text-white">
             <div className="flex items-center gap-4">
                 <IoChatboxEllipses className="text-2xl" />
-                <p className="font-semibold text-xl">Bình luận (39)</p>
+                <p className="text-xl font-semibold">Bình luận (39)</p>
             </div>
 
             <div className="bg-[#ffffff14] my-4 p-2 rounded-lg">
                 <textarea
-                    className="bg-background p-4 rounded-lg w-full h-[100px] placeholder:text-gray-600 placeholder:text-sm resize-none"
+                    className="bg-background p-4 rounded-lg w-full h-[110px] placeholder:text-gray-600 placeholder:text-sm resize-none"
                     placeholder="Viết bình luận"
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                            handleAddComment();
+                        }
+                    }}
                 ></textarea>
                 <button
                     onClick={handleAddComment}
@@ -71,12 +82,12 @@ function Comment({ nameSlug }) {
             </div>
 
             <div className="">
-                {data?.listComment?.map((item, index) => {
+                {comments?.map((item: CommentProps, index: number) => {
                     return (
-                        <div key={index} className="flex items-start gap-4 pt-4 rounded-lg w-full text-white">
+                        <div key={index} className="flex items-start w-full gap-4 pt-4 text-white rounded-lg">
                             {/* Avatar */}
                             <Image
-                                src="https://www.rophim.me/images/avatars/pack1/14.jpg"
+                                src={getRandomAvatar()}
                                 alt="Movie App Logo"
                                 width={40}
                                 height={40}
@@ -85,20 +96,17 @@ function Comment({ nameSlug }) {
 
                             {/* Nội dung */}
                             <div className="flex flex-col flex-1">
-                                {/* Tên + Icon + Thời gian */}
                                 <div className="flex items-center gap-4 text-sm">
-                                    <span className="font-semibold">{item?.user_name}</span>
+                                    <span className="font-semibold">{item?.username}</span>
                                 </div>
 
-                                {/* Nội dung comment */}
-                                <div className="mt-2 text-[#aaaaaa] text-sm">{item?.comment}</div>
+                                <div className="mt-2 text-[#aaaaaa] text-sm">{item?.content}</div>
 
-                                {/* Action buttons */}
                                 <div className="flex items-center gap-4 mt-3 text-[#aaaaaa] text-xs">
-                                    <button className="flex items-center gap-1 hover:text-white transition cursor-pointer">
+                                    <button className="flex items-center gap-1 transition cursor-pointer hover:text-white">
                                         Trả lời
                                     </button>
-                                    <button className="flex items-center gap-1 hover:text-white transition cursor-pointer">
+                                    <button className="flex items-center gap-1 transition cursor-pointer hover:text-white">
                                         Thêm
                                     </button>
                                 </div>

@@ -50,8 +50,8 @@ export default function Home() {
                 {/* Lớp phủ để che ranh giới của banner với phần còn lại */}
                 <div className="bg-[linear-gradient(to_top,_#191b24_30%,_transparent_100%)] -mx-4 lg:-mx-8 -mt-26 h-36"></div>
 
-                <div className="z-40 relative -mt-20  lg:min-h-[200px]">
-                    <h4 className="mb-6 font-semibold text-xl lg:text-2xl">Bạn đang quan tâm gì?</h4>
+                <div className="z-30 relative -mt-20  lg:min-h-[200px]">
+                    <h4 className="mb-6 text-xl font-semibold lg:text-2xl">Bạn đang quan tâm gì?</h4>
 
                     <TypeList />
                 </div>
@@ -65,19 +65,19 @@ export default function Home() {
                 </div>
 
                 <div className="mt-12 lg:mt-16">
-                    <h4 className="mb-6 font-semibold text-xl lg:text-2xl">Top 5 phim bộ hôm nay</h4>
+                    <h4 className="mb-6 text-xl font-semibold lg:text-2xl">Top 5 phim bộ hôm nay</h4>
 
                     <Top10Today list_movie={list_movie.slice(0, 5)} />
                 </div>
 
                 <div className="mt-12 lg:mt-20">
                     <div className="flex items-center gap-6 mb-6">
-                        <h4 className="font-semibold text-xl lg:text-2xl">Phim điện ảnh mới coóng</h4>
+                        <h4 className="text-xl font-semibold lg:text-2xl">Phim điện ảnh mới coóng</h4>
                         <Link
                             href={`list_movie`}
                             className="group flex justify-center items-center gap-2 mt-0.5 p-1 border border-[#fff6] rounded-full w-8 hover:w-28 overflow-hidden hover:text-primary transition-all duration-300 cursor-pointer"
                         >
-                            <p className="opacity-0 group-hover:opacity-100 text-xs whitespace-nowrap scale-0 group-hover:scale-100 transition-all duration-300">
+                            <p className="text-xs transition-all duration-300 scale-0 opacity-0 group-hover:opacity-100 whitespace-nowrap group-hover:scale-100">
                                 Xem thêm
                             </p>
                             <IoIosArrowForward className="flex-shrink-0 -ml-16 group-hover:-ml-0 pl-[2px] font-semibold text-lg transition-all duration-300" />
@@ -89,12 +89,12 @@ export default function Home() {
 
                 <div className="mt-12 lg:mt-20">
                     <div className="flex items-center gap-6 mb-6">
-                        <h4 className="font-semibold text-xl lg:text-2xl">Phim truyền hình</h4>
+                        <h4 className="text-xl font-semibold lg:text-2xl">Phim truyền hình</h4>
                         <Link
                             href={`list_movie`}
                             className="group flex justify-center items-center gap-2 mt-0.5 p-1 border border-[#fff6] rounded-full w-8 hover:w-28 overflow-hidden hover:text-primary transition-all duration-300 cursor-pointer"
                         >
-                            <p className="opacity-0 group-hover:opacity-100 text-xs whitespace-nowrap scale-0 group-hover:scale-100 transition-all duration-300">
+                            <p className="text-xs transition-all duration-300 scale-0 opacity-0 group-hover:opacity-100 whitespace-nowrap group-hover:scale-100">
                                 Xem thêm
                             </p>
                             <IoIosArrowForward className="flex-shrink-0 -ml-16 group-hover:-ml-0 pl-[2px] font-semibold text-lg transition-all duration-300" />
@@ -104,14 +104,14 @@ export default function Home() {
                     <ListTypeRetangle list_movie={list_movie.slice(13, 18)} />
                 </div>
 
-                <div className="hidden lg:block mt-12 lg:mt-20">
+                <div className="hidden mt-12 lg:block lg:mt-20">
                     <div className="flex items-center gap-6 mb-6">
-                        <h4 className="font-semibold text-lg lg:text-2xl">Mãn nhãn với phim chiếu rạp</h4>
+                        <h4 className="text-lg font-semibold lg:text-2xl">Mãn nhãn với phim chiếu rạp</h4>
                         <Link
                             href={`list_movie`}
                             className="group flex justify-center items-center gap-2 mt-0.5 p-1 border border-[#fff6] rounded-full w-8 hover:w-28 overflow-hidden hover:text-primary transition-all duration-300 cursor-pointer"
                         >
-                            <p className="opacity-0 group-hover:opacity-100 text-xs whitespace-nowrap scale-0 group-hover:scale-100 transition-all duration-300">
+                            <p className="text-xs transition-all duration-300 scale-0 opacity-0 group-hover:opacity-100 whitespace-nowrap group-hover:scale-100">
                                 Xem thêm
                             </p>
                             <IoIosArrowForward className="flex-shrink-0 -ml-16 group-hover:-ml-0 pl-[2px] font-semibold text-lg transition-all duration-300" />
@@ -121,7 +121,7 @@ export default function Home() {
                     <TopCinema list_movie={list_movie.slice(16, 20)} />
                 </div>
 
-                <div className="lg:-mx-0 mt-12 lg:mt-20">
+                <div className="mt-12 lg:-mx-0 lg:mt-20">
                     <ListCountryMovie moveToDetail={moveToDetail} list_movie={list_movie.slice(11, 24)} />
                 </div>
             </div>

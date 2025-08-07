@@ -24,9 +24,9 @@ export default function DetailMovie() {
 
     if (data?.status === false) {
         return (
-            <div className="flex flex-col justify-center items-center gap-4 bg-background px-4 h-screen text-center">
-                <h2 className="font-semibold text-red-500 text-2xl">Bộ phim này đang bị lỗi</h2>
-                <p className="text-red-300 text-lg">Vui lòng xem phim khác</p>
+            <div className="flex flex-col items-center justify-center h-screen gap-4 px-4 text-center bg-background">
+                <h2 className="text-2xl font-semibold text-red-500">Bộ phim này đang bị lỗi</h2>
+                <p className="text-lg text-red-300">Vui lòng xem phim khác</p>
             </div>
         );
     }
@@ -34,8 +34,8 @@ export default function DetailMovie() {
     if (error) return <div>Failed to load</div>;
     if (isLoading)
         return (
-            <div className="flex justify-center items-center bg-background h-screen">
-                <div className="border-4 border-primary border-t-transparent rounded-full w-16 h-16 animate-spin" />
+            <div className="flex items-center justify-center h-screen bg-background">
+                <div className="w-16 h-16 border-4 rounded-full border-primary border-t-transparent animate-spin" />
             </div>
         );
 
@@ -49,17 +49,17 @@ export default function DetailMovie() {
                 }}
             >
                 <div
-                    className="z-10 absolute inset-0 bg-repeat opacity-20"
+                    className="absolute inset-0 z-10 bg-repeat opacity-20"
                     style={{
                         backgroundImage: `url('https://www.rophim.me/images/dotted.png')`,
                     }}
                 />
                 {/* Gradient làm mờ */}
-                <div className="bottom-0 absolute bg-gradient-to-b from-transparent to-background w-full h-40" />
+                <div className="absolute bottom-0 w-full h-40 bg-gradient-to-b from-transparent to-background" />
             </div>
 
             {/* content */}
-            <div className="z-50 relative flex lg:flex-row flex-col justify-start text-white">
+            <div className="relative z-50 flex flex-col justify-start text-white lg:flex-row">
                 {/* information */}
                 <div className="-mt-20 lg:-mt-0 py-2 pb-6 lg:w-[30%]">
                     <Information infor={infor} />

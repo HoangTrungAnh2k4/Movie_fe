@@ -5,14 +5,14 @@ import { useUserStore } from '@/store/userStore';
 import { getProfileApi } from '@/api/userApi';
 import { toast, ToastContainer } from 'react-toastify';
 import { usePathname, useRouter } from 'next/navigation';
-import { isProtectedRoute } from '@/lib/protectedRoutes';
-import Header from '../Header';
-import Footer from '../Footer';
+import Header from './header';
+import Footer from './footer';
 import { getCookie } from 'cookies-next/client';
+import { isProtectedRoute } from '@/lib/protectedRoutes';
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
-    const Router = useRouter();
+    const router = useRouter();
 
     const setUser = useUserStore((state) => state.setUser);
 
@@ -38,7 +38,9 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
                 }
             } catch (e: any) {
                 if (e.status === 401) {
-                    toast.error('Yêu cầu đăng nhập.');
+                    console.log('Unauthorized access, redirecting to login');
+
+                    router.push('/login');
                 }
             }
         };

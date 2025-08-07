@@ -50,33 +50,36 @@ export default function ManageAccount() {
         }
     };
 
-    useEffect(() => {
-        const accessToken = localStorage.getItem('access_token');
-        if (!accessToken) {
-            window.location.href = '/login';
-        }
-    }, [user]);
-
     if (isLoading) {
         return (
-            <div className="z-50 fixed inset-0 flex justify-center items-center bg-background">
-                <div className="border-4 border-primary border-t-transparent rounded-full w-16 h-16 animate-spin" />
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-background">
+                <div className="w-16 h-16 border-4 rounded-full border-primary border-t-transparent animate-spin" />
             </div>
         );
     }
     if (error) {
         return (
-            <div className="flex justify-center items-center h-screen font-semibold text-red-700 text-2xl">
+            <div className="flex items-center justify-center h-screen text-2xl font-semibold text-red-700">
                 Error loading data
             </div>
         );
     }
 
     return (
-        <div className="flex sm:flex-row flex-col lg:gap-6 gap-3 pt-28 px-5 text-white">
+        <div className="flex flex-col gap-3 px-5 text-white sm:flex-row lg:gap-6 pt-28">
             <div className="bg-[#25272f]  lg:p-10 p-6 rounded-2xl sm:w-[300px]  h-auto sm:h-screen">
-                <h5 className="font-semibold text-center sm:text-left text-xl">Quản lý tài khoản</h5>
-                <ul className="flex sm:flex-col flex-row gap-6 sm:gap-0 items-center justify-center sm:items-start mt-6">
+                <h5 className="text-xl font-semibold text-center sm:text-left">Quản lý tài khoản</h5>
+                <ul className="flex flex-row items-center justify-center gap-6 mt-6 sm:flex-col sm:gap-0 sm:items-start">
+                    <Link
+                        href={'/manage_account'}
+                        className={`flex sm:flex-row flex-col gap-2 justify-center sm:justify-start items-center hover:text-primary py-4  sm:mb-2 text-sm ${
+                            activeTab === 'account' ? 'text-primary' : ''
+                        }`}
+                        onClick={() => handleTabClick('account')}
+                    >
+                        <FaUser className="text-xl " />
+                        Tài khoản
+                    </Link>
                     <Link
                         href={'/manage_account'}
                         className={`flex sm:flex-row flex-col gap-2 justify-center sm:justify-start items-center hover:text-primary py-4  sm:mb-2 text-sm ${
@@ -87,19 +90,9 @@ export default function ManageAccount() {
                         <FaHeart className="text-xl" />
                         Yêu thích
                     </Link>
-                    <Link
-                        href={'/manage_account'}
-                        className={`flex sm:flex-row flex-col gap-2 justify-center sm:justify-start items-center hover:text-primary py-4  sm:mb-2 text-sm ${
-                            activeTab === 'account' ? 'text-primary' : ''
-                        }`}
-                        onClick={() => handleTabClick('account')}
-                    >
-                        <FaUser className=" text-xl" />
-                        Tài khoản
-                    </Link>
                 </ul>
 
-                <div className="sm:flex hidden flex-col sm:mt-60">
+                <div className="flex-col hidden sm:flex sm:mt-60">
                     <Image
                         src="https://www.rophim.me/images/avatars/pack1/14.jpg"
                         alt="Movie App Logo"
@@ -111,8 +104,8 @@ export default function ManageAccount() {
                 </div>
             </div>
 
-            <div className="flex-grow sm:px-12 px-4 ">
-                <h5 className="font-semibold hidden sm:block text-xl">
+            <div className="flex-grow px-4 sm:px-12 ">
+                <h5 className="hidden text-xl font-semibold sm:block">
                     {activeTab === 'favorite' ? 'Yêu thích' : 'Tài khoản'}
                 </h5>
 
@@ -122,7 +115,7 @@ export default function ManageAccount() {
                             <div key={index} className="group w-[150px] relative mb-2 rounded-2xl">
                                 <Link
                                     href={`/detail_movie/${item?.movie?.slug}`}
-                                    className="hover:bg-primary hover:p-1 rounded-2xl overflow-hidden duration-300 cursor-pointer itemTop10"
+                                    className="overflow-hidden duration-300 cursor-pointer hover:bg-primary hover:p-1 rounded-2xl itemTop10"
                                 >
                                     <Image
                                         src={item?.movie?.poster_url}
@@ -148,7 +141,7 @@ export default function ManageAccount() {
                                 </Link>
 
                                 <div className="flex flex-col items-center gap-1 mt-3">
-                                    <h3 className="hover:text-primary text-sm line-clamp-1 duration-300 cursor-pointer">
+                                    <h3 className="text-sm duration-300 cursor-pointer hover:text-primary line-clamp-1">
                                         {item?.movie?.name}
                                     </h3>
                                     <h4 className="text-[#aaaaaa] text-xs">{item?.movie?.origin_name}</h4>
@@ -160,7 +153,7 @@ export default function ManageAccount() {
 
                 {activeTab === 'account' && (
                     <div className="container">
-                        <div className="flex sm:flex-row flex-col sm:items-center sm:gap-36 gap-4">
+                        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-36">
                             <div className="flex flex-col">
                                 <label className="mt-6 mb-2 text-[#aaaaaa] text-sm">Email</label>
                                 <input
