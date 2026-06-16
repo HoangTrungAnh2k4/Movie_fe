@@ -4,12 +4,7 @@ import axiosInstance from '@/utils/axiosInstance';
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 const fetcher = async (url: string) => {
-    console.log('[Fetcher] Starting fetch:', url); // ✅ Nên thấy
-
     const res = await axiosInstance.get(url);
-
-    console.log('[Fetcher] Status:', res.status);
-    console.log('[Fetcher] Data:', res.data); // Không cần await nữa
 
     if (res.status !== 200) {
         throw new Error('Failed to fetch');
@@ -17,6 +12,23 @@ const fetcher = async (url: string) => {
 
     return res.data;
 };
+
+export function useProfile(enabled: boolean) {
+    const profileApiUrl = `${BACKEND_URL}/user/profile`;
+    const { data, error, isLoading } = useSWR(enabled ? profileApiUrl : null, fetcher, {
+        onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
+            // if (error?.response?.status === 404) return;
+            if (retryCount >= 2) return;
+            setTimeout(() => revalidate({ retryCount }), 5000);
+        },
+    });
+
+    return {
+        data,
+        isLoading,
+        error,
+    };
+}
 
 export const useComments = (nameSlug: string) => {
     if (!nameSlug) {
@@ -65,22 +77,3 @@ export const useFavoriteMovie = (enabled: boolean) => {
         error,
     };
 };
-
-export function useProfile(enabled: boolean) {
-    console.log('Fetching user profile...');
-
-    const profileApiUrl = `${BACKEND_URL}/user/profile`;
-    const { data, error, isLoading } = useSWR(enabled ? profileApiUrl : null, fetcher, {
-        onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
-            // if (error?.response?.status === 404) return;
-            if (retryCount >= 2) return;
-            setTimeout(() => revalidate({ retryCount }), 5000);
-        },
-    });
-
-    return {
-        data,
-        isLoading,
-        error,
-    };
-}

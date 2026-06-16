@@ -6,14 +6,14 @@ export default function Poster30_4() {
         <div className="hidden sm:flex justify-between bg-[#fedaa8] px-12 rounded-xl w-full h-[350px]">
             <div className="flex">
                 <Image
-                    src="https://www.rophim.me/images/event_304/hero.webp"
+                    src="/hero.webp"
                     alt="Event Poster"
                     width={300}
                     height={400}
                     className="top-0 -left-10 z-30 relative w-[350px] h-[350px]"
                 />
                 <Image
-                    src="https://www.rophim.me/images/event_304/vn-flag-full.gif"
+                    src="/vn-flag-full.gif"
                     alt="Event Poster"
                     width={203}
                     height={180}
@@ -23,7 +23,7 @@ export default function Poster30_4() {
 
             <div className="-ml-[500px] h-full overflow-hidden">
                 <Image
-                    src="https://www.rophim.me/images/event_304/behind-hero.webp"
+                    src="/behind-hero.webp"
                     alt="Event Poster"
                     width={600}
                     height={400}
@@ -32,7 +32,7 @@ export default function Poster30_4() {
             </div>
             <div className="flex flex-col justify-center items-center py-6">
                 <Image
-                    src="https://www.rophim.me/images/event_304/50y.webp"
+                    src="/50y.webp"
                     alt="Event Poster"
                     width={300}
                     height={200}

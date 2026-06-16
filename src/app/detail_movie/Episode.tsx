@@ -40,7 +40,7 @@ export default function Episode({ episodes, infor }: { episodes: any; infor: any
                 return;
             }
 
-            if (res.status === 200) {
+            if (res.status === 201) {
                 toast.success('Thêm vào danh sách yêu thích thành công!');
                 setActiveFavorite(true);
             }

@@ -1,9 +1,10 @@
 'use client';
 
+import { useFavoriteMovie } from '@/api/fetchDataApi';
 import { useUserStore } from '@/store/userStore';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FaHeart, FaUser } from 'react-icons/fa';
 import { IoIosClose } from 'react-icons/io';
 import { toast } from 'react-toastify';
@@ -15,6 +16,9 @@ export default function ManageAccount() {
     const [activeTab, setActiveTab] = useState<string>('account');
 
     const { user } = useUserStore();
+    const { data: listFavoriteMovies } = useFavoriteMovie(activeTab === 'favorite');
+
+    console.log(listFavoriteMovies);
 
     const shouldFetch = (user?.favorite ?? []).length > 0;
     const movieUrls = shouldFetch ? user?.favorite.map((item) => `https://phimapi.com/phim/${item}`) : null;
@@ -70,8 +74,7 @@ export default function ManageAccount() {
             <div className="bg-[#25272f]  lg:p-10 p-6 rounded-2xl sm:w-[300px]  h-auto sm:h-screen">
                 <h5 className="text-xl font-semibold text-center sm:text-left">Quản lý tài khoản</h5>
                 <ul className="flex flex-row items-center justify-center gap-6 mt-6 sm:flex-col sm:gap-0 sm:items-start">
-                    <Link
-                        href={'/manage_account'}
+                    <button
                         className={`flex sm:flex-row flex-col gap-2 justify-center sm:justify-start items-center hover:text-primary py-4  sm:mb-2 text-sm ${
                             activeTab === 'account' ? 'text-primary' : ''
                         }`}
@@ -79,9 +82,8 @@ export default function ManageAccount() {
                     >
                         <FaUser className="text-xl " />
                         Tài khoản
-                    </Link>
-                    <Link
-                        href={'/manage_account'}
+                    </button>
+                    <button
                         className={`flex sm:flex-row flex-col gap-2 justify-center sm:justify-start items-center hover:text-primary py-4  sm:mb-2 text-sm ${
                             activeTab === 'favorite' ? 'text-primary' : ''
                         }`}
@@ -89,7 +91,7 @@ export default function ManageAccount() {
                     >
                         <FaHeart className="text-xl" />
                         Yêu thích
-                    </Link>
+                    </button>
                 </ul>
 
                 <div className="flex-col hidden sm:flex sm:mt-60">

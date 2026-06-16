@@ -51,7 +51,7 @@ export default function DetailMovie() {
                 <div
                     className="absolute inset-0 z-10 bg-repeat opacity-20"
                     style={{
-                        backgroundImage: `url('https://www.rophim.me/images/dotted.png')`,
+                        backgroundImage: `url('/dotted.png')`,
                     }}
                 />
                 {/* Gradient làm mờ */}

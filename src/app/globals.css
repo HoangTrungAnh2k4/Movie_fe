@@ -11,6 +11,7 @@
     --color-background2: #282b3a;
     --color-background3: #3a3a3a;
     --color-headerColor: #0f111a;
+    --color-bgLogin: #1e2545;
 }
 
 @media (max-width: 768px) {

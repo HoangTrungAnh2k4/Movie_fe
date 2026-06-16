@@ -52,7 +52,6 @@ export default function Home() {
 
                 <div className="z-30 relative -mt-20  lg:min-h-[200px]">
                     <h4 className="mb-6 text-xl font-semibold lg:text-2xl">Bạn đang quan tâm gì?</h4>
-
                     <TypeList />
                 </div>
 
@@ -85,23 +84,6 @@ export default function Home() {
                     </div>
 
                     <ListTypeRetangle list_movie={list_movie.slice(6, 12)} />
-                </div>
-
-                <div className="mt-12 lg:mt-20">
-                    <div className="flex items-center gap-6 mb-6">
-                        <h4 className="text-xl font-semibold lg:text-2xl">Phim truyền hình</h4>
-                        <Link
-                            href={`list_movie`}
-                            className="group flex justify-center items-center gap-2 mt-0.5 p-1 border border-[#fff6] rounded-full w-8 hover:w-28 overflow-hidden hover:text-primary transition-all duration-300 cursor-pointer"
-                        >
-                            <p className="text-xs transition-all duration-300 scale-0 opacity-0 group-hover:opacity-100 whitespace-nowrap group-hover:scale-100">
-                                Xem thêm
-                            </p>
-                            <IoIosArrowForward className="flex-shrink-0 -ml-16 group-hover:-ml-0 pl-[2px] font-semibold text-lg transition-all duration-300" />
-                        </Link>
-                    </div>
-
-                    <ListTypeRetangle list_movie={list_movie.slice(13, 18)} />
                 </div>
 
                 <div className="hidden mt-12 lg:block lg:mt-20">

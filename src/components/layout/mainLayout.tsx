@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { useUserStore } from '@/store/userStore';
-import { toast, ToastContainer } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import { usePathname, useRouter } from 'next/navigation';
 import Header from './header';
 import Footer from './footer';
@@ -15,7 +15,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
 
     const setUser = useUserStore((state) => state.setUser);
 
-    const noLayoutRoutes = ['/login', '/register'];
+    const noLayoutRoutes = ['/', '/login', '/register'];
     const isNoLayout = noLayoutRoutes.includes(pathname);
 
     const hasCookie = Boolean(getCookie('access_token'));
@@ -23,10 +23,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
     const { data: profile, error } = useProfile(hasCookie);
 
     useEffect(() => {
-        if (!hasCookie) return;
-
         if (profile) {
-            console.log('User profile fetched successfully:', profile);
             setUser(profile);
         } else if (error) {
             console.log('Failed to fetch profile:', error);

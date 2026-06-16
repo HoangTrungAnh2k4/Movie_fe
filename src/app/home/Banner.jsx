@@ -81,7 +81,7 @@ function Banner({ setList_movie }) {
     if (isLoading)
         return (
             <div className="flex justify-center items-center bg-background h-[350px] lg:h-[600px]">
-                <div className="border-4 border-primary border-t-transparent rounded-full w-16 h-16 animate-spin" />
+                <div className="w-16 h-16 border-4 rounded-full border-primary border-t-transparent animate-spin" />
             </div>
         );
 
@@ -95,20 +95,27 @@ function Banner({ setList_movie }) {
                     fill
                     style={{ objectFit: 'cover' }}
                     priority
-                    className="z-10 absolute opacity-85"
+                    className="absolute z-10 opacity-85"
                 />
             )}
             {/* Lớp overlay tối ở rìa, sáng ở giữa */}
             <div className="z-10 absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(0,0,0,0)_0,_rgba(0,0,0,0.9)_100%)] pointer-events-none"></div>
 
-            {/* Gradient làm mờ */}
-            <div className="bottom-0 z-20 absolute bg-gradient-to-b from-transparent to-background w-full h-80" />
+            <div
+                className="absolute inset-0 z-10 bg-repeat opacity-20"
+                style={{
+                    backgroundImage: `url('/dotted.png')`,
+                }}
+            />
 
-            <div className="z-20 absolute flex bg-transparent h-full">
-                <div className="flex flex-col flex-1 justify-center items-center lg:items-start bg-transparent px-8 h-full">
+            {/* Gradient làm mờ */}
+            <div className="absolute bottom-0 z-20 w-full bg-gradient-to-b from-transparent to-background h-80" />
+
+            <div className="absolute z-20 flex h-full bg-transparent">
+                <div className="flex flex-col items-center justify-center flex-1 h-full px-8 bg-transparent lg:items-start">
                     <h1
                         onClick={moveToDetail}
-                        className="font-semibold hover:text-primary text-lg lg:text-3xl line-clamp-1 cursor-pointer"
+                        className="text-lg font-semibold cursor-pointer hover:text-primary lg:text-3xl line-clamp-1"
                     >
                         {listMovies[activeMovie]?.name}
                     </h1>
@@ -117,7 +124,7 @@ function Banner({ setList_movie }) {
                         {listMovies[activeMovie]?.origin_name}
                     </h3>
 
-                    <ul className="flex justify-start items-center gap-4 mt-8 text-xs">
+                    <ul className="flex items-center justify-start gap-4 mt-8 text-xs">
                         <li className="bg-gradient-to-bl from-primary to-white px-2 py-[2px] pt-[3px] rounded-md font-semibold text-black">
                             {listMovies[activeMovie]?.quality}
                         </li>
@@ -132,7 +139,7 @@ function Banner({ setList_movie }) {
                         </li>
                     </ul>
 
-                    <ul className="hidden lg:flex justify-start items-center gap-4 mt-4 text-xs">
+                    <ul className="items-center justify-start hidden gap-4 mt-4 text-xs lg:flex">
                         {listMovies[activeMovie]?.category?.map((item, index) => (
                             <li key={index} className="bg-[#f3f3f310] px-2 py-[2px] pt-[3px] rounded-md text-xs">
                                 {item.name}
@@ -146,8 +153,8 @@ function Banner({ setList_movie }) {
                         nostrum doloremque minus, inventore ipsa dolorem.
                     </p>
 
-                    <div className="flex justify-center lg:justify-between items-center gap-4 mt-6 lg:mt-16 w-full text-xs">
-                        <div className="hidden lg:flex items-center gap-8">
+                    <div className="flex items-center justify-center w-full gap-4 mt-6 text-xs lg:justify-between lg:mt-16">
+                        <div className="items-center hidden gap-8 lg:flex">
                             <button
                                 onClick={moveToDetail}
                                 className="flex justify-center items-center bg-gradient-to-tr from-yellow-400 to-yellow-50 hover:shadow-[0_5px_10px_10px_rgba(255,218,125,0.15)] rounded-full size-[70px] text-black cursor-pointer"
@@ -166,7 +173,7 @@ function Banner({ setList_movie }) {
                                 </button>
                                 <Link
                                     href={`/detail_movie/${listMovies[activeMovie]?.slug}`}
-                                    className="flex justify-center items-center px-5 py-2 h-full text-white hover:text-primary cursor-pointer"
+                                    className="flex items-center justify-center h-full px-5 py-2 text-white cursor-pointer hover:text-primary"
                                 >
                                     <FaExclamationCircle className="ml-1 text-2xl rotate-180" />
                                 </Link>
@@ -174,7 +181,7 @@ function Banner({ setList_movie }) {
                         </div>
 
                         {/* slider */}
-                        <ul className="flex justify-center items-center gap-4">
+                        <ul className="flex items-center justify-center gap-4">
                             {listMovies.map((item, index) => {
                                 return (
                                     <li
