@@ -52,67 +52,74 @@ const Header: React.FC = () => {
 
     return (
         <header
-            className="z-[100] fixed flex justify-start items-center px-4 py-6 pr-6 w-full h-[70px] text-white transition-all header"
+            className='header fixed z-[100] flex h-[70px] w-full items-center justify-start px-4 py-8 pr-6 text-white transition-all'
             style={{
                 backgroundColor: scrolled ? '#0F111A' : 'transparent',
                 willChange: 'background-color',
             }}
         >
-            <div className="flex items-center justify-center mr-4 text-4xl sm:hidden">
+            <div className='mr-4 flex items-center justify-center text-4xl sm:hidden'>
                 <IoMenuOutline />
             </div>
 
-            <Link href={'/'} className="flex items-center justify-center gap-2 logo">
-                <Image src="/ro-icon.svg" alt="Movie App Logo" width={40} height={40} />
-                <p className="text-xl font-bold">Movie App</p>
+            <Link
+                href={'/home'}
+                className='logo flex items-center justify-center gap-2'
+            >
+                <Image
+                    src='/ro-icon.svg'
+                    alt='Movie App Logo'
+                    width={160}
+                    height={40}
+                />
             </Link>
 
-            <div className="flex justify-start items-center gap-3 lg:bg-[#ffffff14] ml-auto lg:ml-6 px-2 lg:px-4 py-2 rounded-lg lg:w-[25%] h-fit">
+            <div className='ml-auto flex h-fit items-center justify-start gap-3 rounded-lg px-2 py-1.5 lg:ml-6 lg:w-[25%] lg:bg-[#ffffff14] lg:px-4'>
                 <IoSearch
                     onClick={() => {
                         toast.warning('Chức năng đang được phát triển');
                     }}
-                    className="text-2xl font-semibold sm:text-xl"
+                    className='text-2xl font-semibold sm:text-xl'
                 />
                 <input
-                    type="text"
-                    placeholder="Search for movies..."
+                    type='text'
+                    placeholder='Search for movies...'
                     onChange={() => {
                         toast.warning('Chức năng đang được phát triển');
                     }}
-                    className="hidden lg:block bg-transparent py-1 outline-none focus:outline-none w-full text-white placeholder:text-[#aaaaaa] text-sm placeholder:text-sm"
+                    className='hidden w-full bg-transparent py-1 text-sm text-white outline-none placeholder:text-sm placeholder:text-[#aaaaaa] focus:outline-none lg:block'
                 />
             </div>
 
-            <ul className="items-center justify-center hidden gap-3 ml-16 text-sm sm:flex">
-                <li className="px-3 py-1 hover:text-primary">
-                    <Link href="/list_movie">Chủ Đề</Link>
+            <ul className='ml-16 hidden items-center justify-center gap-3 text-sm sm:flex'>
+                <li className='hover:text-primary px-3 py-1'>
+                    <Link href='/topic'>Chủ Đề</Link>
                 </li>
-                <li className="px-3 py-1 hover:text-primary">
-                    <Link href="/list_movie">Phim Lẻ</Link>
+                <li className='hover:text-primary px-3 py-1'>
+                    <Link href='/list_movie'>Phim Lẻ</Link>
                 </li>
-                <li className="px-3 py-1 hover:text-primary">
-                    <Link href="/list_movie">Phim Bộ</Link>
+                <li className='hover:text-primary px-3 py-1'>
+                    <Link href='/list_movie'>Phim Bộ</Link>
                 </li>
             </ul>
 
-            <div className="items-center justify-center hidden gap-4 ml-auto sm:flex">
+            <div className='ml-auto hidden items-center justify-center gap-4 sm:flex'>
                 <div
                     onClick={() => {
                         toast.success('Bạn không có thông báo nào!');
                     }}
-                    className="flex justify-center items-center border rounded-full size-[40px]"
+                    className='flex size-[40px] cursor-pointer items-center justify-center rounded-full border'
                 >
-                    <FaBell className="text-white" />
+                    <FaBell className='text-white' />
                 </div>
 
                 {!user && (
                     <Link
                         href={'/login'}
-                        className="flex justify-center items-start gap-2 bg-white px-3.5 py-2 rounded-full text-black cursor-pointer cursor-pointer"
+                        className='flex cursor-pointer items-start justify-center gap-2 rounded-full bg-white px-3.5 py-2 text-black'
                     >
                         <FaUser />
-                        <p className="text-sm font-semibold">Thành viên</p>
+                        <p className='text-sm font-semibold'>Thành viên</p>
                     </Link>
                 )}
 
@@ -120,22 +127,22 @@ const Header: React.FC = () => {
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Image
-                                src="https://www.rophim.me/images/avatars/pack1/14.jpg"
-                                alt="Movie App Logo"
+                                src='https://www.rophim.me/images/avatars/pack1/14.jpg'
+                                alt='Movie App Logo'
                                 width={40}
                                 height={40}
-                                className="border-2 border-white rounded-full cursor-pointer "
+                                className='cursor-pointer rounded-full border-2 border-white'
                             />
                         </DropdownMenuTrigger>
                         <DropdownMenuContent
-                            className="z-[101] mt-2 mr-6 text-white border-none w-46 bg-background2"
-                            align="start"
+                            className='bg-background2 z-[101] mt-2 mr-6 w-46 border-none text-white'
+                            align='start'
                         >
                             <DropdownMenuLabel>My Account</DropdownMenuLabel>
 
-                            <DropdownMenuSeparator className="bg-neutral-500" />
+                            <DropdownMenuSeparator className='bg-neutral-500' />
                             <DropdownMenuItem
-                                className="cursor-pointer hover:bg-background/50"
+                                className='hover:bg-background/50 cursor-pointer'
                                 onClick={() => {
                                     router.push('/manage_account');
                                 }}
@@ -143,9 +150,12 @@ const Header: React.FC = () => {
                                 <FaUser /> Tài khoản
                             </DropdownMenuItem>
 
-                            <DropdownMenuSeparator className="bg-neutral-500" />
-                            <DropdownMenuItem onSelect={handleLogout} className="cursor-pointer hover:bg-background/50">
-                                <FaSignOutAlt className="" />
+                            <DropdownMenuSeparator className='bg-neutral-500' />
+                            <DropdownMenuItem
+                                onSelect={handleLogout}
+                                className='hover:bg-background/50 cursor-pointer'
+                            >
+                                <FaSignOutAlt className='' />
                                 Đăng xuất
                             </DropdownMenuItem>
                         </DropdownMenuContent>

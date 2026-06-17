@@ -160,3 +160,49 @@ body[data-scroll-locked] {
 .width-before-scroll-bar {
     margin-right: 0 !important;
 }
+
+@keyframes shrinkAndFade {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0);
+    }
+}
+
+.animate-shrink-fade {
+    animation: shrinkAndFade 1s forwards cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateX(-40px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.animate-slide-in {
+    animation: slideIn 1000ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes bgShift {
+    0% {
+        transform: translateX(30px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.animate-bg-shift {
+    animation: bgShift 800ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: transform;
+}

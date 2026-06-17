@@ -3,45 +3,56 @@ import Link from 'next/link';
 
 export default function TopCinema({ list_movie }) {
     return (
-        <div className="flex gap-4 lg:grid grid-cols-[repeat(auto-fit,minmax(170px,1fr))] mt-4 pt-4 overflow-x-auto not-scroll">
+        <div className='not-scroll mt-4 flex grid-cols-[repeat(auto-fit,minmax(170px,1fr))] gap-4 overflow-x-auto pt-4 lg:grid'>
             {list_movie?.map((item, index) => (
-                <div key={index} className="group relative rounded-lg w-[160px] sm:w-[250px] lg:w-auto overflow-hidden">
+                <div
+                    key={index}
+                    className='group relative w-[160px] overflow-hidden rounded-lg sm:w-[250px] lg:w-auto'
+                >
                     <Link
                         href={`/detail_movie/${item?.slug}`}
-                        className="block hover:bg-primary hover:p-1 w-[160px] sm:w-[250px] lg:w-auto overflow-hidden duration-300 cursor-pointer"
+                        className='hover:bg-primary block w-[160px] cursor-pointer overflow-hidden duration-300 hover:p-1 sm:w-[250px] lg:w-auto'
                     >
                         <Image
                             src={item?.thumb_url}
-                            alt="Movie Poster"
+                            alt='Movie Poster'
                             width={500}
                             height={281}
-                            className="rounded-lg w-[160px] sm:w-[250px] lg:w-full h-full object-center object-cover aspect-[500/281]"
+                            className='aspect-[500/281] h-full w-[160px] rounded-lg object-cover object-center sm:w-[250px] lg:w-full'
                         />
 
                         {/* lớp phủ */}
-                        <div className="top-0 left-0 absolute bg-primary opacity-0 group-hover:opacity-15 rounded-xl w-[160px] sm:w-[250px] lg:w-auto h-auto aspect-[500/281] transition-all duration-300" />
+                        <div className='bg-primary absolute top-0 left-0 aspect-[500/281] h-auto w-[160px] rounded-xl opacity-0 transition-all duration-300 group-hover:opacity-15 sm:w-[250px] lg:w-auto' />
                     </Link>
 
-                    <div className="z-20 relative flex items-end gap-4 shadow-2xl mt-4 lg:-mt-[60px] lg:px-6">
+                    <div className='relative z-20 mt-4 flex items-end gap-4 shadow-2xl lg:-mt-[60px] lg:px-6'>
                         <Image
                             src={item?.poster_url}
-                            alt="Movie Poster"
+                            alt='Movie Poster'
                             width={400}
                             height={200}
-                            className="hidden lg:block border border-[#aaaaaa] rounded-lg w-[80px] h-auto aspect-[100/157]"
+                            className='hidden aspect-[100/157] h-auto w-[80px] rounded-lg border border-[#aaaaaa] lg:block'
                         />
-                        <div className="flex flex-col gap-1">
+                        <div className='flex flex-col gap-1'>
                             <Link
                                 href={`/detail_movie/${item?.slug}`}
-                                className="font-semibold text-white hover:text-primary text-sm lg:text-base line-clamp-1 duration-300 cursor-pointer"
+                                className='hover:text-primary line-clamp-1 cursor-pointer text-sm font-semibold text-white duration-300 lg:text-base'
                             >
                                 {item?.name}
                             </Link>
-                            <h3 className="text-[#aaaaaa] text-xs lg:text-sm line-clamp-1">{item?.origin_name} </h3>
-                            <ul className="flex justify-start gap-4 mt-[2px] text-[#aaa]">
-                                <li className="text-xs line-clamp-1">{item?.movie?.type}</li>
-                                <li className="text-xs line-clamp-1">{item?.movie?.year}</li>
-                                <li className="text-xs line-clamp-1">{item?.movie?.episode_current}</li>
+                            <h3 className='line-clamp-1 text-xs text-[#aaaaaa] lg:text-sm'>
+                                {item?.origin_name}{' '}
+                            </h3>
+                            <ul className='mt-[2px] flex justify-start gap-4 text-[#aaa]'>
+                                <li className='line-clamp-1 text-xs'>
+                                    {item?.movie?.type}
+                                </li>
+                                <li className='line-clamp-1 text-xs'>
+                                    {item?.movie?.year}
+                                </li>
+                                <li className='line-clamp-1 text-xs'>
+                                    {item?.movie?.episode_current}
+                                </li>
                             </ul>
                         </div>
                     </div>

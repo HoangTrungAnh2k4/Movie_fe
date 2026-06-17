@@ -14,7 +14,13 @@ import { addFavoriteMovieApi } from '@/api/userApi';
 
 const USER_URL = process.env.NEXT_PUBLIC_USER_URL;
 
-export default function Episode({ episodes, infor }: { episodes: any; infor: any }) {
+export default function Episode({
+    episodes,
+    infor,
+}: {
+    episodes: any;
+    infor: any;
+}) {
     const [activeFavorite, setActiveFavorite] = useState(false);
     const router = useRouter();
 
@@ -28,7 +34,9 @@ export default function Episode({ episodes, infor }: { episodes: any; infor: any
 
     const addFavorite = async () => {
         if (/\s/.test(infor?.slug)) {
-            toast.error('Tên phim không được chứa khoảng trắng! Vui lòng chọn phim khác!');
+            toast.error(
+                'Tên phim không được chứa khoảng trắng! Vui lòng chọn phim khác!',
+            );
             return;
         }
 
@@ -36,7 +44,9 @@ export default function Episode({ episodes, infor }: { episodes: any; infor: any
             const res = await addFavoriteMovieApi(infor?.slug);
 
             if (res.status === 401) {
-                toast.error('Bạn cần đăng nhập để thêm vào danh sách yêu thích!');
+                toast.error(
+                    'Bạn cần đăng nhập để thêm vào danh sách yêu thích!',
+                );
                 return;
             }
 
@@ -52,99 +62,107 @@ export default function Episode({ episodes, infor }: { episodes: any; infor: any
 
     useEffect(() => {
         const favoriteMovies = user?.favorite || [];
-        const isFavorite = favoriteMovies.some((movie) => movie === infor?.slug);
+        const isFavorite = favoriteMovies.some(
+            (movie) => movie === infor?.slug,
+        );
         setActiveFavorite(isFavorite);
     }, [user, infor]);
 
     return (
-        <div className="p-4" id="episode-section">
-            <div className="flex flex-col items-center justify-start gap-6 lg:flex-row lg:gap-12">
+        <div className='p-4' id='episode-section'>
+            <div className='flex flex-col items-center justify-start gap-6 lg:flex-row lg:gap-12'>
                 <div
                     onClick={MoveToWatch}
-                    className="flex items-center gap-4 hover:shadow-[0_5px_10px_10px_rgba(255,218,125,0.15)] px-18 lg:px-8 py-2.5 lg:py-3.5 rounded-full font-semibold text-black text-lg cursor-pointer"
+                    className='flex cursor-pointer items-center gap-4 rounded-full px-18 py-2.5 text-lg font-semibold text-black hover:shadow-[0_5px_10px_10px_rgba(255,218,125,0.15)] lg:px-8 lg:py-3.5'
                     style={{
-                        background: 'linear-gradient(39deg, rgba(254, 207, 89, 1), rgba(255, 241, 204, 1))',
+                        background:
+                            'linear-gradient(39deg, rgba(254, 207, 89, 1), rgba(255, 241, 204, 1))',
                     }}
                 >
                     <FaPlay />
                     <p>Xem ngay</p>
                 </div>
 
-                <ul className="flex items-center justify-center gap-4">
+                <ul className='flex items-center justify-center gap-4'>
                     <div
                         onClick={addFavorite}
-                        className="group justify-items-center hover:bg-[#ffffff10] lg:ml-24 px-4 py-2 rounded-xl cursor-pointer"
+                        className='group cursor-pointer justify-items-center rounded-xl px-4 py-2 hover:bg-[#ffffff10] lg:ml-24'
                     >
                         <FaHeart
-                            className={`group-hover:text-yellow-500 text-xl ${activeFavorite ? 'text-primary' : ''}`}
+                            className={`text-xl group-hover:text-yellow-500 ${activeFavorite ? 'text-primary' : ''}`}
                         />
-                        <p className="mt-2 text-xs">Yêu thích</p>
+                        <p className='mt-2 text-xs'>Yêu thích</p>
                     </div>
 
                     <div
                         onClick={() => {
-                            const commentInput = document.querySelector('textarea');
+                            const commentInput =
+                                document.querySelector('textarea');
                             if (commentInput) {
                                 commentInput.focus();
                             }
-                            document.getElementById('episode-section')?.scrollIntoView({ behavior: 'smooth' });
+                            document
+                                .getElementById('episode-section')
+                                ?.scrollIntoView({ behavior: 'smooth' });
                         }}
-                        className="group justify-items-center hover:bg-[#ffffff10] px-4 py-2 rounded-xl cursor-pointer"
+                        className='group cursor-pointer justify-items-center rounded-xl px-4 py-2 hover:bg-[#ffffff10]'
                     >
-                        <IoChatboxEllipses className="text-xl group-hover:text-yellow-500" />
-                        <p className="mt-2 text-xs">Bình luận</p>
+                        <IoChatboxEllipses className='text-xl group-hover:text-yellow-500' />
+                        <p className='mt-2 text-xs'>Bình luận</p>
                     </div>
 
-                    <div className="group justify-items-center hover:bg-[#ffffff10] px-4 py-2 rounded-xl cursor-pointer">
-                        <PiPaperPlaneTiltFill className="text-xl group-hover:text-yellow-500" />
-                        <p className="mt-2 text-xs">Chia sẻ</p>
+                    <div className='group cursor-pointer justify-items-center rounded-xl px-4 py-2 hover:bg-[#ffffff10]'>
+                        <PiPaperPlaneTiltFill className='text-xl group-hover:text-yellow-500' />
+                        <p className='mt-2 text-xs'>Chia sẻ</p>
                     </div>
                 </ul>
             </div>
 
-            <div className="mt-6 lg:mt-12">
-                <ul className="flex items-center gap-12 border-[#ffffff10] border-b-2 text-sm">
-                    <li className="px-2 pt-2 pb-2 border-b-2 cursor-pointer border-primary text-primary">Tập phim</li>
+            <div className='mt-6 lg:mt-12'>
+                <ul className='flex items-center gap-12 border-b-2 border-[#ffffff10] text-sm'>
+                    <li className='border-primary text-primary cursor-pointer border-b-2 px-2 pt-2 pb-2'>
+                        Tập phim
+                    </li>
                 </ul>
 
                 {/* content */}
-                <div className="mt-6">
-                    <div className="relative group w-fit">
+                <div className='mt-6'>
+                    <div className='group relative w-fit'>
                         <div
-                            data-popovertarget="cac_phan"
-                            className="flex items-center gap-6 hover:bg-[#ffffff10] px-4 py-2 rounded-lg w-fit text-xl cursor-pointer"
+                            data-popovertarget='cac_phan'
+                            className='flex w-fit cursor-pointer items-center gap-6 rounded-lg px-4 py-2 text-xl hover:bg-[#ffffff10]'
                         >
-                            <FaBarsStaggered className="text-2xl text-primary" />
-                            <p className="font-semibold">Phần 1</p>
+                            <FaBarsStaggered className='text-primary text-2xl' />
+                            <p className='font-semibold'>Phần 1</p>
                             <FaCaretDown />
                         </div>
 
                         <div
-                            data-popover="manual"
-                            id="cac_phan"
-                            className="absolute right-0 z-50 hidden py-2 overflow-hidden text-sm bg-white rounded-lg group-hover:block bottom-15 w-fit"
+                            data-popover='manual'
+                            id='cac_phan'
+                            className='absolute right-0 bottom-15 z-50 hidden w-fit overflow-hidden rounded-lg bg-white py-2 text-sm group-hover:block'
                         >
-                            <h5 className="px-4 py-1 mb-2 text-background2">Danh sách các phần </h5>
-                            <div className="px-4 py-2 font-semibold bg-primary text-background2">Phần 1</div>
+                            <h5 className='text-background2 mb-2 px-4 py-1'>
+                                Danh sách các phần{' '}
+                            </h5>
+                            <div className='bg-primary text-background2 px-4 py-2 font-semibold'>
+                                Phần 1
+                            </div>
                         </div>
                     </div>
 
-                    <div className="gap-4 grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))] mt-6">
-                        {Array.isArray(episodes) &&
-                            episodes?.map((item, index) => (
-                                <div
-                                    onClick={MoveToWatch}
-                                    key={index}
-                                    className="flex justify-center items-center gap-4 bg-[#ffffff10] px-4 rounded-lg h-[50px] hover:text-primary text-sm cursor-pointer"
-                                >
-                                    <FaPlay />
-                                    <p>Tập {index + 1}</p>
-                                </div>
-                            ))}
+                    <div className='mt-6 grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))] gap-4'>
+                        <div
+                            onClick={MoveToWatch}
+                            className='hover:text-primary flex h-[50px] w-[148px] cursor-pointer items-center justify-center gap-2 rounded-lg bg-[#ffffff10] px-6 text-sm font-semibold'
+                        >
+                            <FaPlay />
+                            <p>Trailer</p>
+                        </div>
                     </div>
                 </div>
 
-                <div className="mt-12">
+                <div className='mt-12'>
                     <Comment nameSlug={infor?.slug} />
                 </div>
             </div>

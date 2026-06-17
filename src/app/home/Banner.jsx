@@ -17,10 +17,14 @@ function Banner({ setList_movie }) {
     const [listMovies, setListMovies] = useState([]);
 
     const fetcher = (url) => fetch(url).then((res) => res.json());
-    const { data, error, isLoading } = useSWR('https://phimapi.com/danh-sach/phim-moi-cap-nhat-v3?page=1', fetcher, {
-        revalidateOnFocus: false,
-        dedupingInterval: 60000,
-    });
+    const { data, error, isLoading } = useSWR(
+        'https://phimapi.com/danh-sach/phim-moi-cap-nhat-v3?page=1',
+        fetcher,
+        {
+            revalidateOnFocus: false,
+            dedupingInterval: 60000,
+        },
+    );
 
     const moveToDetail = () => {
         router.push(`/detail_movie/${listMovies[activeMovie]?.slug}`);
@@ -28,7 +32,9 @@ function Banner({ setList_movie }) {
 
     const addFavorite = async (nameSlug) => {
         if (/\s/.test(nameSlug)) {
-            toast.error('Tên phim không được chứa khoảng trắng! Vui lòng chọn phim khác!');
+            toast.error(
+                'Tên phim không được chứa khoảng trắng! Vui lòng chọn phim khác!',
+            );
             return;
         }
 
@@ -80,129 +86,146 @@ function Banner({ setList_movie }) {
     if (error) return <div>Failed to load</div>;
     if (isLoading)
         return (
-            <div className="flex justify-center items-center bg-background h-[350px] lg:h-[600px]">
-                <div className="w-16 h-16 border-4 rounded-full border-primary border-t-transparent animate-spin" />
+            <div className='bg-background flex h-[350px] items-center justify-center lg:h-[600px]'>
+                <div className='border-primary h-16 w-16 animate-spin rounded-full border-4 border-t-transparent' />
             </div>
         );
 
     return (
-        <div className="relative w-full h-[400px] lg:h-[650px] overflow-hidden text-white">
+        <div className='relative h-[400px] w-full overflow-hidden text-white lg:h-[650px]'>
             {/* Ảnh nền dùng Image với fill và objectFit cover */}
             {optimizeUrl(listMovies[activeMovie]?.thumb_url) && (
                 <Image
+                    key={activeMovie}
                     src={listMovies[activeMovie]?.thumb_url}
-                    alt="Movie thumbnail"
+                    alt='Movie thumbnail'
                     fill
                     style={{ objectFit: 'cover' }}
                     priority
-                    className="absolute z-10 opacity-85"
+                    className='animate-bg-shift absolute z-0'
                 />
             )}
             {/* Lớp overlay tối ở rìa, sáng ở giữa */}
-            <div className="z-10 absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(0,0,0,0)_0,_rgba(0,0,0,0.9)_100%)] pointer-events-none"></div>
+
+            <div className='pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(ellipse_at_85%_50%,_rgba(0,0,0,0)_0,_rgba(0,0,0,0.8)_80%)]' />
 
             <div
-                className="absolute inset-0 z-10 bg-repeat opacity-20"
+                className='pointer-events-none absolute inset-0 z-10 bg-repeat opacity-20'
                 style={{
                     backgroundImage: `url('/dotted.png')`,
                 }}
             />
 
             {/* Gradient làm mờ */}
-            <div className="absolute bottom-0 z-20 w-full bg-gradient-to-b from-transparent to-background h-80" />
+            <div className='to-background pointer-events-none absolute bottom-0 z-20 h-80 w-full bg-gradient-to-b from-transparent' />
 
-            <div className="absolute z-20 flex h-full bg-transparent">
-                <div className="flex flex-col items-center justify-center flex-1 h-full px-8 bg-transparent lg:items-start">
+            <div className='absolute z-30 flex h-full bg-transparent'>
+                <div
+                    key={activeMovie}
+                    className='animate-slide-in flex h-full flex-1 flex-col items-center justify-center bg-transparent px-8 pt-12 lg:items-start'
+                >
                     <h1
                         onClick={moveToDetail}
-                        className="text-lg font-semibold cursor-pointer hover:text-primary lg:text-3xl line-clamp-1"
+                        className='hover:text-primary line-clamp-1 cursor-pointer text-lg font-semibold lg:text-3xl'
                     >
                         {listMovies[activeMovie]?.name}
                     </h1>
 
-                    <h3 onClick={moveToDetail} className="mt-2 text-[#aaaaaa] text-sm">
+                    <h3
+                        onClick={moveToDetail}
+                        className='mt-2 text-sm text-[#aaaaaa]'
+                    >
                         {listMovies[activeMovie]?.origin_name}
                     </h3>
 
-                    <ul className="flex items-center justify-start gap-4 mt-8 text-xs">
-                        <li className="bg-gradient-to-bl from-primary to-white px-2 py-[2px] pt-[3px] rounded-md font-semibold text-black">
+                    <ul className='mt-8 flex items-center justify-start gap-4 text-xs'>
+                        <li className='from-primary rounded-md bg-gradient-to-bl to-white px-2 py-[2px] pt-[3px] font-semibold text-black'>
                             {listMovies[activeMovie]?.quality}
                         </li>
-                        <li className="bg-white px-2 py-[2px] pt-[3px] rounded-md text-black">
+                        <li className='rounded-md bg-white px-2 py-[2px] pt-[3px] text-black'>
                             {listMovies[activeMovie]?.type}
                         </li>
-                        <li className="px-2 py-[2px] pt-[3px] border border-white rounded-md text-white">
+                        <li className='rounded-md border border-white px-2 py-[2px] pt-[3px] text-white'>
                             {listMovies[activeMovie]?.year}
                         </li>
-                        <li className="px-2 py-[2px] pt-[3px] border border-white rounded-md text-white">
+                        <li className='rounded-md border border-white px-2 py-[2px] pt-[3px] text-white'>
                             {listMovies[activeMovie]?.time}
                         </li>
                     </ul>
 
-                    <ul className="items-center justify-start hidden gap-4 mt-4 text-xs lg:flex">
-                        {listMovies[activeMovie]?.category?.map((item, index) => (
-                            <li key={index} className="bg-[#f3f3f310] px-2 py-[2px] pt-[3px] rounded-md text-xs">
-                                {item.name}
-                            </li>
-                        ))}
+                    <ul className='mt-4 hidden items-center justify-start gap-4 text-xs lg:flex'>
+                        {listMovies[activeMovie]?.category?.map(
+                            (item, index) => (
+                                <li
+                                    key={index}
+                                    className='rounded-md bg-[#f3f3f310] px-2 py-[2px] pt-[3px] text-xs'
+                                >
+                                    {item.name}
+                                </li>
+                            ),
+                        )}
                     </ul>
 
-                    <p className="hidden lg:block mt-8 w-[35%] text-sm line-clamp-3">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad unde aut similique veritatis
-                        reiciendis quis dignissimos aliquam sit blanditiis explicabo. Consectetur dolore iusto quasi
-                        nostrum doloremque minus, inventore ipsa dolorem.
+                    <p className='mt-8 line-clamp-3 hidden w-[60%] text-sm lg:block'>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Ad unde aut similique veritatis reiciendis quis
+                        dignissimos aliquam sit blanditiis explicabo.
+                        Consectetur dolore iusto quasi nostrum doloremque minus,
+                        inventore ipsa dolorem.
                     </p>
 
-                    <div className="flex items-center justify-center w-full gap-4 mt-6 text-xs lg:justify-between lg:mt-16">
-                        <div className="items-center hidden gap-8 lg:flex">
+                    <div className='mt-4 flex w-full items-center justify-start gap-12 text-xs lg:mt-12'>
+                        <button
+                            onClick={moveToDetail}
+                            className='flex size-[70px] cursor-pointer items-center justify-center rounded-full bg-gradient-to-tr from-yellow-400 to-yellow-50 text-black hover:shadow-[0_5px_10px_10px_rgba(255,218,125,0.15)]'
+                        >
+                            <FaPlay className='ml-1 text-2xl' />
+                        </button>
+
+                        <div className='flex h-[50px] w-fit items-center rounded-full border-2 border-[#ffffff10] hover:border-white'>
                             <button
-                                onClick={moveToDetail}
-                                className="flex justify-center items-center bg-gradient-to-tr from-yellow-400 to-yellow-50 hover:shadow-[0_5px_10px_10px_rgba(255,218,125,0.15)] rounded-full size-[70px] text-black cursor-pointer"
+                                onClick={(e) => {
+                                    addFavorite(listMovies[activeMovie]?.slug);
+                                }}
+                                className='hover:text-primary flex h-full cursor-pointer items-center justify-center border-r-2 border-[#ffffff10] px-5 py-2'
                             >
-                                <FaPlay className="ml-1 text-2xl" />
+                                <FaHeart className='ml-1 text-xl' />
                             </button>
-
-                            <div className="flex items-center border-[#ffffff10] border-2 hover:border-white rounded-full w-fit h-[50px]">
-                                <button
-                                    onClick={(e) => {
-                                        addFavorite(listMovies[activeMovie]?.slug);
-                                    }}
-                                    className="flex justify-center items-center px-5 py-2 border-[#ffffff10] border-r-2 h-full hover:text-primary cursor-pointer"
-                                >
-                                    <FaHeart className="ml-1 text-xl" />
-                                </button>
-                                <Link
-                                    href={`/detail_movie/${listMovies[activeMovie]?.slug}`}
-                                    className="flex items-center justify-center h-full px-5 py-2 text-white cursor-pointer hover:text-primary"
-                                >
-                                    <FaExclamationCircle className="ml-1 text-2xl rotate-180" />
-                                </Link>
-                            </div>
+                            <Link
+                                href={`/detail_movie/${listMovies[activeMovie]?.slug}`}
+                                className='hover:text-primary flex h-full cursor-pointer items-center justify-center px-5 py-2 text-white'
+                            >
+                                <FaExclamationCircle className='ml-1 rotate-180 text-2xl' />
+                            </Link>
                         </div>
-
-                        {/* slider */}
-                        <ul className="flex items-center justify-center gap-4">
-                            {listMovies.map((item, index) => {
-                                return (
-                                    <li
-                                        key={index}
-                                        className={`${
-                                            activeMovie === index ? 'border-[3px] border-white' : 'border-0'
-                                        } lg:w-[80px] w-[40px] rounded-full lg:rounded-none overflow-hidden `}
-                                        onClick={() => setActiveMovie(index)}
-                                    >
-                                        <Image
-                                            className="object-center object-cover aspect-1/1 lg:aspect-[25/14] cursor-pointer"
-                                            src={item.thumb_url}
-                                            width={80}
-                                            height={80}
-                                            alt="thumbnail"
-                                        />
-                                    </li>
-                                );
-                            })}
-                        </ul>
                     </div>
+                </div>
+
+                {/* slider */}
+                <div className='flex w-1/2 items-end justify-center pb-40'>
+                    <ul className='flex items-center justify-center gap-4'>
+                        {listMovies.map((item, index) => {
+                            return (
+                                <li
+                                    key={index}
+                                    className={`${
+                                        activeMovie === index
+                                            ? 'border-[3px] border-white'
+                                            : 'border-[1px] border-[#ffffff50]'
+                                    } w-[40px] overflow-hidden rounded-full lg:w-[80px] lg:rounded-none`}
+                                    onClick={() => setActiveMovie(index)}
+                                >
+                                    <Image
+                                        className='aspect-1/1 cursor-pointer object-cover object-center lg:aspect-[25/14]'
+                                        src={item.thumb_url}
+                                        width={80}
+                                        height={80}
+                                        alt='thumbnail'
+                                    />
+                                </li>
+                            );
+                        })}
+                    </ul>
                 </div>
             </div>
         </div>
