@@ -12,14 +12,19 @@ import { useUserStore } from '@/store/userStore';
 import { useEffect, useState } from 'react';
 import { addFavoriteMovieApi } from '@/api/userApi';
 
-const USER_URL = process.env.NEXT_PUBLIC_USER_URL;
+type MovieInfo = {
+    slug?: string;
+    [key: string]: unknown;
+};
+
+type EpisodeList = unknown[];
 
 export default function Episode({
     episodes,
     infor,
 }: {
-    episodes: any;
-    infor: any;
+    episodes: EpisodeList;
+    infor: MovieInfo;
 }) {
     const [activeFavorite, setActiveFavorite] = useState(false);
     const router = useRouter();
@@ -33,7 +38,9 @@ export default function Episode({
     };
 
     const addFavorite = async () => {
-        if (/\s/.test(infor?.slug)) {
+        const movieSlug = infor?.slug;
+
+        if (!movieSlug || /\s/.test(movieSlug)) {
             toast.error(
                 'Tên phim không được chứa khoảng trắng! Vui lòng chọn phim khác!',
             );
@@ -41,7 +48,7 @@ export default function Episode({
         }
 
         try {
-            const res = await addFavoriteMovieApi(infor?.slug);
+            const res = await addFavoriteMovieApi(movieSlug);
 
             if (res.status === 401) {
                 toast.error(
@@ -163,7 +170,7 @@ export default function Episode({
                 </div>
 
                 <div className='mt-12'>
-                    <Comment nameSlug={infor?.slug} />
+                    <Comment nameSlug={infor?.slug ?? ''} />
                 </div>
             </div>
         </div>

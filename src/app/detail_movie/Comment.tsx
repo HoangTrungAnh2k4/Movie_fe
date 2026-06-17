@@ -12,6 +12,12 @@ type CommentProps = {
     username: string;
 };
 
+type ApiError = {
+    response?: {
+        status?: number;
+    };
+};
+
 const avatarUrls = [
     'https://www.rophim.me/images/avatars/pack1/13.jpg',
     'https://www.rophim.me/images/avatars/pack1/26.jpg',
@@ -46,8 +52,10 @@ function Comment({ nameSlug }: { nameSlug: string }) {
                     mutate();
                 }
             }
-        } catch (error: any) {
-            if (error.response?.status === 401) {
+        } catch (error: unknown) {
+            const apiError = error as ApiError;
+
+            if (apiError.response?.status === 401) {
                 toast.error('Bạn cần đăng nhập để bình luận!');
             }
             console.log('Error adding comment:', error);
@@ -55,16 +63,16 @@ function Comment({ nameSlug }: { nameSlug: string }) {
     };
 
     return (
-        <div className="text-white">
-            <div className="flex items-center gap-4">
-                <IoChatboxEllipses className="text-2xl" />
-                <p className="text-xl font-semibold">Bình luận (39)</p>
+        <div className='text-white'>
+            <div className='flex items-center gap-4'>
+                <IoChatboxEllipses className='text-2xl' />
+                <p className='text-xl font-semibold'>Bình luận (39)</p>
             </div>
 
-            <div className="bg-[#ffffff14] my-4 p-2 rounded-lg">
+            <div className='my-4 rounded-lg bg-[#ffffff14] p-2'>
                 <textarea
-                    className="bg-background p-4 rounded-lg w-full h-[110px] placeholder:text-gray-600 placeholder:text-sm resize-none"
-                    placeholder="Viết bình luận"
+                    className='bg-background h-[110px] w-full resize-none rounded-lg p-4 placeholder:text-sm placeholder:text-gray-600'
+                    placeholder='Viết bình luận'
                     onKeyDown={(e) => {
                         if (e.key === 'Enter') {
                             e.preventDefault();
@@ -74,39 +82,46 @@ function Comment({ nameSlug }: { nameSlug: string }) {
                 ></textarea>
                 <button
                     onClick={handleAddComment}
-                    className="flex items-center gap-2 hover:bg-[#ffffff10] ml-auto px-4 py-2 rounded-lg text-primary cursor-pointer"
+                    className='text-primary ml-auto flex cursor-pointer items-center gap-2 rounded-lg px-4 py-2 hover:bg-[#ffffff10]'
                 >
-                    <p className="text-sm">Gửi</p>
-                    <PiPaperPlaneRightFill className="text-lg" />
+                    <p className='text-sm'>Gửi</p>
+                    <PiPaperPlaneRightFill className='text-lg' />
                 </button>
             </div>
 
-            <div className="">
+            <div className=''>
                 {comments?.map((item: CommentProps, index: number) => {
                     return (
-                        <div key={index} className="flex items-start w-full gap-4 pt-4 text-white rounded-lg">
+                        <div
+                            key={index}
+                            className='flex w-full items-start gap-4 rounded-lg pt-4 text-white'
+                        >
                             {/* Avatar */}
                             <Image
                                 src={getRandomAvatar()}
-                                alt="Movie App Logo"
+                                alt='Movie App Logo'
                                 width={40}
                                 height={40}
-                                className="rounded-full"
+                                className='rounded-full'
                             />
 
                             {/* Nội dung */}
-                            <div className="flex flex-col flex-1">
-                                <div className="flex items-center gap-4 text-sm">
-                                    <span className="font-semibold">{item?.username}</span>
+                            <div className='flex flex-1 flex-col'>
+                                <div className='flex items-center gap-4 text-sm'>
+                                    <span className='font-semibold'>
+                                        {item?.username}
+                                    </span>
                                 </div>
 
-                                <div className="mt-2 text-[#aaaaaa] text-sm">{item?.content}</div>
+                                <div className='mt-2 text-sm text-[#aaaaaa]'>
+                                    {item?.content}
+                                </div>
 
-                                <div className="flex items-center gap-4 mt-3 text-[#aaaaaa] text-xs">
-                                    <button className="flex items-center gap-1 transition cursor-pointer hover:text-white">
+                                <div className='mt-3 flex items-center gap-4 text-xs text-[#aaaaaa]'>
+                                    <button className='flex cursor-pointer items-center gap-1 transition hover:text-white'>
                                         Trả lời
                                     </button>
-                                    <button className="flex items-center gap-1 transition cursor-pointer hover:text-white">
+                                    <button className='flex cursor-pointer items-center gap-1 transition hover:text-white'>
                                         Thêm
                                     </button>
                                 </div>

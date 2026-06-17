@@ -15,13 +15,17 @@ const fetcher = async (url: string) => {
 
 export function useProfile(enabled: boolean) {
     const profileApiUrl = `${BACKEND_URL}/user/profile`;
-    const { data, error, isLoading } = useSWR(enabled ? profileApiUrl : null, fetcher, {
-        onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
-            // if (error?.response?.status === 404) return;
-            if (retryCount >= 2) return;
-            setTimeout(() => revalidate({ retryCount }), 5000);
+    const { data, error, isLoading } = useSWR(
+        enabled ? profileApiUrl : null,
+        fetcher,
+        {
+            onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
+                // if (error?.response?.status === 404) return;
+                if (retryCount >= 2) return;
+                setTimeout(() => revalidate({ retryCount }), 5000);
+            },
         },
-    });
+    );
 
     return {
         data,
@@ -31,15 +35,9 @@ export function useProfile(enabled: boolean) {
 }
 
 export const useComments = (nameSlug: string) => {
-    if (!nameSlug) {
-        return {
-            data: null,
-            isLoading: false,
-            error: null,
-        };
-    }
-
-    const commentApiUrl = `${BACKEND_URL}/movie/comment/${nameSlug}`;
+    const commentApiUrl = nameSlug
+        ? `${BACKEND_URL}/movie/comment/${nameSlug}`
+        : null;
     const { data, error, isLoading } = useSWR(commentApiUrl, fetcher, {
         onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
             // Nếu là lỗi 404 thì không retry
@@ -55,21 +53,27 @@ export const useComments = (nameSlug: string) => {
         isLoading,
         error,
         mutate: () => {
-            mutate(commentApiUrl);
+            if (commentApiUrl) {
+                mutate(commentApiUrl);
+            }
         },
     };
 };
 
 export const useFavoriteMovie = (enabled: boolean) => {
     const favoriteApiUrl = `${BACKEND_URL}/user/favorite-movie`;
-    const { data, error, isLoading } = useSWR(enabled ? favoriteApiUrl : null, fetcher, {
-        onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
-            if (error?.response?.status === 404) return;
-            if (retryCount >= 2) return;
+    const { data, error, isLoading } = useSWR(
+        enabled ? favoriteApiUrl : null,
+        fetcher,
+        {
+            onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
+                if (error?.response?.status === 404) return;
+                if (retryCount >= 2) return;
 
-            setTimeout(() => revalidate({ retryCount }), 5000);
+                setTimeout(() => revalidate({ retryCount }), 5000);
+            },
         },
-    });
+    );
 
     return {
         data,

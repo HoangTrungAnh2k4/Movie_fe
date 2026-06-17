@@ -2,13 +2,19 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 
 export default function Login() {
     const AUTH_URL = process.env.NEXT_PUBLIC_AUTH_URL;
+    const router = useRouter();
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+
+        router.replace('/home');
+
+        return;
 
         const formData = new FormData(event.currentTarget);
         const email = formData.get('email')?.toString().trim();
@@ -44,45 +50,48 @@ export default function Login() {
     };
 
     return (
-        <div className="flex items-center justify-center h-screen text-white">
-            <div className="flex bg-[#1e2545] rounded-xl w-[50%] h-[400px]">
-                <div className="w-1/2">
+        <div className='flex h-screen items-center justify-center text-white'>
+            <div className='flex h-[400px] w-[50%] rounded-xl bg-[#1e2545]'>
+                <div className='relative w-1/2'>
                     <Image
-                        src="https://www.rophim.me/images/rophim-login.jpg"
-                        alt="image"
+                        src='/bgLogin.png'
+                        alt='image'
                         width={200}
                         height={200}
-                        className="object-cover object-top w-full h-full rounded-l-xl"
+                        className='h-full w-full rounded-l-xl object-cover object-center'
                     />
+                    <div className='bg-bgLogin/80 absolute top-0 left-0 h-full w-full' />
                 </div>
 
-                <div className="flex flex-col justify-center w-1/2 px-10 i">
-                    <h4 className="text-lg font-semibold">Đăng nhập</h4>
-                    <p className="mt-4 text-[#aaaaaa] text-sm">
+                <div className='i flex w-1/2 flex-col justify-center px-10'>
+                    <h4 className='text-lg font-semibold'>Đăng nhập</h4>
+                    <p className='mt-4 text-sm text-[#aaaaaa]'>
                         Nếu bạn chưa có tài khoản,{' '}
-                        <Link href="/register" className="text-primary hover:underline">
+                        <Link
+                            href='/#'
+                            className='text-primary hover:underline'
+                        >
                             đăng ký ngay
                         </Link>
                     </p>
                     <form onSubmit={handleSubmit}>
                         <input
-                            name="email"
-                            type="email"
-                            placeholder="Email"
-                            required
-                            className="block mt-6 mb-3 px-4 py-2 border-[#ffffff10] border-[1px] rounded-lg w-full placeholder:text-[#aaaaaa] placeholder:text-xs"
+                            name='email'
+                            type='email'
+                            placeholder='Email'
+                            // required
+                            className='mt-6 mb-3 block w-full rounded-lg border-[1px] border-[#ffffff10] px-4 py-2 placeholder:text-xs placeholder:text-[#aaaaaa]'
                         />
                         <input
-                            name="password"
-                            type="password"
-                            placeholder="Mật khẩu"
-                            required
-                            className="block mb-2 px-4 py-2 border-[#ffffff10] border-[1px] rounded-lg w-full placeholder:text-[#aaaaaa] placeholder:text-xs"
+                            name='password'
+                            type='password'
+                            placeholder='Mật khẩu'
+                            // required
+                            className='mb-2 block w-full rounded-lg border-[1px] border-[#ffffff10] px-4 py-2 placeholder:text-xs placeholder:text-[#aaaaaa]'
                         />
-
                         <button
-                            type="submit"
-                            className="w-full px-4 py-2 mt-6 font-medium rounded-lg cursor-pointer bg-primary hover:opacity-90 text-background2"
+                            type='submit'
+                            className='bg-primary text-background2 mt-6 w-full cursor-pointer rounded-lg px-4 py-2 font-medium hover:opacity-90'
                         >
                             Đăng nhập
                         </button>

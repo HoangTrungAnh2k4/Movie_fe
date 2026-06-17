@@ -20,8 +20,6 @@ import {
 import { useRouter } from 'next/navigation';
 import { deleteCookie } from 'cookies-next/client';
 
-const USER_URL = process.env.NEXT_PUBLIC_USER_URL;
-
 const Header: React.FC = () => {
     const [scrolled, setScrolled] = useState<boolean>(false);
     const router = useRouter();
