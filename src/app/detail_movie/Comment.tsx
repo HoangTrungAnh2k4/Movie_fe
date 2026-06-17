@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useComments } from '@/api/fetchDataApi';
 import { addCommentApi } from '@/api/movieApi';
 import Image from 'next/image';
@@ -43,30 +44,31 @@ function Comment({ nameSlug }: { nameSlug: string }) {
         if (!commentText) {
             return;
         }
-        try {
-            const res = await addCommentApi(nameSlug, commentText);
 
-            if (res.status === 201) {
-                commentInput.value = '';
-                if (mutate) {
-                    mutate();
-                }
-            }
-        } catch (error: unknown) {
-            const apiError = error as ApiError;
+        // try {
+        //     const res = await addCommentApi(nameSlug, commentText);
 
-            if (apiError.response?.status === 401) {
-                toast.error('Bạn cần đăng nhập để bình luận!');
-            }
-            console.log('Error adding comment:', error);
-        }
+        //     if (res.status === 201) {
+        //         commentInput.value = '';
+        //         if (mutate) {
+        //             mutate();
+        //         }
+        //     }
+        // } catch (error: unknown) {
+        //     const apiError = error as ApiError;
+
+        //     if (apiError.response?.status === 401) {
+        //         toast.error('Bạn cần đăng nhập để bình luận!');
+        //     }
+        //     console.log('Error adding comment:', error);
+        // }
     };
 
     return (
         <div className='text-white'>
             <div className='flex items-center gap-4'>
                 <IoChatboxEllipses className='text-2xl' />
-                <p className='text-xl font-semibold'>Bình luận (39)</p>
+                <p className='text-xl font-semibold'>Bình luận (0)</p>
             </div>
 
             <div className='my-4 rounded-lg bg-[#ffffff14] p-2'>
