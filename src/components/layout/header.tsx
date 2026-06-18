@@ -22,6 +22,7 @@ import { deleteCookie } from 'cookies-next/client';
 
 const Header: React.FC = () => {
     const [scrolled, setScrolled] = useState<boolean>(false);
+    const [searchQuery, setSearchQuery] = useState<string>('');
     const router = useRouter();
 
     const { user } = useUserStore((state) => state);
@@ -74,16 +75,19 @@ const Header: React.FC = () => {
 
             <div className='ml-auto flex h-fit items-center justify-start gap-3 rounded-lg px-2 py-1.5 lg:ml-6 lg:w-[25%] lg:bg-[#ffffff14] lg:px-4'>
                 <IoSearch
-                    onClick={() => {
+                    onClick={(e) => {
                         toast.warning('Chức năng đang được phát triển');
                     }}
                     className='text-2xl font-semibold sm:text-xl'
                 />
                 <input
                     type='text'
+                    value={searchQuery}
                     placeholder='Search for movies...'
+                    onChange={(e) => setSearchQuery(e.target.value)}
                     onKeyDown={(e) => {
                         if (e.key === 'Enter') {
+                            e.currentTarget.value = '';
                             toast.warning('Chức năng đang được phát triển');
                         }
                     }}

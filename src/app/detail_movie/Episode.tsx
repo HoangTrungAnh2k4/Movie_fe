@@ -32,9 +32,7 @@ export default function Episode({
     const { user } = useUserStore();
 
     const MoveToWatch = () => {
-        sessionStorage.setItem('watchMovieData1', JSON.stringify(infor));
-        sessionStorage.setItem('watchMovieData2', JSON.stringify(episodes));
-        router.push(`/watch_movie`);
+        router.push(`/watch_movie/${infor?.slug}`);
     };
 
     const addFavorite = async () => {
