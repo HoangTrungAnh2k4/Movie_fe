@@ -1,7 +1,5 @@
-import MovieHoverPopup from '@/components/movie/movie-hover-popup';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
 import { IoIosArrowForward } from 'react-icons/io';
 
 export default function ListCountryMovie({ list_movie, moveToDetail }) {
@@ -38,7 +36,7 @@ export default function ListCountryMovie({ list_movie, moveToDetail }) {
                             <div className='group bg-primary w-[160px] cursor-pointer overflow-hidden rounded-xl sm:w-[250px] lg:w-full'>
                                 <div className='overflow-hidden rounded-xl'>
                                     <Image
-                                        src={item?.thumb_url}
+                                        src={item?.thumb}
                                         alt='Movie Poster'
                                         width={400}
                                         height={200}
@@ -47,7 +45,7 @@ export default function ListCountryMovie({ list_movie, moveToDetail }) {
                                 </div>
 
                                 {/* lớp phủ */}
-                                <div className='bg-primary absolute top-0 left-0 aspect-[500/281] h-auto w-full rounded-xl opacity-0 transition-all duration-300 group-hover:opacity-15' />
+                                {/* <div className='bg-primary absolute top-0 left-0 aspect-[500/281] h-auto w-full rounded-xl opacity-0 transition-all duration-300 group-hover:opacity-15' /> */}
                             </div>
 
                             <div className='mt-2 flex flex-col gap-2 lg:pl-4'>
@@ -58,7 +56,7 @@ export default function ListCountryMovie({ list_movie, moveToDetail }) {
                                     {item?.name}
                                 </h3>
                                 <h3 className='line-clamp-1 text-xs text-[#aaaaaa] lg:text-sm'>
-                                    {item?.origin_name}
+                                    {item?.slug}
                                 </h3>
                             </div>
                         </Link>
@@ -97,7 +95,7 @@ export default function ListCountryMovie({ list_movie, moveToDetail }) {
                             <div className='group bg-primary w-[160px] cursor-pointer overflow-hidden rounded-xl sm:w-[250px] lg:w-full'>
                                 <div className='overflow-hidden rounded-xl'>
                                     <Image
-                                        src={item?.thumb_url}
+                                        src={item?.thumb}
                                         alt='Movie Poster'
                                         width={400}
                                         height={200}
@@ -117,7 +115,7 @@ export default function ListCountryMovie({ list_movie, moveToDetail }) {
                                     {item?.name}
                                 </h3>
                                 <h3 className='line-clamp-1 text-xs text-[#aaaaaa] lg:text-sm'>
-                                    {item?.origin_name}
+                                    {item?.slug}
                                 </h3>
                             </div>
                         </Link>
@@ -156,7 +154,7 @@ export default function ListCountryMovie({ list_movie, moveToDetail }) {
                             <div className='group bg-primary w-[160px] cursor-pointer overflow-hidden rounded-xl sm:w-[250px] lg:w-full'>
                                 <div className='overflow-hidden rounded-xl'>
                                     <Image
-                                        src={item?.thumb_url}
+                                        src={item?.thumb}
                                         alt='Movie Poster'
                                         width={400}
                                         height={200}
@@ -176,7 +174,7 @@ export default function ListCountryMovie({ list_movie, moveToDetail }) {
                                     {item?.name}
                                 </h3>
                                 <h3 className='line-clamp-1 text-xs text-[#aaaaaa] lg:text-sm'>
-                                    {item?.origin_name}
+                                    {item?.slug}
                                 </h3>
                             </div>
                         </Link>

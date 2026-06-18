@@ -1,26 +1,30 @@
 'use client';
 
 import Image from 'next/image';
-import WatchMovieComponent from './WatchMovie';
+import WatchMovieComponent from '../WatchMovie';
 import { useEffect, useState } from 'react';
-import Comment from '../detail_movie/Comment';
+import Comment from '../../detail_movie/Comment';
 import { FaCaretDown, FaPlay } from 'react-icons/fa';
 import { FaBarsStaggered } from 'react-icons/fa6';
+import { useParams } from 'next/navigation';
+import { IoIosArrowBack, IoIosArrowDropleft } from 'react-icons/io';
+import useSWR from 'swr';
 
 export default function WatchMovie() {
+    const { name } = useParams();
     const [infor, setInfor] = useState(null);
-    const [episodes, setEpisodes] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+
+    const fetcher = (url) => fetch(url).then((res) => res.json());
+    const { data, error, isLoading } = useSWR(
+        `https://phimapi.com/phim/${name}`,
+        fetcher,
+    );
 
     useEffect(() => {
-        const raw1 = sessionStorage.getItem('watchMovieData1');
-        const raw2 = sessionStorage.getItem('watchMovieData2');
-        if (raw1) {
-            setInfor(JSON.parse(raw1));
+        if (data) {
+            setInfor(data?.movie);
         }
-        if (raw2) {
-            setEpisodes(JSON.parse(raw2));
-        }
-    }, []);
+    }, [data]);
 
     if (!infor)
         return (
@@ -30,12 +34,22 @@ export default function WatchMovie() {
         );
 
     return (
-        <div className='py-20 text-white'>
+        <div className='px-8 pt-26 pb-12 text-white'>
+            <div className='flex items-center justify-start gap-3'>
+                <div className='flex size-[30px] cursor-pointer items-center justify-center rounded-full border-[1px] border-[#ffffff80]'>
+                    <IoIosArrowBack size={18} className='mr-[1px]' />
+                </div>
+                <p className='text-xl font-semibold'>{infor?.name}</p>
+            </div>
+
             <WatchMovieComponent
-                url={'https://youtu.be/LXb3EKWsInQ?si=4VlSzf0Wgn4nbIgm'}
+                url={
+                    infor?.trailer_url ||
+                    'https://www.youtube.com/embed/8Qn_spdM5Zg'
+                }
             />
 
-            <div className='mt-12 flex flex-col px-8 lg:flex-row'>
+            <div className='mt-12 flex flex-col lg:flex-row'>
                 {/* col left */}
                 <div className='border-[#ffffff10] lg:w-[70%] lg:border-r-2 lg:pr-6'>
                     <div className='flex items-start gap-8'>

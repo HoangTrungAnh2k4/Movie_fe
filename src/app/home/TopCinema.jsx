@@ -1,7 +1,5 @@
-import MovieHoverPopup from '@/components/movie/movie-hover-popup';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
 
 export default function TopCinema({ list_movie }) {
     return (
@@ -19,7 +17,7 @@ export default function TopCinema({ list_movie }) {
                         <div className='group bg-primary w-[160px] cursor-pointer overflow-hidden rounded-xl sm:w-[250px] lg:w-full'>
                             <div className='overflow-hidden rounded-xl'>
                                 <Image
-                                    src={item?.thumb_url}
+                                    src={item?.thumb}
                                     alt='Movie Poster'
                                     width={400}
                                     height={200}
@@ -34,7 +32,7 @@ export default function TopCinema({ list_movie }) {
 
                     <div className='relative z-20 mt-4 flex items-end gap-4 shadow-2xl lg:-mt-[60px] lg:px-6'>
                         <Image
-                            src={item?.poster_url}
+                            src={item?.poster}
                             alt='Movie Poster'
                             width={400}
                             height={200}
@@ -48,7 +46,7 @@ export default function TopCinema({ list_movie }) {
                                 {item?.name}
                             </Link>
                             <h3 className='line-clamp-1 text-xs text-[#aaaaaa] lg:text-sm'>
-                                {item?.origin_name}{' '}
+                                {item?.slug}{' '}
                             </h3>
                             <ul className='mt-[2px] flex justify-start gap-4 text-[#aaa]'>
                                 <li className='line-clamp-1 text-xs'>
@@ -58,7 +56,7 @@ export default function TopCinema({ list_movie }) {
                                     {item?.movie?.year}
                                 </li>
                                 <li className='line-clamp-1 text-xs'>
-                                    {item?.movie?.episode_current}
+                                    {item?.movie?.episode}
                                 </li>
                             </ul>
                         </div>

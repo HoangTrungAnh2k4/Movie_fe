@@ -11,7 +11,7 @@ export default function MovieHoverPopup({
 }) {
     return (
         <div
-            className={`absolute top-0 left-1/2 z-50 w-[400px] -translate-x-1/2 overflow-hidden rounded-xl bg-[#2f3347] shadow-2xl ring-1 ring-white/10 transition-all duration-200 ${
+            className={`absolute top-0 left-1/2 z-50 hidden w-[400px] -translate-x-1/2 overflow-hidden rounded-xl bg-[#2f3347] shadow-2xl ring-1 ring-white/10 transition-all duration-200 lg:block ${
                 isVisible
                     ? 'pointer-events-auto scale-100 opacity-100'
                     : 'pointer-events-none scale-95 opacity-0'
@@ -20,7 +20,7 @@ export default function MovieHoverPopup({
         >
             <div className='relative aspect-[16/7] w-full'>
                 <Image
-                    src={item?.poster_url}
+                    src={item?.poster}
                     alt={item?.name}
                     fill
                     className='object-cover object-center'
@@ -33,7 +33,7 @@ export default function MovieHoverPopup({
                     {item?.name}
                 </h3>
                 <h4 className='text-primary line-clamp-1 text-xs'>
-                    {item?.origin_name}
+                    {item?.slug}
                 </h4>
 
                 <div className='my-4 flex gap-2'>
@@ -81,27 +81,27 @@ export default function MovieHoverPopup({
                 </div>
 
                 <div className='mt-3 mb-1 flex flex-wrap items-center gap-2'>
-                    {item?.tmdb?.vote_average > 0 && (
+                    {/* {item?.tmdb?.vote_average > 0 && (
                         <span className='border-primary text-primary rounded border bg-transparent px-2 py-[3px] text-[10px] font-semibold'>
                             IMDb{' '}
                             <p className='ml-1 inline-block text-[10px] text-white'>
                                 {item.tmdb.vote_average.toFixed(1)}
                             </p>
                         </span>
-                    )}
+                    )} */}
                     <span className='rounded border border-white/30 px-2 py-[3px] text-[11px] font-semibold text-white'>
-                        {item?.quality}
+                        {item?.type}
                     </span>
                     <span className='rounded-md bg-gray-300/10 px-2 py-1 text-xs text-[#fefefe]'>
                         {item?.year}
                     </span>
-                    {item?.tmdb?.season && (
+                    {/* {item?.tmdb?.season && (
                         <span className='rounded-md bg-gray-300/10 px-2 py-1 text-xs text-[#fefefe]'>
                             Phần {item.tmdb.season}
                         </span>
-                    )}
+                    )} */}
                     <span className='rounded-md bg-gray-300/10 px-2 py-1 text-xs text-[#fefefe]'>
-                        {item?.episode_current}
+                        {item?.episode}
                     </span>
                 </div>
 

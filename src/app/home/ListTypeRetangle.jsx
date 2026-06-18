@@ -3,11 +3,13 @@
 import MovieHoverPopup from '@/components/movie/movie-hover-popup';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 export default function ListTypeRetangle({ list_movie }) {
     const [hoveredIndex, setHoveredIndex] = useState(null);
     const [likedSlugs, setLikedSlugs] = useState([]);
+
+    const timeoutRef = useRef(null);
 
     const toggleLike = (slug) => {
         setLikedSlugs((prev) =>
@@ -25,11 +27,15 @@ export default function ListTypeRetangle({ list_movie }) {
                         key={index}
                         className='group relative w-[160px] rounded-2xl sm:w-[250px] lg:w-auto'
                         onMouseEnter={() => {
-                            setTimeout(() => {
-                                setHoveredIndex(index);
-                            }, 300);
+                            timeoutRef.current = setTimeout(
+                                () => setHoveredIndex(index),
+                                300,
+                            );
                         }}
-                        onMouseLeave={() => setHoveredIndex(null)}
+                        onMouseLeave={() => {
+                            clearTimeout(timeoutRef.current);
+                            setHoveredIndex(null);
+                        }}
                     >
                         <Link
                             href={`/detail_movie/${item?.slug}`}
@@ -39,7 +45,7 @@ export default function ListTypeRetangle({ list_movie }) {
                             <div className='group bg-primary w-[160px] cursor-pointer overflow-hidden rounded-xl sm:w-[250px] lg:w-full'>
                                 <div className='overflow-hidden rounded-xl'>
                                     <Image
-                                        src={item?.thumb_url}
+                                        src={item?.thumb}
                                         alt='Movie Poster'
                                         width={300}
                                         height={450}
@@ -67,7 +73,7 @@ export default function ListTypeRetangle({ list_movie }) {
                                 {item?.name}
                             </Link>
                             <h4 className='line-clamp-1 text-xs text-[#aaaaaa] lg:text-sm'>
-                                {item?.origin_name}
+                                {item?.slug}
                             </h4>
                         </div>
                     </div>

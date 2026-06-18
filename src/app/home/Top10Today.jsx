@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import MovieHoverPopup from '../../components/movie/movie-hover-popup';
@@ -6,6 +6,8 @@ import MovieHoverPopup from '../../components/movie/movie-hover-popup';
 export default function Top10Today({ list_movie }) {
     const [hoveredIndex, setHoveredIndex] = useState(null);
     const [likedSlugs, setLikedSlugs] = useState([]);
+
+    const timeoutRef = useRef(null);
 
     const toggleLike = (slug) => {
         setLikedSlugs((prev) =>
@@ -23,11 +25,15 @@ export default function Top10Today({ list_movie }) {
                         key={index}
                         className='group relative w-[160px] flex-shrink-0 rounded-2xl sm:w-[250px] lg:w-auto'
                         onMouseEnter={() => {
-                            setTimeout(() => {
-                                setHoveredIndex(index);
-                            }, 300);
+                            timeoutRef.current = setTimeout(
+                                () => setHoveredIndex(index),
+                                300,
+                            );
                         }}
-                        onMouseLeave={() => setHoveredIndex(null)}
+                        onMouseLeave={() => {
+                            clearTimeout(timeoutRef.current);
+                            setHoveredIndex(null);
+                        }}
                     >
                         <Link
                             href={`/detail_movie/${item?.slug}`}
@@ -38,7 +44,7 @@ export default function Top10Today({ list_movie }) {
                             } `}
                         >
                             <Image
-                                src={item?.poster_url}
+                                src={item?.poster}
                                 alt='Movie Poster'
                                 width={400}
                                 height={600}
@@ -69,7 +75,8 @@ export default function Top10Today({ list_movie }) {
                                     WebkitTextFillColor: 'transparent',
                                     fontStyle: 'italic',
                                     fontWeight: '800',
-                                    width: '50px',
+                                    width: '40px',
+                                    flexShrink: 0,
                                 }}
                             >
                                 {index + 1}
@@ -89,7 +96,7 @@ export default function Top10Today({ list_movie }) {
                                         {item?.year}
                                     </li>
                                     <li className='line-clamp-1 text-xs'>
-                                        {item?.episode_current}
+                                        {item?.episode}
                                     </li>
                                 </ul>
                             </div>
