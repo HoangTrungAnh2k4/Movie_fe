@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useComments } from '@/api/fetchDataApi';
 import Image from 'next/image';
 import { IoChatboxEllipses } from 'react-icons/io5';
 import { PiPaperPlaneRightFill } from 'react-icons/pi';
@@ -11,7 +10,7 @@ type CommentProps = {
     username: string;
 };
 
-function Comment({ nameSlug }: { nameSlug: string }) {
+function Comment() {
     // const { data: comments } = useComments(nameSlug);
     const comments = [
         {

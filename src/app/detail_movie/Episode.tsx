@@ -167,7 +167,7 @@ export default function Episode({
                 </div>
 
                 <div className='mt-12'>
-                    <Comment nameSlug={infor?.slug ?? ''} />
+                    <Comment />
                 </div>
             </div>
         </div>
