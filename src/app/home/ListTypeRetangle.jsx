@@ -1,9 +1,22 @@
 'use client';
 
+import MovieHoverPopup from '@/components/movie/movie-hover-popup';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
 
 export default function ListTypeRetangle({ list_movie }) {
+    const [hoveredIndex, setHoveredIndex] = useState(null);
+    const [likedSlugs, setLikedSlugs] = useState([]);
+
+    const toggleLike = (slug) => {
+        setLikedSlugs((prev) =>
+            prev.includes(slug)
+                ? prev.filter((s) => s !== slug)
+                : [...prev, slug],
+        );
+    };
+
     return (
         <div className=''>
             <div className='not-scroll mt-4 flex grid-cols-[repeat(auto-fit,minmax(170px,1fr))] gap-4 overflow-x-auto pt-4 lg:grid'>
@@ -11,6 +24,12 @@ export default function ListTypeRetangle({ list_movie }) {
                     <div
                         key={index}
                         className='group relative w-[160px] rounded-2xl sm:w-[250px] lg:w-auto'
+                        onMouseEnter={() => {
+                            setTimeout(() => {
+                                setHoveredIndex(index);
+                            }, 300);
+                        }}
+                        onMouseLeave={() => setHoveredIndex(null)}
                     >
                         <Link
                             href={`/detail_movie/${item?.slug}`}
@@ -32,6 +51,13 @@ export default function ListTypeRetangle({ list_movie }) {
                                 <div className='bg-primary absolute top-0 left-0 aspect-[300/450] h-auto w-full rounded-2xl opacity-0 transition duration-300 group-hover:opacity-15' />
                             </div>
                         </Link>
+
+                        <MovieHoverPopup
+                            item={item}
+                            isVisible={hoveredIndex === index}
+                            isLiked={likedSlugs.includes(item?.slug)}
+                            onToggleLike={toggleLike}
+                        />
 
                         <div className='mt-3 flex flex-col items-center gap-1'>
                             <Link

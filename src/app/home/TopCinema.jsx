@@ -1,5 +1,7 @@
+import MovieHoverPopup from '@/components/movie/movie-hover-popup';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
 
 export default function TopCinema({ list_movie }) {
     return (
@@ -7,12 +9,12 @@ export default function TopCinema({ list_movie }) {
             {list_movie?.map((item, index) => (
                 <div
                     key={index}
-                    className='group relative w-[160px] overflow-hidden rounded-lg sm:w-[250px] lg:w-auto'
+                    className='group relative z-10 w-[160px] rounded-lg sm:w-[250px] lg:w-auto'
                 >
                     <Link
                         href={`/detail_movie/${item?.slug}`}
                         key={index}
-                        className='group relative w-[160px] rounded-xl sm:w-[250px] lg:w-full'
+                        className='group relative z-10 w-[160px] rounded-xl sm:w-[250px] lg:w-full'
                     >
                         <div className='group bg-primary w-[160px] cursor-pointer overflow-hidden rounded-xl sm:w-[250px] lg:w-full'>
                             <div className='overflow-hidden rounded-xl'>

@@ -106,8 +106,7 @@ function Banner({ setList_movie }) {
                 />
             )}
             {/* Lớp overlay tối ở rìa, sáng ở giữa */}
-
-            <div className='pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(ellipse_at_85%_50%,_rgba(0,0,0,0)_0,_rgba(0,0,0,0.8)_80%)]' />
+            <div className='pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(ellipse_at_85%_50%,_rgba(0,0,0,0)_0,_rgba(0,0,0,0.8)_90%)]' />
 
             <div
                 className='pointer-events-none absolute inset-0 z-10 bg-repeat opacity-20'

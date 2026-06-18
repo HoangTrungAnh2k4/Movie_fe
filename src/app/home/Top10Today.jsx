@@ -1,14 +1,33 @@
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import MovieHoverPopup from '../../components/movie/movie-hover-popup';
 
 export default function Top10Today({ list_movie }) {
+    const [hoveredIndex, setHoveredIndex] = useState(null);
+    const [likedSlugs, setLikedSlugs] = useState([]);
+
+    const toggleLike = (slug) => {
+        setLikedSlugs((prev) =>
+            prev.includes(slug)
+                ? prev.filter((s) => s !== slug)
+                : [...prev, slug],
+        );
+    };
+
     return (
         <div className=''>
-            <div className='not-scroll mt-4 flex grid-cols-[repeat(auto-fit,minmax(170px,1fr))] gap-4 overflow-x-auto pt-4 lg:grid lg:flex-none'>
+            <div className='not-scroll mt-4 flex grid-cols-[repeat(auto-fit,minmax(170px,1fr))] gap-4 overflow-x-auto pt-4 lg:grid lg:flex-none lg:overflow-visible'>
                 {list_movie?.map((item, index) => (
                     <div
                         key={index}
                         className='group relative w-[160px] flex-shrink-0 rounded-2xl sm:w-[250px] lg:w-auto'
+                        onMouseEnter={() => {
+                            setTimeout(() => {
+                                setHoveredIndex(index);
+                            }, 300);
+                        }}
+                        onMouseLeave={() => setHoveredIndex(null)}
                     >
                         <Link
                             href={`/detail_movie/${item?.slug}`}
@@ -29,11 +48,17 @@ export default function Top10Today({ list_movie }) {
                                         : 'itemTop10Right'
                                 }`}
                             />
-
-                            {/* lớp phủ */}
                             <div className='bg-primary absolute top-0 left-0 h-full w-full rounded-2xl opacity-0 transition duration-300 group-hover:opacity-15' />
                         </Link>
 
+                        <MovieHoverPopup
+                            item={item}
+                            isVisible={hoveredIndex === index}
+                            isLiked={likedSlugs.includes(item?.slug)}
+                            onToggleLike={toggleLike}
+                        />
+
+                        {/* Hàng thông tin dưới poster (giữ nguyên như cũ) */}
                         <div className='mt-3 flex items-center gap-2'>
                             <div
                                 className='text-3xl sm:text-6xl'
@@ -44,7 +69,6 @@ export default function Top10Today({ list_movie }) {
                                     WebkitTextFillColor: 'transparent',
                                     fontStyle: 'italic',
                                     fontWeight: '800',
-
                                     width: '50px',
                                 }}
                             >
