@@ -1,18 +1,28 @@
 'use client';
 
 import Image from 'next/image';
-import WatchMovieComponent from '../WatchMovie';
+
 import { useEffect, useState } from 'react';
 import Comment from '../../detail_movie/Comment';
 import { FaCaretDown, FaPlay } from 'react-icons/fa';
 import { FaBarsStaggered } from 'react-icons/fa6';
 import { useParams } from 'next/navigation';
-import { IoIosArrowBack, IoIosArrowDropleft } from 'react-icons/io';
+import { IoIosArrowBack } from 'react-icons/io';
 import useSWR from 'swr';
+
+import dynamic from 'next/dynamic';
+
+const WatchMovieComponent = dynamic(() => import('../WatchMovie'), {
+    ssr: false,
+    loading: () => (
+        <div className='pt-6'>
+            <div className='aspect-video animate-pulse rounded-2xl bg-[#222]' />
+        </div>
+    ),
+});
 
 export default function WatchMovie() {
     const { name } = useParams();
-    const [infor, setInfor] = useState(null);
 
     const fetcher = (url) => fetch(url).then((res) => res.json());
     const { data, error, isLoading } = useSWR(
@@ -20,15 +30,23 @@ export default function WatchMovie() {
         fetcher,
     );
 
-    useEffect(() => {
-        if (data) {
-            setInfor(data?.movie);
-        }
-    }, [data]);
+    const infor = data?.movie;
 
-    if (!infor)
+    if (data?.status === false) {
         return (
-            <div className='bg-background flex h-52 items-center justify-center'>
+            <div className='bg-background flex h-screen flex-col items-center justify-center gap-4 px-4 text-center'>
+                <h2 className='text-2xl font-semibold text-red-500'>
+                    Bộ phim này đang bị lỗi
+                </h2>
+                <p className='text-lg text-red-300'>Vui lòng xem phim khác</p>
+            </div>
+        );
+    }
+
+    if (error) return <div>Failed to load</div>;
+    if (isLoading)
+        return (
+            <div className='bg-background flex h-screen items-center justify-center'>
                 <div className='border-primary h-16 w-16 animate-spin rounded-full border-4 border-t-transparent' />
             </div>
         );

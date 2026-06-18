@@ -6,11 +6,10 @@ import Information from '../Information';
 import Episode from '../Episode';
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
+import Image from 'next/image';
 
 export default function DetailMovie() {
     const { name } = useParams();
-    const [infor, setInfor] = useState({});
-    const [episodes, setEpisodes] = useState([]);
 
     const fetcher = (url) => fetch(url).then((res) => res.json());
     const { data, error, isLoading } = useSWR(
@@ -18,12 +17,7 @@ export default function DetailMovie() {
         fetcher,
     );
 
-    useEffect(() => {
-        if (data) {
-            setInfor(data?.movie);
-            setEpisodes(data?.episodes);
-        }
-    }, [data]);
+    const infor = data?.movie;
 
     if (data?.status === false) {
         return (
@@ -46,20 +40,25 @@ export default function DetailMovie() {
 
     return (
         <div className='min-h-screen'>
-            {/* banner */}
-            <div
-                className='relative inset-0 z-0 h-[250px] w-full bg-cover bg-center bg-no-repeat text-white shadow-[inset_150px_0_150px_150px_rgba(0,0,0,0.5)] lg:h-[500px]'
-                style={{
-                    backgroundImage: `url('${infor?.thumb_url}')`,
-                }}
-            >
+            {/* background */}
+            <div className='relative h-[250px] overflow-hidden lg:h-[500px]'>
+                <Image
+                    src={infor?.thumb_url}
+                    alt=''
+                    fill
+                    priority
+                    className='object-cover'
+                />
+
                 <div
-                    className='absolute inset-0 z-10 bg-repeat opacity-20'
+                    className='absolute inset-0 opacity-20'
                     style={{
-                        backgroundImage: `url('/dotted.png')`,
+                        backgroundImage: "url('/dotted.png')",
                     }}
                 />
-                {/* Gradient làm mờ */}
+
+                <div className='absolute inset-0 shadow-[inset_150px_0_150px_150px_rgba(0,0,0,0.5)]' />
+
                 <div className='to-background absolute bottom-0 h-40 w-full bg-gradient-to-b from-transparent' />
             </div>
 

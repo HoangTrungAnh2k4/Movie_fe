@@ -12,7 +12,15 @@ type CommentProps = {
 };
 
 function Comment({ nameSlug }: { nameSlug: string }) {
-    const { data: comments } = useComments(nameSlug);
+    // const { data: comments } = useComments(nameSlug);
+    const comments = [
+        {
+            id: '1',
+            content: 'This is a sample comment.',
+            createdAt: new Date().toISOString(),
+            username: 'User1',
+        },
+    ];
 
     const [commentText, setCommentText] = useState('');
     const [localComments, setLocalComments] = useState<CommentProps[]>([]);
