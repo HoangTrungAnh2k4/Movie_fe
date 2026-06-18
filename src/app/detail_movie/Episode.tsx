@@ -20,7 +20,6 @@ type MovieInfo = {
 type EpisodeList = unknown[];
 
 export default function Episode({
-    episodes,
     infor,
 }: {
     episodes: EpisodeList;

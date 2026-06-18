@@ -75,7 +75,7 @@ const Header: React.FC = () => {
 
             <div className='ml-auto flex h-fit items-center justify-start gap-3 rounded-lg px-2 py-1.5 lg:ml-6 lg:w-[25%] lg:bg-[#ffffff14] lg:px-4'>
                 <IoSearch
-                    onClick={(e) => {
+                    onClick={() => {
                         toast.warning('Chức năng đang được phát triển');
                     }}
                     className='text-2xl font-semibold sm:text-xl'
