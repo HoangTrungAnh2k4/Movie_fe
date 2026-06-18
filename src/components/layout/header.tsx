@@ -82,8 +82,10 @@ const Header: React.FC = () => {
                 <input
                     type='text'
                     placeholder='Search for movies...'
-                    onChange={() => {
-                        toast.warning('Chức năng đang được phát triển');
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                            toast.warning('Chức năng đang được phát triển');
+                        }
                     }}
                     className='hidden w-full bg-transparent py-1 text-sm text-white outline-none placeholder:text-sm placeholder:text-[#aaaaaa] focus:outline-none lg:block'
                 />
